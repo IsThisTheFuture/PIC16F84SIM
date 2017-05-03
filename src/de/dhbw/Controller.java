@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 public class Controller {
     public void openFile(ActionEvent actionEvent) {
         System.out.println("Hier wird eine Datei geöffnet!");
+
     }
 
     public void openDocumentation(ActionEvent actionEvent) {
