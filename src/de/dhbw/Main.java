@@ -1,5 +1,7 @@
 package de.dhbw;
 
+import de.dhbw.Microcontroller.CPU;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,10 +14,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("picsim.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.show();
 
-
+        Thread emuThread = new Thread(CPU.getInstance());
+        emuThread.start();
 
     }
 

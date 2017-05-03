@@ -1,7 +1,6 @@
 package de.dhbw.Microcontroller.Befehle;
 import de.dhbw.Microcontroller.Befehle.PIC.ADDLW;
 import de.dhbw.Microcontroller.CPU;
-import de.dhbw.UI.UserInterface;
 
 
 public class Instruction {
