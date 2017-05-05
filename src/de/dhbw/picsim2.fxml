@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.Controller">
+    <children>
+        <MenuBar prefHeight="17.0" prefWidth="600.0" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="btnOpenFile" mnemonicParsing="false" onAction="#openFile" text="Open" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem fx:id="BtnOpenHelp" mnemonicParsing="false" onAction="#openDocumentation" text="Open Documentation" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane dividerPositions="0.7" layoutY="23.0" orientation="VERTICAL" prefHeight="377.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="200.0">
+                    <children>
+                        <SplitPane dividerPositions="0.5" prefHeight="260.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <items>
+                                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="302.0" SplitPane.resizableWithParent="false">
+                                    <children>
+                                        <TableView fx:id="tableMemory" maxHeight="500.0" minHeight="200.0" minWidth="220.0" prefHeight="225.0" prefWidth="295.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                                <TableColumn fx:id="tableColumnMemoryName" prefWidth="75.0" />
+                                                <TableColumn fx:id="tableColumnMemoryBit0" prefWidth="75.0" text="00" />
+                                                <TableColumn fx:id="tableColumnMemoryBit1" prefWidth="75.0" text="01" />
+                                                <TableColumn fx:id="tableColumnMemoryBit2" prefWidth="75.0" text="02" />
+                                                <TableColumn fx:id="tableColumnMemoryBit3" prefWidth="75.0" text="03" />
+                                                <TableColumn fx:id="tableColumnMemoryBit4" prefWidth="75.0" text="04" />
+                                                <TableColumn fx:id="tableColumnMemoryBit5" prefWidth="75.0" text="05" />
+                                                <TableColumn fx:id="tableColumnMemoryBit6" prefWidth="75.0" text="06" />
+                                                <TableColumn fx:id="tableColumnMemoryBit7" prefWidth="75.0" text="07" />
+                                            </columns>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                            </columnResizePolicy>
+                                        </TableView>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="269.0">
+                           <children>
+                                        <AnchorPane layoutX="29.0" layoutY="7.0" maxWidth="1.7976931348623157E308" prefHeight="258.0" prefWidth="260.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="-54.0" AnchorPane.topAnchor="7.0">
+                                            <children>
+                                                <TextField alignment="TOP_LEFT" editable="false" layoutY="2.0" prefHeight="25.0" prefWidth="60.0" text="RegA">
+                                       <effect>
+                                          <InnerShadow height="0.0" radius="3.2075" width="14.83" />
+                                       </effect>
+                                    </TextField>
+                                                <TextField editable="false" layoutY="27.0" prefHeight="25.0" prefWidth="60.0" text="PinA" />
+                                                <TextField editable="false" layoutX="232.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                                <TextField editable="false" layoutX="210.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="1" />
+                                                <TextField editable="false" layoutX="188.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="2" />
+                                                <TextField editable="false" layoutX="166.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="3" />
+                                                <TextField editable="false" layoutX="144.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="4" />
+                                                <TextField editable="false" layoutX="122.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="5" />
+                                                <TextField editable="false" layoutX="100.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="6" />
+                                                <TextField editable="false" layoutY="65.0" prefHeight="25.0" prefWidth="60.0" text="RegB">
+                                       <effect>
+                                          <InnerShadow height="0.0" radius="3.2075" width="14.83" />
+                                       </effect>
+                                    </TextField>
+                                                <TextField editable="false" layoutY="90.0" prefHeight="25.0" prefWidth="60.0" text="PinB" />
+                                                <TextField editable="false" layoutX="233.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                                <TextField editable="false" layoutX="211.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="1" />
+                                                <TextField editable="false" layoutX="189.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="2" />
+                                                <TextField editable="false" layoutX="167.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="3" />
+                                                <TextField editable="false" layoutX="145.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="4" />
+                                                <TextField editable="false" layoutX="123.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="5" />
+                                                <TextField editable="false" layoutX="101.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="6" />
+                                                <TextField editable="false" layoutX="79.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="7" />
+                                                <TextField editable="false" layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="7">
+                                       <effect>
+                                          <ColorAdjust />
+                                       </effect>
+                                    </TextField>
+                                    <TextField layoutX="78.0" layoutY="27.0" onAction="#toggleA7" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="100.0" layoutY="27.0" onAction="#toggleA6" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="122.0" layoutY="27.0" onAction="#toggleA5" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="144.0" layoutY="27.0" onAction="#toggleA4" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="165.0" layoutY="27.0" onAction="#toggleA3" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="188.0" layoutY="27.0" onAction="#toggleA2" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="209.0" layoutY="27.0" onAction="#toggleA1" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="232.0" layoutY="27.0" onAction="#toggleA0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="79.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="101.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="123.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="145.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="167.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="189.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="211.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="233.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <Separator layoutX="1.0" layoutY="58.0" prefHeight="3.0" prefWidth="252.0" />
+                                    <Separator layoutX="67.0" layoutY="3.0" orientation="VERTICAL" prefHeight="109.0" prefWidth="5.0" />
+                                            </children>
+                                        </AnchorPane>
+                                    <AnchorPane layoutX="280.0" layoutY="-133.0" prefHeight="260.0" prefWidth="243.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="-133.0" />
+                           </children></AnchorPane>
+                            </items>
+                        </SplitPane>
+                        <AnchorPane layoutY="174.0" prefHeight="33.0" prefWidth="128.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
+                            <children>
+                                <Button fx:id="BtnStart" layoutY="8.0" mnemonicParsing="false" onAction="#run" text="Start" />
+                                <Button fx:id="BtnNext" layoutX="41.0" layoutY="8.0" mnemonicParsing="false" onAction="#next" text="Next" />
+                                <Button fx:id="BtnReset" layoutX="82.0" layoutY="8.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
+                                <Button fx:id="BtnClear" layoutX="127.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <children>
+                        <TableView fx:id="tableFileContent" minHeight="109.0" prefHeight="109.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columns>
+                                <TableColumn maxWidth="90" minWidth="90" text="Breakpoint" />
+                                <TableColumn fx:id="tableColumnZeilennummer" maxWidth="50" minWidth="50" text="Zeile" />
+                                <TableColumn fx:id="tableColumnBefehlscode" maxWidth="125" minWidth="125" text="Befehlscode" />
+                                <TableColumn fx:id="tableColumnBefehl" text="Befehl" />
+                                <TableColumn fx:id="tableColumnKommentar" text="Kommentar" />
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>
