@@ -30,7 +30,6 @@ public class InstructionDecoder {//extends CPU{
      * werden einzeln dekodiert. Erkannte Opcodes werden als "Instruction"-Objekt zur Liste hinzugefügt.
      * Bei nicht erkannten Instruktionen wird null zurückgegeben.
      */
-    //public List<Instruction> decode(Integer[] instructionList){
     public List<Instruction> decode(Integer[] instructionList){
         for (int instruction : instructionList)
         {

@@ -13,7 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("picsim.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("PIC16F84 Simulator");
         primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.show();
 
