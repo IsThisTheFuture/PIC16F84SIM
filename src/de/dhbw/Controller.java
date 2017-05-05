@@ -1,17 +1,88 @@
 package de.dhbw;
 
+import de.dhbw.InputParser;
+
+import de.dhbw.Microcontroller.Befehle.Instruction;
+import de.dhbw.Microcontroller.CPU;
+import de.dhbw.Services.FileInputService;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+import java.util.List;
+
 
 public class Controller {
+
+    @FXML
+    private TableView<Instruction> tableFileContent;
+    //private TableView<Befehl> tableFileContent;
+    @FXML
+    private TableColumn<Instruction, Integer> tableColumnZeilennummer;
+    @FXML
+    private TableColumn<Instruction, String> tableColumnBefehlscode;
+    @FXML
+    private TableColumn<Instruction, String> tableColumnBefehl;
+    @FXML
+    private TableColumn<Instruction, String> tableColumnKommentar;
+
+
+    private List<Instruction> instructions;
+    private InputParser parser;
+    private FileInputService fileInputService;
+
     public void openFile(ActionEvent actionEvent) {
-        System.out.println("Hier wird eine Datei geöffnet!");
+        tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("Zeilennummer"));
+        tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("Befehlscode"));
+        tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("Befehl"));
+        tableColumnKommentar.setCellValueFactory(new PropertyValueFactory<>("Kommentar"));
+
+        // Einträge löschen, falls nicht leer
+        if (instructions != null) instructions.clear();
+        instructions = getFileInputService().importLstFile();
+
 
     }
+
+    /*public void openFile(ActionEvent actionEvent) {
+        final JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(null);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+           // return file;
+            InputParser parser = new InputParser();
+            List<String> lstContent = parser.readLST(file);
+
+
+
+
+
+
+        } else {
+            System.err.println("Datei konnte nicht geöffnet werden!");
+        }
+        //return null;
+    }
+    */
 
     public void openDocumentation(ActionEvent actionEvent) {
     }
 
     public void run(ActionEvent actionEvent) {
+        // CPU Thread benachrichtigen
+        try {
+            synchronized (CPU.getInstance()) {
+                CPU.getInstance().notify();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void next(ActionEvent actionEvent) {
@@ -69,5 +140,16 @@ public class Controller {
     }
 
     public void toggleB7(ActionEvent actionEvent) {
+    }
+
+
+
+    // Getter Methoden für Services:
+
+    private FileInputService getFileInputService() {
+        if (fileInputService == null) {
+            fileInputService = new FileInputService();
+        }
+        return fileInputService;
     }
 }
