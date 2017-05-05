@@ -1,6 +1,5 @@
 package de.dhbw;
 
-import de.dhbw.InputParser;
 
 import de.dhbw.Microcontroller.Befehle.Instruction;
 import de.dhbw.Microcontroller.CPU;
@@ -10,9 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.FileChooser;
 
-import java.io.File;
 import java.util.List;
 
 
@@ -44,7 +41,6 @@ public class Controller {
         // Einträge löschen, falls nicht leer
         if (instructions != null) instructions.clear();
         instructions = getFileInputService().importLstFile();
-
 
     }
 

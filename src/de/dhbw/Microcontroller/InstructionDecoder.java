@@ -355,8 +355,6 @@ public class InstructionDecoder {//extends CPU{
             else if ((instruction & 0x0180) == 0x0180) {
                 // f:
                 argument1 = 0x007F & instruction;
-
-                System.out.println(String.format("%04X", instruction) + ": CLRF" + "  f: " + argument1);
             }
 
 

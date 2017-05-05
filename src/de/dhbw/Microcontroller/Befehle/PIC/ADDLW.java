@@ -25,7 +25,6 @@ public class ADDLW extends Instruction {
     {
         System.out.println(String.format("%04X", instruction) + ": ADDLW" + "  k: " + argument);
         System.out.println("W-Reg: " + cpu.register.w);
-
     }
 
 }
