@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -9,10 +10,11 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.Controller">
+<AnchorPane prefHeight="1000.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.Controller">
     <children>
         <MenuBar prefHeight="17.0" prefWidth="600.0" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
@@ -38,12 +40,11 @@
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="200.0">
                     <children>
-                        <SplitPane dividerPositions="0.6" prefHeight="260.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane dividerPositions="0.5" prefHeight="260.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <items>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="310.0" />
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="302.0" SplitPane.resizableWithParent="false">
                                     <children>
-                                        <TableView fx:id="tableMemory" maxHeight="500.0" maxWidth="400.0" minHeight="400.0" minWidth="300.0" prefHeight="400.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <TableView fx:id="tableMemory" maxHeight="500.0" minHeight="200.0" minWidth="220.0" prefHeight="225.0" prefWidth="295.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
                                                 <TableColumn fx:id="tableColumnMemoryName" prefWidth="75.0" />
                                                 <TableColumn fx:id="tableColumnMemoryBit0" prefWidth="75.0" text="00" />
@@ -61,6 +62,67 @@
                                         </TableView>
                                     </children>
                                 </AnchorPane>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="269.0">
+                           <children>
+                                        <AnchorPane layoutX="29.0" layoutY="7.0" maxWidth="1.7976931348623157E308" prefHeight="258.0" prefWidth="260.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="-54.0" AnchorPane.topAnchor="7.0">
+                                            <children>
+                                                <TextField alignment="TOP_LEFT" editable="false" layoutY="2.0" prefHeight="25.0" prefWidth="60.0" text="RegA">
+                                       <effect>
+                                          <InnerShadow height="0.0" radius="3.2075" width="14.83" />
+                                       </effect>
+                                    </TextField>
+                                                <TextField editable="false" layoutY="27.0" prefHeight="25.0" prefWidth="60.0" text="PinA" />
+                                                <TextField editable="false" layoutX="232.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                                <TextField editable="false" layoutX="210.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="1" />
+                                                <TextField editable="false" layoutX="188.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="2" />
+                                                <TextField editable="false" layoutX="166.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="3" />
+                                                <TextField editable="false" layoutX="144.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="4" />
+                                                <TextField editable="false" layoutX="122.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="5" />
+                                                <TextField editable="false" layoutX="100.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="6" />
+                                                <TextField editable="false" layoutY="65.0" prefHeight="25.0" prefWidth="60.0" text="RegB">
+                                       <effect>
+                                          <InnerShadow height="0.0" radius="3.2075" width="14.83" />
+                                       </effect>
+                                    </TextField>
+                                                <TextField editable="false" layoutY="90.0" prefHeight="25.0" prefWidth="60.0" text="PinB" />
+                                                <TextField editable="false" layoutX="233.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                                <TextField editable="false" layoutX="211.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="1" />
+                                                <TextField editable="false" layoutX="189.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="2" />
+                                                <TextField editable="false" layoutX="167.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="3" />
+                                                <TextField editable="false" layoutX="145.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="4" />
+                                                <TextField editable="false" layoutX="123.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="5" />
+                                                <TextField editable="false" layoutX="101.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="6" />
+                                                <TextField editable="false" layoutX="79.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="7" />
+                                                <TextField editable="false" layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="7">
+                                       <effect>
+                                          <ColorAdjust />
+                                       </effect>
+                                    </TextField>
+                                    <TextField layoutX="78.0" layoutY="27.0" onAction="#toggleA7" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="100.0" layoutY="27.0" onAction="#toggleA6" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="122.0" layoutY="27.0" onAction="#toggleA5" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="144.0" layoutY="27.0" onAction="#toggleA4" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="165.0" layoutY="27.0" onAction="#toggleA3" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="188.0" layoutY="27.0" onAction="#toggleA2" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="209.0" layoutY="27.0" onAction="#toggleA1" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="232.0" layoutY="27.0" onAction="#toggleA0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="79.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="101.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="123.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="145.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="167.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="189.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="211.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="233.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <Separator layoutX="1.0" layoutY="58.0" prefHeight="3.0" prefWidth="252.0" />
+                                    <Separator layoutX="67.0" layoutY="3.0" orientation="VERTICAL" prefHeight="109.0" prefWidth="5.0" />
+                                    <Label layoutX="12.0" layoutY="192.0" text="Spezialregister" />
+                                    <Label layoutX="12.0" layoutY="230.0" text="W-Reg:" />
+                                    <TextField editable="false" layoutX="71.0" layoutY="225.0" prefHeight="26.0" prefWidth="97.0" text="0" />
+                                            </children>
+                                        </AnchorPane>
+                                    <AnchorPane layoutX="280.0" layoutY="-133.0" prefHeight="260.0" prefWidth="243.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="-133.0" />
+                           </children></AnchorPane>
                             </items>
                         </SplitPane>
                         <AnchorPane layoutY="174.0" prefHeight="33.0" prefWidth="128.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
@@ -68,55 +130,17 @@
                                 <Button fx:id="BtnStart" layoutY="8.0" mnemonicParsing="false" onAction="#run" text="Start" />
                                 <Button fx:id="BtnNext" layoutX="41.0" layoutY="8.0" mnemonicParsing="false" onAction="#next" text="Next" />
                                 <Button fx:id="BtnReset" layoutX="82.0" layoutY="8.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
-                                <Button fx:id="BtnClear" layoutX="127.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear" />
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="296.0" prefHeight="204.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <AnchorPane prefHeight="102.0" prefWidth="220.0">
-                            <children>
-                                <AnchorPane prefHeight="102.0" prefWidth="230.0">
-                                    <children>
-                                        <AnchorPane layoutY="-1.0" prefHeight="122.0" prefWidth="230.0">
-                                            <children>
-                                                <TextField layoutY="2.0" prefHeight="25.0" prefWidth="45.0" text="RegA" />
-                                                <TextField layoutY="27.0" prefHeight="25.0" prefWidth="45.0" text="PinA" />
-                                                <ToggleButton id="a0" fx:id="a0" layoutX="198.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA0" text="0" />
-                                                <ToggleButton id="a1" fx:id="a1" layoutX="176.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA1" text="0" />
-                                                <ToggleButton id="a2" fx:id="a2" layoutX="154.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA2" text="0" />
-                                                <ToggleButton id="a3" fx:id="a3" layoutX="132.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA3" text="0" />
-                                                <ToggleButton id="a4" fx:id="a4" layoutX="110.0" layoutY="27.0" mnemonicParsing="false" onAction="#toggleA4" text="0" />
-                                                <TextField layoutX="198.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                                <TextField layoutX="176.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="1" />
-                                                <TextField layoutX="154.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="2" />
-                                                <TextField layoutX="132.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="3" />
-                                                <TextField layoutX="110.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="4" />
-                                                <TextField layoutX="88.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="5" />
-                                                <TextField layoutX="66.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="6" />
-                                                <TextField layoutY="61.0" prefHeight="25.0" prefWidth="45.0" text="RegB" />
-                                                <TextField layoutY="86.0" prefHeight="25.0" prefWidth="45.0" text="PinB" />
-                                                <ToggleButton id="b0" fx:id="b0" layoutX="198.0" layoutY="86.0" mnemonicParsing="false" onAction="#toggleB0" text="0" />
-                                                <ToggleButton id="b1" fx:id="b1" layoutX="176.0" layoutY="86.0" mnemonicParsing="false" onAction="#toggleB1" text="0" />
-                                                <ToggleButton id="b2" fx:id="b2" layoutX="154.0" layoutY="86.0" mnemonicParsing="false" onAction="#toggleB2" text="0" />
-                                                <ToggleButton id="b3" fx:id="b3" layoutX="132.0" layoutY="86.0" mnemonicParsing="false" onAction="#toggleB3" text="0" />
-                                                <ToggleButton id="b4" fx:id="b4" layoutX="110.0" layoutY="86.0" mnemonicParsing="false" onAction="#toggleB4" text="0" />
-                                                <ToggleButton id="b5" fx:id="b5" layoutX="88.0" layoutY="86.0" mnemonicParsing="false" onAction="#toggleB5" text="0" />
-                                                <ToggleButton id="b6" fx:id="b6" layoutX="66.0" layoutY="86.0" mnemonicParsing="false" onAction="#toggleB6" text="0" />
-                                                <ToggleButton id="b7" fx:id="b7" layoutX="44.0" layoutY="86.0" mnemonicParsing="false" onAction="#toggleB7" text="0" />
-                                                <TextField layoutX="198.0" layoutY="61.0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                                <TextField layoutX="176.0" layoutY="61.0" prefHeight="25.0" prefWidth="23.0" text="1" />
-                                                <TextField layoutX="154.0" layoutY="61.0" prefHeight="25.0" prefWidth="23.0" text="2" />
-                                                <TextField layoutX="132.0" layoutY="61.0" prefHeight="25.0" prefWidth="23.0" text="3" />
-                                                <TextField layoutX="110.0" layoutY="61.0" prefHeight="25.0" prefWidth="23.0" text="4" />
-                                                <TextField layoutX="88.0" layoutY="61.0" prefHeight="25.0" prefWidth="23.0" text="5" />
-                                                <TextField layoutX="66.0" layoutY="61.0" prefHeight="25.0" prefWidth="23.0" text="6" />
-                                                <TextField layoutX="44.0" layoutY="61.0" prefHeight="25.0" prefWidth="23.0" text="7" />
-                                                <TextField layoutX="45.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="7" />
-                                    <Separator layoutX="10.0" layoutY="54.0" prefWidth="200.0" />
-                                    <Separator layoutY="50.0" prefHeight="3.0" prefWidth="220.0" />
-                                            </children>
-                                        </AnchorPane>
-                                    </children>
-                                </AnchorPane>
+                                <Button fx:id="BtnClear" layoutX="127.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear">
+                                  <!-- <graphic>
+                                       <ImageView>
+                                           <image>
+                                               <Image url="img/delete.JPG">
+                                               </Image>
+                                           </image>
+                                       </ImageView>
+                                    </graphic> */ -->
+                                </Button>
+
                             </children>
                         </AnchorPane>
                     </children>
@@ -125,11 +149,11 @@
                     <children>
                         <TableView fx:id="tableFileContent" minHeight="109.0" prefHeight="109.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
-                                <TableColumn editable="false" maxWidth="90" minWidth="90" sortable="false" text="Breakpoint" />
-                                <TableColumn fx:id="tableColumnZeilennummer" editable="false" maxWidth="50" minWidth="50" sortable="false" text="Zeile" />
-                                <TableColumn fx:id="tableColumnBefehlscode" editable="false" maxWidth="125" minWidth="125" sortable="false" text="Befehlscode" />
-                                <TableColumn fx:id="tableColumnBefehl" editable="false" sortable="false" text="Befehl" />
-                                <TableColumn fx:id="tableColumnKommentar" editable="false" sortable="false" text="Kommentar" />
+                                <TableColumn maxWidth="90" minWidth="90" text="Breakpoint" />
+                                <TableColumn fx:id="tableColumnZeilennummer" maxWidth="50" minWidth="50" text="Zeile" />
+                                <TableColumn fx:id="tableColumnBefehlscode" maxWidth="125" minWidth="125" text="Befehlscode" />
+                                <TableColumn fx:id="tableColumnBefehl" text="Befehl" />
+                                <TableColumn fx:id="tableColumnKommentar" text="Kommentar" />
                             </columns>
                             <columnResizePolicy>
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
