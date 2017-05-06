@@ -24,6 +24,5 @@ public class MOVLW extends Instruction {
     public void displayDebugInfo()
     {
         System.out.println(String.format("%04X", instruction) + ": MOVLW" + "  k: " + argument);
-        System.out.println("W-Reg: " + cpu.register.w);
     }
 }

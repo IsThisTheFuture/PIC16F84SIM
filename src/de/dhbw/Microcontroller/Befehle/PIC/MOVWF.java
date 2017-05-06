@@ -26,7 +26,6 @@ public class MOVWF extends Instruction {
     public void displayDebugInfo()
     {
         System.out.println(String.format("%04X", instruction) + ": MOVWF" + "  f: " + argument);
-
     }
 
 }

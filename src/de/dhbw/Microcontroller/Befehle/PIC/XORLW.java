@@ -25,7 +25,5 @@ public class XORLW extends Instruction {
     public void displayDebugInfo()
     {
         System.out.println(String.format("%04X", instruction) + ": XORLW" + "  k: " + argument);
-        System.out.println("W-Reg: " + cpu.register.w);
-
     }
 }

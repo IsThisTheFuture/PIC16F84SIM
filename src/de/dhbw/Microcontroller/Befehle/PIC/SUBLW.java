@@ -25,7 +25,5 @@ public class SUBLW extends Instruction {
     public void displayDebugInfo()
     {
         System.out.println(String.format("%04X", instruction) + ": SUBLW" + "  k: " + argument);
-        System.out.println("W-Reg: " + cpu.register.w);
-
     }
 }

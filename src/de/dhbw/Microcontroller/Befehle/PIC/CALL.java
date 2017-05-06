@@ -28,7 +28,6 @@ public class CALL extends Instruction {
     {
         System.out.println(String.format("%04X", instruction) + ": CALL" + "  k: " + argument1);
         System.out.println("Subroutine wird aufgerufen: ");
-
     }
 
 

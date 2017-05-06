@@ -21,6 +21,19 @@ public class ANDLW extends Instruction {
 
         //TODO Prüfen ob das Ergebnis stimmt
         cpu.register.w = (byte) (cpu.register.w & k);
+
+        if (cpu.register.w == 0)
+
+        //else
+            //TODO: Zero Bit 0 setzen
+
+        /*
+                Set:
+                myByte |= 1 << bit;
+
+                Clear:
+                myByte &= ~(1 << bit);
+         */
         cpu.register.pc++;
     }
 
@@ -28,7 +41,5 @@ public class ANDLW extends Instruction {
     public void displayDebugInfo()
     {
         System.out.println(String.format("%04X", instruction) + ": ANDLW" + "  k: " + argument);
-        System.out.println("W-Reg: " + cpu.register.w);
-
     }
 }
