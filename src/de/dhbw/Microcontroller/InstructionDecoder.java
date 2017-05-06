@@ -1,12 +1,5 @@
 package de.dhbw.Microcontroller;
 
-/*
- * Hier sollen die Instruktionen im Format  3E01 (addlw 1) dekodiert werden
- * Jedem OP-Code ist eine Funtion zugewiesen.
- * Diese wird dann an anderer Stelle im Programm ausgeführt
- *
- */
-
 import de.dhbw.Microcontroller.Befehle.Instruction;
 import de.dhbw.Microcontroller.Befehle.PIC.*;
 
@@ -16,7 +9,6 @@ import java.util.List;
 public class InstructionDecoder {
     private int argument1 = 0;
     private int argument2 = 0;
-
 
     private static List<Instruction> programCode = new ArrayList<>();
 
@@ -28,7 +20,6 @@ public class InstructionDecoder {
      * Eine Liste von Instruktionen wird beim dekodieren angelegt.
      * Alle Felder des Arrays instructionList (in dem die Befehle bisher als 16-Bit Opcode gespeichert sind)
      * werden einzeln dekodiert. Erkannte Opcodes werden als "Instruction"-Objekt zur Liste hinzugefügt.
-     * Bei nicht erkannten Instruktionen wird null zurückgegeben.
      */
 
     public List<Instruction> decode(Integer[] opcodeList){
@@ -42,10 +33,10 @@ public class InstructionDecoder {
         return programCode;
     }
 
+
+
     private Instruction decodeInstruction(int instruction){
-
-
-            //ADDLW TODO: 0011 111x kkkk kkkk
+            //ADDLW (0011 111x kkkk kkkk)
             if ((instruction & 0x3E00) == 0x3E00) {
                 // k:
                 argument1 = instruction & 0x00FF;
@@ -73,7 +64,7 @@ public class InstructionDecoder {
             }
 
 
-            //ANDLW TODO: 0011 1001 kkkk kkkk
+            //ANDLW (0011 1001 kkkk kkkk)
             else if ((instruction & 0x3900) == 0x3900) {
                 // k:
                 argument1 = instruction & 0x00FF;
@@ -83,7 +74,7 @@ public class InstructionDecoder {
             }
 
 
-            //IORLW TODO: 0011 1000 kkkk kkkk
+            //IORLW (0011 1000 kkkk kkkk)
             else if ((instruction & 0x3800) == 0x3800) {
                 // k:
                 argument1 = instruction & 0x00FF;
@@ -92,7 +83,7 @@ public class InstructionDecoder {
             }
 
 
-            //RETLW TODO: 0011 01xx kkkk kkkk
+            //RETLW (0011 01xx kkkk kkkk)
             else if ((instruction & 0x3400) == 0x3400) {
                 // k:
                 argument1 = instruction & 0x00FF;
@@ -100,7 +91,7 @@ public class InstructionDecoder {
             }
 
 
-            //MOVLW TODO 0011 00xx kkkk kkkk
+            //MOVLW (0011 00xx kkkk kkkk)
             else if ((instruction & 0x3000) == 0x3000) {
                 // k:
                 argument1 = instruction & 0x00FF;
@@ -109,7 +100,7 @@ public class InstructionDecoder {
             }
 
 
-            //GOTO TODO: 0010 1kkk kkkk kkkk
+            //GOTO (0010 1kkk kkkk kkkk)
             else if ((instruction & 0x2800) == 0x2800) {
                 // k:
                 argument1 = instruction & 0x07FF;
@@ -119,7 +110,7 @@ public class InstructionDecoder {
             }
 
 
-            //CALL TODO: 0010 0kkk kkkk kkkk
+            //CALL (0010 0kkk kkkk kkkk)
             else if ((instruction & 0x2000) == 0x2000) {
                 // k:
                 argument1 = instruction & 0x07FF;
@@ -127,7 +118,7 @@ public class InstructionDecoder {
             }
 
 
-            //BTFSS TODO: Prüfung korrekt?(0001 11bb bfff ffff)
+            //BTFSS (0001 11bb bfff ffff)
             else if ((instruction & 0x1C00) == 0x1C00) {
                 // b:
                 argument1 = 0x0380 & instruction;
@@ -139,7 +130,7 @@ public class InstructionDecoder {
             }
 
 
-            //BTSFC TODO: Prüfung korrekt? (0001 10bb bfff ffff)
+            //BTSFC (0001 10bb bfff ffff)
             else if ((instruction & 0x1800) == 0x1800) {
                 // b:
                 argument1 = 0x0380 & instruction;
@@ -151,7 +142,7 @@ public class InstructionDecoder {
             }
 
 
-            //BSF TODO: Prüfung korrekt? (0001 01bb bfff ffff)
+            //BSF (0001 01bb bfff ffff)
             else if ((instruction & 0x1400) == 0x1400) {
                 // b:
                 argument1 = 0x0380 & instruction;
@@ -163,7 +154,7 @@ public class InstructionDecoder {
             }
 
 
-            //BCF TODO: Prüfung korrekt? (0001 00bb bfff ffff)
+            //BCF (0001 00bb bfff ffff)
             else if ((instruction & 0x1000) == 0x1000) {
                 // b:
                 argument1 = 0x0380 & instruction;
@@ -353,8 +344,8 @@ public class InstructionDecoder {
             }
 
 
-            //CLRW TODO (0000 0001 0xxx xxxx)
-            else if ((instruction & 0x0170) == 0x0170) {
+            //CLRW (0000 0001 0xxx xxxx)
+            else if ((instruction & 0x0100) == 0x0100) {
                 System.out.println(String.format("%04X", instruction) + ": CLRW");
             }
 
@@ -392,7 +383,7 @@ public class InstructionDecoder {
             }
 
 
-            //TODO: NOP (0000 0000 0xx0 0000)
+            //NOP (0000 0000 0xx0 0000)
             else if ((instruction & 0x0000) == 0x0000) {
                 return new NOP(instruction, 0x0000);
             }

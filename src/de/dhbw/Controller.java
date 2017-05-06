@@ -1,12 +1,9 @@
 package de.dhbw;
 
-
-import com.sun.org.apache.bcel.internal.generic.InstructionList;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 import de.dhbw.Microcontroller.Befehle.InstructionView;
 import de.dhbw.Microcontroller.CPU;
 import de.dhbw.Microcontroller.InstructionDecoder;
-import de.dhbw.Microcontroller.MemoryAdress;
 import de.dhbw.Services.FileInputService;
 
 
@@ -31,9 +28,6 @@ public class Controller {
     private TableColumn<InstructionView, String> tableColumnBefehl;
     @FXML
     private TableColumn<InstructionView, String> tableColumnKommentar;
-
-    @FXML
-    private TableView<MemoryAdress> tableMemory;
 
 
     @FXML
@@ -133,22 +127,6 @@ public class Controller {
         });
         cpuThread.setDaemon(true);
         cpuThread.start();
-
-
-
-        //Thread cpuThread = new Thread(CPU.getInstance());
-        //cpuThread.start();
-
-
-        // CPU Thread benachrichtigen
-        //try {
-        //    synchronized (CPU.getInstance()) {
-         //       CPU.getInstance().notify();
-          //  }
-        //} catch (Exception e) {
-        //    e.printStackTrace();
-        //}
-
     }
 
     public void next(ActionEvent actionEvent) {
@@ -210,7 +188,6 @@ public class Controller {
 
 
 
-    // Getter Methoden für Services:
 
     private FileInputService getFileInputService() {
         if (fileInputService == null) {
@@ -218,10 +195,4 @@ public class Controller {
         }
         return fileInputService;
     }
-
-    public void setCurrentRow(int currentRow){
-        this.currentRow = currentRow;
-    }
-
-
 }

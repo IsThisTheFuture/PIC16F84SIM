@@ -6,10 +6,9 @@ package de.dhbw.Microcontroller;
 
 public class Register {//extends CPU{
    /*
-    *   Legend:
+    *   Legende:
     *   x = unknown, u = unchanged. - = unimplemented, read as '0', q = value depends on condition
     */
-
 
     // Arbeitsregister
     public Byte w       = (byte) 0b00000000;
