@@ -18,5 +18,10 @@ public class BCF extends Instruction {
 
     }
 
+    @Override
+    public void displayDebugInfo(){
+        System.out.println(String.format("%04X", instruction) + ": BCF" + "  b: " + argument1 + "," + " f: " + argument2);
+    }
+
 
 }

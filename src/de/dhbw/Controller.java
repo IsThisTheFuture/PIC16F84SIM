@@ -1,12 +1,16 @@
 package de.dhbw;
 
 
+import com.sun.org.apache.bcel.internal.generic.InstructionList;
+import de.dhbw.Microcontroller.Befehle.Instruction;
 import de.dhbw.Microcontroller.Befehle.InstructionView;
 import de.dhbw.Microcontroller.CPU;
 import de.dhbw.Microcontroller.InstructionDecoder;
+import de.dhbw.Microcontroller.MemoryAdress;
 import de.dhbw.Services.FileInputService;
 
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -21,7 +25,6 @@ public class Controller {
 
     @FXML
     private TableView<InstructionView> tableFileContent;
-    //private TableView<Befehl> tableFileContent;
     @FXML
     private TableColumn<InstructionView, Integer> tableColumnZeilennummer;
     @FXML
@@ -30,6 +33,9 @@ public class Controller {
     private TableColumn<InstructionView, String> tableColumnBefehl;
     @FXML
     private TableColumn<InstructionView, String> tableColumnKommentar;
+
+    @FXML
+    private TableView<MemoryAdress> tableMemory;
 
 
     private List<InstructionView> instructions;
@@ -84,14 +90,46 @@ public class Controller {
 
 
     public void run(ActionEvent actionEvent) {
-        // CPU Thread benachrichtigen
-        try {
-            synchronized (CPU.getInstance()) {
-                CPU.getInstance().notify();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (tableFileContent.getItems().isEmpty()) {
+            return;
         }
+
+
+        Thread cpuThread = new Thread(() -> {
+            try {
+                // programCode hat die eigentlichen Befehle, instructions ist der GUI Inhalt
+                List<Instruction> programCode = decoder.getProgramCode();
+                System.out.println(programCode.size());
+                for (int i = 0; i < programCode.size(); i++) {
+                    programCode.get(i).execute();
+                    programCode.get(i).displayDebugInfo();
+                    currentRow++;
+
+                    // TODO: Hier GUI Refresh durchführen
+                    tableFileContent.refresh();
+                    Thread.sleep(1000);
+                }
+            } catch (Exception e) {
+                System.err.println("Fehler in Methode run()");
+            }
+        });
+        cpuThread.setDaemon(true);
+        cpuThread.start();
+
+
+
+        //Thread cpuThread = new Thread(CPU.getInstance());
+        //cpuThread.start();
+
+
+        // CPU Thread benachrichtigen
+        //try {
+        //    synchronized (CPU.getInstance()) {
+         //       CPU.getInstance().notify();
+          //  }
+        //} catch (Exception e) {
+        //    e.printStackTrace();
+        //}
 
     }
 
@@ -166,4 +204,6 @@ public class Controller {
     public void setCurrentRow(int currentRow){
         this.currentRow = currentRow;
     }
+
+
 }

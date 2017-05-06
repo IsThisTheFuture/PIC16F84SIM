@@ -60,7 +60,6 @@ public class InstructionDecoder {
                 // k:
                 argument1 = instruction & 0x00FF;
 
-                //System.out.println(String.format("%04X", instruction) + ": SUBLW" + "  k: " + argument1);
                 return new SUBLW(instruction, 0x3C00, argument1);
             }
 
@@ -70,7 +69,6 @@ public class InstructionDecoder {
                 // k:
                 argument1 = instruction & 0x00FF;
 
-                //System.out.println(String.format("%04X", instruction) + ": XORLW" + "  k: " + argument1);
                 return new XORLW(instruction, 0x3A00, argument1);
             }
 
@@ -90,7 +88,6 @@ public class InstructionDecoder {
                 // k:
                 argument1 = instruction & 0x00FF;
 
-                //System.out.println(String.format("%04X", instruction) + ": IORLW" + "  k: " + argument1);
                 return new IORLW(instruction, 0x3800, argument1);
             }
 
@@ -99,8 +96,7 @@ public class InstructionDecoder {
             else if ((instruction & 0x3400) == 0x3400) {
                 // k:
                 argument1 = instruction & 0x00FF;
-
-                System.out.println(String.format("%04X", instruction) + ": RETLW" + "  k: " + argument1);
+                return new RETLW(instruction, 0x3400, argument1);
             }
 
 
@@ -109,7 +105,6 @@ public class InstructionDecoder {
                 // k:
                 argument1 = instruction & 0x00FF;
 
-                //System.out.println(String.format("%04X", instruction) + ": MOVLW" + "  k: " + argument1);
                 return new MOVLW(instruction, 0x3000, argument1);
             }
 
@@ -128,8 +123,7 @@ public class InstructionDecoder {
             else if ((instruction & 0x2000) == 0x2000) {
                 // k:
                 argument1 = instruction & 0x07FF;
-
-                System.out.println(String.format("%04X", instruction) + ": CALL" + "  k: " + argument1);
+                return new CALL(instruction, 0x2000, argument1);
             }
 
 
@@ -177,8 +171,7 @@ public class InstructionDecoder {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": BCF" + "  b: " + argument1 + "," + " f: " + argument2);
-                // Instruction bcf = new Instruction();
+                return new BCF(instruction, 0x1000, argument1, argument2);
             }
 
 
@@ -288,6 +281,7 @@ public class InstructionDecoder {
                 argument2 = 0x007F & instruction;
 
                 System.out.println(String.format("%04X", instruction) + ": ADDWF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                return new ADDWF(instruction, 0x0700, argument1, argument2);
             }
 
 
@@ -355,6 +349,7 @@ public class InstructionDecoder {
             else if ((instruction & 0x0180) == 0x0180) {
                 // f:
                 argument1 = 0x007F & instruction;
+                return new CLRF(instruction, 0x0180, argument1);
             }
 
 
@@ -369,7 +364,7 @@ public class InstructionDecoder {
                 // f:
                 argument1 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": MOVWF" + "  f: " + argument1);
+                return new MOVWF(instruction, 0x0080, argument1);
             }
 
 
@@ -399,7 +394,7 @@ public class InstructionDecoder {
 
             //TODO: NOP (0000 0000 0xx0 0000)
             else if ((instruction & 0x0000) == 0x0000) {
-                System.out.println(String.format("%04X", instruction) + ": NOP");
+                return new NOP(instruction, 0x0000);
             }
 
             else {

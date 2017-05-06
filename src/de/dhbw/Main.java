@@ -20,10 +20,6 @@ public class Main extends Application {
 
 
         primaryStage.show();
-
-        Thread emuThread = new Thread(CPU.getInstance());
-        emuThread.start();
-
     }
 
 

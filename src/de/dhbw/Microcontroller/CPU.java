@@ -33,14 +33,14 @@ public class CPU implements Runnable {
     // Einstiegspunkt des Threads
     @Override
     public void run() {
-        while (true) {
-            try {
-                synchronized (emulator) {
-                    emulator.wait();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+       // while (true) {
+         //   try {
+           //     synchronized (emulator) {
+             //       emulator.wait();
+               // }
+            //} catch (InterruptedException e) {
+            //    e.printStackTrace();
+            //}
             List<Instruction> programCode;
 
             programCode = decoder.getProgramCode();
@@ -50,22 +50,27 @@ public class CPU implements Runnable {
             System.out.println("Anzahl der Befehle: " + programCode.size());
 
             for (int i = 0; i < programCode.size(); i++) {
-                //controller.setCurrentRow(i);
+
+                controller.setCurrentRow(i);
                 programCode.get(i).execute();
+                programCode.get(i).displayDebugInfo();
+
+
+
+
 
                 // TODO: Nach jeder Instruktion UI neu laden. Wie??
                 try {
-                    Thread.sleep(4000);
+                    Thread.sleep(500);
                 } catch (Exception e){
 
                 }
 
-                programCode.get(i).displayDebugInfo();
             }
 
         }
 
 
         // TODO: Rücksetzen, Register leeren und bestimmte Register mit Werten Vorbelegen
-    }
+//    }
 }
