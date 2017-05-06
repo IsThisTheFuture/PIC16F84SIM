@@ -9,12 +9,14 @@ package de.dhbw.Microcontroller;
  */
 
 
+import de.dhbw.Controller;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 import java.util.List;
 
 public class CPU implements Runnable {
     public Register register = new Register();
     public InstructionDecoder decoder = new InstructionDecoder();
+    private Controller controller = new Controller();
 
     private static final CPU emulator = new CPU();
 
@@ -48,7 +50,16 @@ public class CPU implements Runnable {
             System.out.println("Anzahl der Befehle: " + programCode.size());
 
             for (int i = 0; i < programCode.size(); i++) {
+                //controller.setCurrentRow(i);
                 programCode.get(i).execute();
+
+                // TODO: Nach jeder Instruktion UI neu laden. Wie??
+                try {
+                    Thread.sleep(4000);
+                } catch (Exception e){
+
+                }
+
                 programCode.get(i).displayDebugInfo();
             }
 

@@ -74,9 +74,6 @@ public class Controller {
             opcodeList[i] = Integer.parseInt(instructions.get(i).getOpcode(),16);
         }
 
-        for (int i = 0; i < opcodeList.length; i++)
-            System.out.println(String.format("%04X", opcodeList[i]));
-
         decoder = new InstructionDecoder();
         decoder.decode(opcodeList);
     }
@@ -164,5 +161,9 @@ public class Controller {
             fileInputService = new FileInputService();
         }
         return fileInputService;
+    }
+
+    public void setCurrentRow(int currentRow){
+        this.currentRow = currentRow;
     }
 }
