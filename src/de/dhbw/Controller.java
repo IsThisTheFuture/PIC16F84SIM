@@ -13,9 +13,7 @@ import de.dhbw.Services.FileInputService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.List;
@@ -36,6 +34,10 @@ public class Controller {
 
     @FXML
     private TableView<MemoryAdress> tableMemory;
+
+
+    @FXML
+    private TextField textFieldRegisterW = new TextField();
 
 
     private List<InstructionView> instructions;
@@ -103,14 +105,24 @@ public class Controller {
                 for (int i = 0; i < programCode.size(); i++) {
                     programCode.get(i).execute();
                     programCode.get(i).displayDebugInfo();
-                    currentRow++;
 
                     // TODO: Hier GUI Refresh durchführen
-                    tableFileContent.refresh();
+                    currentRow++;
+
+                    //textFieldRegisterW.setText("Hello");
+                    //textFieldRegisterW.setText("Hello");
+                    textFieldRegisterW.setText(CPU.getInstance().register.w.toString());
+                    Platform.runLater(() -> tableFileContent.refresh());
+                    //Platform.runLater(() -> textFieldRegisterW.setText("HI"));
+                    //tableFileContent.refresh();
+
+
+
                     Thread.sleep(1000);
                 }
             } catch (Exception e) {
                 System.err.println("Fehler in Methode run()");
+                e.printStackTrace();
             }
         });
         cpuThread.setDaemon(true);

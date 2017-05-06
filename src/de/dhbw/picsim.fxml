@@ -118,7 +118,7 @@
                                     <Separator layoutX="67.0" layoutY="3.0" orientation="VERTICAL" prefHeight="109.0" prefWidth="5.0" />
                                     <Label layoutX="12.0" layoutY="192.0" text="Spezialregister" />
                                     <Label layoutX="12.0" layoutY="230.0" text="W-Reg:" />
-                                    <TextField editable="false" layoutX="71.0" layoutY="225.0" prefHeight="26.0" prefWidth="97.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterW" layoutX="71.0" layoutY="225.0" prefHeight="26.0" prefWidth="97.0" text="0" />
                                             </children>
                                         </AnchorPane>
                                     <AnchorPane layoutX="280.0" layoutY="-133.0" prefHeight="260.0" prefWidth="243.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="-133.0" />
