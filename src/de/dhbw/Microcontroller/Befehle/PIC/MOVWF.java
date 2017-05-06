@@ -18,6 +18,7 @@ public class MOVWF extends Instruction {
         byte f = (byte) argument;
 
         //TODO: Speicher.f = cpu.register.w
+        cpu.register.pc++;
 
     }
 

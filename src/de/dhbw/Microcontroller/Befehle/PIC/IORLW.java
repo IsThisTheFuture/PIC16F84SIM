@@ -18,6 +18,7 @@ public class IORLW extends Instruction {
 
         //TODO Prüfen ob das Ergebnis stimmt
         cpu.register.w = (byte) (cpu.register.w | k);
+        cpu.register.pc++;
     }
 
     @Override

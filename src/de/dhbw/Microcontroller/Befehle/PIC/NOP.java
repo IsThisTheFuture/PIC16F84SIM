@@ -14,7 +14,7 @@ public class NOP extends Instruction {
 
         @Override
         public void execute(){
-
+                cpu.register.pc++;
         }
 
         @Override

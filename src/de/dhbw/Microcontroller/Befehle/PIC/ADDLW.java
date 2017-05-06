@@ -18,6 +18,7 @@ public class ADDLW extends Instruction {
         byte k = (byte) argument;
 
         cpu.register.w = (byte) (cpu.register.w + k);
+        cpu.register.pc++;
     }
 
     @Override

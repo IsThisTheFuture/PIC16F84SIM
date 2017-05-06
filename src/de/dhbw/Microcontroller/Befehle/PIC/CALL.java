@@ -18,6 +18,9 @@ public class CALL extends Instruction {
         //TODO: Top of Stack = cpu.register.pc ++;
         //...
 
+        //TODO: Prüfen
+        cpu.register.pc = (byte) argument;
+
     }
 
     @Override

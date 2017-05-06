@@ -16,6 +16,7 @@ public class CLRF extends Instruction{
     @Override
     public void execute(){
         //TODO: Speicher anlegen
+        cpu.register.pc++;
     }
 
     @Override

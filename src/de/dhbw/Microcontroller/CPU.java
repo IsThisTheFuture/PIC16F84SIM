@@ -13,7 +13,7 @@ import de.dhbw.Controller;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 import java.util.List;
 
-public class CPU implements Runnable {
+public class CPU {//implements Runnable {
     public Register register = new Register();
     public InstructionDecoder decoder = new InstructionDecoder();
     private Controller controller = new Controller();
@@ -31,16 +31,9 @@ public class CPU implements Runnable {
 
 
     // Einstiegspunkt des Threads
+    /*
     @Override
     public void run() {
-       // while (true) {
-         //   try {
-           //     synchronized (emulator) {
-             //       emulator.wait();
-               // }
-            //} catch (InterruptedException e) {
-            //    e.printStackTrace();
-            //}
             List<Instruction> programCode;
 
             programCode = decoder.getProgramCode();
@@ -69,6 +62,7 @@ public class CPU implements Runnable {
             }
 
         }
+        */
 
 
         // TODO: Rücksetzen, Register leeren und bestimmte Register mit Werten Vorbelegen

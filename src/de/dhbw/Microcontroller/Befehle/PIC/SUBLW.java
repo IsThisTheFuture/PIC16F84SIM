@@ -18,6 +18,7 @@ public class SUBLW extends Instruction {
 
             //TODO Prüfen ob das Ergebnis stimmt
             cpu.register.w = (byte) (k - cpu.register.w);
+            cpu.register.pc++;
         }
 
     @Override

@@ -39,6 +39,10 @@ public class Controller {
     @FXML
     private TextField textFieldRegisterW = new TextField();
 
+    @FXML
+    private TextField textFieldPC = new TextField();
+
+
 
     private List<InstructionView> instructions;
     private InstructionDecoder decoder;
@@ -106,14 +110,14 @@ public class Controller {
                     programCode.get(i).execute();
                     programCode.get(i).displayDebugInfo();
 
-                    // TODO: Hier GUI Refresh durchführen
+                    // TODO: GUI Refresh durchführen
                     currentRow++;
 
-                    //textFieldRegisterW.setText("Hello");
-                    //textFieldRegisterW.setText("Hello");
                     textFieldRegisterW.setText(CPU.getInstance().register.w.toString());
+
+                    //textFieldPC.setText(CPU.getInstance().register.pc.toString());
+                    textFieldPC.setText(String.format("%04x", CPU.getInstance().register.pc));
                     Platform.runLater(() -> tableFileContent.refresh());
-                    //Platform.runLater(() -> textFieldRegisterW.setText("HI"));
                     //tableFileContent.refresh();
 
 

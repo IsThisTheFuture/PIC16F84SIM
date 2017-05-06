@@ -15,6 +15,7 @@ public class BCF extends Instruction {
 
     @Override
     public void execute(){
+        cpu.register.pc++;
 
     }
 

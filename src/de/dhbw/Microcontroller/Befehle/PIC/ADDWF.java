@@ -15,7 +15,7 @@ public class ADDWF extends Instruction {
     @Override
     public void execute(){
         byte k = (byte) argument2;
-
+        cpu.register.pc++;
 
     }
 
