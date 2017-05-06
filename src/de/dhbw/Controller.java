@@ -38,9 +38,10 @@ public class Controller {
 
     @FXML
     private TextField textFieldRegisterW = new TextField();
-
     @FXML
     private TextField textFieldPC = new TextField();
+    @FXML
+    private TextField textFieldStatus = new TextField();
 
 
 
@@ -117,6 +118,7 @@ public class Controller {
 
                     //textFieldPC.setText(CPU.getInstance().register.pc.toString());
                     textFieldPC.setText(String.format("%04x", CPU.getInstance().register.pc));
+                    textFieldStatus.setText(CPU.getInstance().register.STATUS.toString());
                     Platform.runLater(() -> tableFileContent.refresh());
                     //tableFileContent.refresh();
 

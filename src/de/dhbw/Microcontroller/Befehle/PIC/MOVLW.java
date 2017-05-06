@@ -4,7 +4,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
  * Move literal (k) to W
- * TODO:  'k -> w'
+ * 'k -> w'
  */
 
 public class MOVLW extends Instruction {

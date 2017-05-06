@@ -119,8 +119,10 @@
                                     <Label layoutX="12.0" layoutY="192.0" text="Spezialregister" />
                                     <Label layoutX="12.0" layoutY="230.0" text="W-Reg:" />
                                     <TextField fx:id="textFieldRegisterW" layoutX="71.0" layoutY="225.0" prefHeight="26.0" prefWidth="97.0" text="0" />
-                                    <Label layoutX="12.0" layoutY="251.0" text="PC:" />
+                                    <Label layoutX="12.0" layoutY="259.0" text="PC:" />
                                     <TextField fx:id="textFieldPC" editable="false" layoutX="70.0" layoutY="254.0" prefHeight="26.0" prefWidth="97.0" text="0000" />
+                                    <Label layoutX="12.0" layoutY="288.0" text="Status:" />
+                                    <TextField fx:id="textFieldStatus" layoutX="71.0" layoutY="283.0" prefHeight="26.0" prefWidth="97.0" />
                                             </children>
                                         </AnchorPane>
                                     <AnchorPane layoutX="280.0" layoutY="-133.0" prefHeight="260.0" prefWidth="243.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="-133.0" />
