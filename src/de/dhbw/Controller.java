@@ -2,11 +2,13 @@ package de.dhbw;
 
 
 import de.dhbw.Microcontroller.Befehle.Instruction;
+import de.dhbw.Microcontroller.Befehle.InstructionView;
 import de.dhbw.Microcontroller.CPU;
 import de.dhbw.Services.FileInputService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -16,22 +18,52 @@ import java.util.List;
 public class Controller {
 
     @FXML
-    private TableView<Instruction> tableFileContent;
+    private TableView<InstructionView> tableFileContent;
     //private TableView<Befehl> tableFileContent;
     @FXML
-    private TableColumn<Instruction, Integer> tableColumnZeilennummer;
+    private TableColumn<InstructionView, Integer> tableColumnZeilennummer;
     @FXML
-    private TableColumn<Instruction, String> tableColumnBefehlscode;
+    private TableColumn<InstructionView, String> tableColumnBefehlscode;
     @FXML
-    private TableColumn<Instruction, String> tableColumnBefehl;
+    private TableColumn<InstructionView, String> tableColumnBefehl;
     @FXML
-    private TableColumn<Instruction, String> tableColumnKommentar;
+    private TableColumn<InstructionView, String> tableColumnKommentar;
 
 
-    private List<Instruction> instructions;
+    private List<InstructionView> instructions;
     private InputParser parser;
     private FileInputService fileInputService;
+    private int currentRow = 0;
 
+
+    public void openFile(ActionEvent actionEvent) {
+        tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("zeilennummer"));
+        tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("opcode"));
+        tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("befehl"));
+        tableColumnKommentar.setCellValueFactory(new PropertyValueFactory<>("comment"));
+
+
+        if (instructions != null) instructions.clear();
+        instructions = getFileInputService().importLstFile();
+
+        tableFileContent.getItems().addAll(instructions);
+        tableFileContent.setRowFactory(tv -> new TableRow<InstructionView>() {
+            @Override
+            public void updateItem(InstructionView item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null) {
+                    setStyle("");
+                } else if (item.getZeilennummer() == currentRow) {
+                   setStyle("-fx-background-color: #5cadff;");
+                }
+                else {
+                    setStyle("");
+                }
+            }
+        });
+    }
+
+    /*
     public void openFile(ActionEvent actionEvent) {
         tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("Zeilennummer"));
         tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("Befehlscode"));
@@ -40,9 +72,16 @@ public class Controller {
 
         // Einträge löschen, falls nicht leer
         if (instructions != null) instructions.clear();
-        instructions = getFileInputService().importLstFile();
+        //instructions = getFileInputService().importLstFile();
 
+
+        //instructions.add(new InstructionView(1, 0x3600, "Comment"));
+
+
+        tableFileContent.getItems().addAll(instructions);
+        tableFileContent.setRowFactory(tv -> new TableRow<InstructionView>());
     }
+    */
 
     /*public void openFile(ActionEvent actionEvent) {
         final JFileChooser fc = new JFileChooser();

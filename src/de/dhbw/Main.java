@@ -15,6 +15,10 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("picsim2.fxml"));
         primaryStage.setTitle("PIC16F84 Simulator");
         primaryStage.setScene(new Scene(root, 1000, 700));
+
+
+
+
         primaryStage.show();
 
         Thread emuThread = new Thread(CPU.getInstance());

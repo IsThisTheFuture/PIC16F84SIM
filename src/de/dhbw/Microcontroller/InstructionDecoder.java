@@ -13,7 +13,7 @@ import de.dhbw.Microcontroller.Befehle.PIC.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InstructionDecoder {//extends CPU{
+public class InstructionDecoder {
     private int argument1 = 0;
     private int argument2 = 0;
 
