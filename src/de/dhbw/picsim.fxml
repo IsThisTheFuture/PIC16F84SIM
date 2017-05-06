@@ -132,9 +132,9 @@
                         <AnchorPane layoutY="174.0" prefHeight="33.0" prefWidth="128.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
                             <children>
                                 <Button fx:id="BtnStart" layoutY="8.0" mnemonicParsing="false" onAction="#run" text="Start" />
-                                <Button fx:id="BtnNext" layoutX="41.0" layoutY="8.0" mnemonicParsing="false" onAction="#next" text="Next" />
-                                <Button fx:id="BtnReset" layoutX="82.0" layoutY="8.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
-                                <Button fx:id="BtnClear" layoutX="127.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear">
+                                <Button fx:id="BtnNext" layoutX="58.0" layoutY="8.0" mnemonicParsing="false" onAction="#next" text="Next" />
+                                <Button fx:id="BtnReset" layoutX="114.0" layoutY="8.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
+                                <Button fx:id="BtnClear" layoutX="175.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear">
                                   <!-- <graphic>
                                        <ImageView>
                                            <image>
@@ -153,11 +153,11 @@
                     <children>
                         <TableView fx:id="tableFileContent" minHeight="109.0" prefHeight="109.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
-                                <TableColumn maxWidth="90" minWidth="90" text="Breakpoint" />
-                                <TableColumn fx:id="tableColumnZeilennummer" maxWidth="50" minWidth="50" text="Zeile" />
-                                <TableColumn fx:id="tableColumnBefehlscode" maxWidth="125" minWidth="125" text="Befehlscode" />
-                                <TableColumn fx:id="tableColumnBefehl" text="Befehl" />
-                                <TableColumn fx:id="tableColumnKommentar" text="Kommentar" />
+                                <TableColumn maxWidth="90" minWidth="90" sortable="false" text="Breakpoint" />
+                                <TableColumn fx:id="tableColumnZeilennummer" maxWidth="50" minWidth="50" sortable="false" text="Zeile" />
+                                <TableColumn fx:id="tableColumnBefehlscode" maxWidth="125" minWidth="125" sortable="false" text="Befehlscode" />
+                                <TableColumn fx:id="tableColumnBefehl" sortable="false" text="Befehl" />
+                                <TableColumn fx:id="tableColumnKommentar" sortable="false" text="Kommentar" />
                             </columns>
                             <columnResizePolicy>
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
