@@ -42,7 +42,7 @@ public class FileInputService {
                         String subline = line.substring(0, 25);
                         //subline = subline.replaceAll("\\s+", "");
 
-                        instruction.setZeilennummer(Integer.parseInt(subline.substring(0, 4)));
+                        instruction.setZeilennummer(Integer.parseInt(subline.substring(0, 4), 16));
                         instruction.setOpcode(subline.substring(5,9));
 
                         //instruction.setZeilennummer(Integer.parseInt(subline.substring(0, 4), 16));
