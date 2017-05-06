@@ -48,8 +48,6 @@ public class CPU implements Runnable {
             System.out.println("Anzahl der Befehle: " + programCode.size());
 
             for (int i = 0; i < programCode.size(); i++) {
-                //System.out.println(programCode.get(i));
-
                 programCode.get(i).execute();
                 programCode.get(i).displayDebugInfo();
             }

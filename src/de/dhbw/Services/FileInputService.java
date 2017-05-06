@@ -73,6 +73,7 @@ public class FileInputService {
                 }
             }
 
+            /*
             for(int i =0; i<programCode.size(); i++)
             {
                 System.out.print(programCode.get(i).getZeilennummer() + "   ");
@@ -80,6 +81,7 @@ public class FileInputService {
                 System.out.print(programCode.get(i).getBefehl()+ "   ");
                 System.out.print(programCode.get(i).getComment()+ "\n");
             }
+            */
 
 
         } catch (Exception e) {

@@ -30,15 +30,15 @@ public class InstructionDecoder {
      * werden einzeln dekodiert. Erkannte Opcodes werden als "Instruction"-Objekt zur Liste hinzugefügt.
      * Bei nicht erkannten Instruktionen wird null zurückgegeben.
      */
-    public List<Instruction> decode(Integer[] instructionList){
-        for (int instruction : instructionList)
+
+    public List<Instruction> decode(Integer[] opcodeList){
+        for (int instruction : opcodeList)
         {
             if (decodeInstruction(instruction) != null)
             {
                 programCode.add(decodeInstruction(instruction));
             }
         }
-
         return programCode;
     }
 

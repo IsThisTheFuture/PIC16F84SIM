@@ -1,10 +1,12 @@
 package de.dhbw;
 
 
-import de.dhbw.Microcontroller.Befehle.Instruction;
 import de.dhbw.Microcontroller.Befehle.InstructionView;
 import de.dhbw.Microcontroller.CPU;
+import de.dhbw.Microcontroller.InstructionDecoder;
 import de.dhbw.Services.FileInputService;
+
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -31,8 +33,9 @@ public class Controller {
 
 
     private List<InstructionView> instructions;
-    private InputParser parser;
+    private InstructionDecoder decoder;
     private FileInputService fileInputService;
+    private Integer opcodeList[];
     private int currentRow = 0;
 
 
@@ -61,52 +64,27 @@ public class Controller {
                 }
             }
         });
-    }
-
-    /*
-    public void openFile(ActionEvent actionEvent) {
-        tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("Zeilennummer"));
-        tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("Befehlscode"));
-        tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("Befehl"));
-        tableColumnKommentar.setCellValueFactory(new PropertyValueFactory<>("Kommentar"));
-
-        // Einträge löschen, falls nicht leer
-        if (instructions != null) instructions.clear();
-        //instructions = getFileInputService().importLstFile();
 
 
-        //instructions.add(new InstructionView(1, 0x3600, "Comment"));
+        // Dekodiere eingelesene Instruktionen
+        opcodeList = new Integer[instructions.size()];
 
-
-        tableFileContent.getItems().addAll(instructions);
-        tableFileContent.setRowFactory(tv -> new TableRow<InstructionView>());
-    }
-    */
-
-    /*public void openFile(ActionEvent actionEvent) {
-        final JFileChooser fc = new JFileChooser();
-        int returnVal = fc.showOpenDialog(null);
-
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-           // return file;
-            InputParser parser = new InputParser();
-            List<String> lstContent = parser.readLST(file);
-
-
-
-
-
-
-        } else {
-            System.err.println("Datei konnte nicht geöffnet werden!");
+        for (int i = 0; i < instructions.size(); i++)
+        {
+            opcodeList[i] = Integer.parseInt(instructions.get(i).getOpcode(),16);
         }
-        //return null;
+
+        for (int i = 0; i < opcodeList.length; i++)
+            System.out.println(String.format("%04X", opcodeList[i]));
+
+        decoder = new InstructionDecoder();
+        decoder.decode(opcodeList);
     }
-    */
+
 
     public void openDocumentation(ActionEvent actionEvent) {
     }
+
 
     public void run(ActionEvent actionEvent) {
         // CPU Thread benachrichtigen
