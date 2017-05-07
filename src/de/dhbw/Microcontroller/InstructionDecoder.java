@@ -10,10 +10,10 @@ public class InstructionDecoder {
     private int argument1 = 0;
     private int argument2 = 0;
 
-    private static List<Instruction> programCode = new ArrayList<>();
+    private List<Instruction> instructionList = new ArrayList<>();
 
-    public List<Instruction> getProgramCode(){
-        return this.programCode;
+    public List<Instruction> getInstructionList(){
+        return instructionList;
     }
 
     /*
@@ -23,14 +23,14 @@ public class InstructionDecoder {
      */
 
     public List<Instruction> decode(Integer[] opcodeList){
-        for (int instruction : opcodeList)
+        for (int opcode : opcodeList)
         {
-            if (decodeInstruction(instruction) != null)
+            if (decodeInstruction(opcode) != null)
             {
-                programCode.add(decodeInstruction(instruction));
+                instructionList.add(decodeInstruction(opcode));
             }
         }
-        return programCode;
+        return instructionList;
     }
 
 
@@ -394,9 +394,5 @@ public class InstructionDecoder {
             }
 
             return null;
-    }
-
-    public void clearProgramCode(){
-        programCode.clear();
     }
 }

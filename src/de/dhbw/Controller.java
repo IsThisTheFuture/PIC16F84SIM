@@ -98,22 +98,23 @@ public class Controller {
 
         Thread cpuThread = new Thread(() -> {
             try {
-                // programCode hat die eigentlichen Befehle, instructions ist der GUI Inhalt
-                List<Instruction> programCode = decoder.getProgramCode();
-                System.out.println(programCode.size());
-                for (int i = 0; i < programCode.size(); i++) {
-                    programCode.get(i).execute();
-                    programCode.get(i).displayDebugInfo();
+                // instructionList hat die eigentlichen Befehle, instructions ist der GUI Inhalt
+                List<Instruction> instructionList = decoder.getInstructionList();
+                System.out.println(instructionList.size());
+                for (int i = 0; i < instructionList.size(); i++) {
+                    currentRow = i;
 
-                    // TODO: programcode sollte PC beinhalten
-                    currentRow++;
+                    instructionList.get(i).execute();
+                    instructionList.get(i).displayDebugInfo();
+
+                    // TODO: ProgramCounter richtig behandeln
+
 
                     textFieldRegisterW.setText(CPU.getInstance().register.w.toString());
-
                     textFieldPC.setText(String.format("%04x", CPU.getInstance().register.pc));
                     textFieldStatus.setText(CPU.getInstance().register.STATUS.toString());
                     Platform.runLater(() -> tableFileContent.refresh());
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 }
             } catch (Exception e) {
                 System.err.println("Fehler in Methode run()");
@@ -135,7 +136,6 @@ public class Controller {
     public void clear(ActionEvent actionEvent) {
             currentRow = 0;
             tableFileContent.getItems().clear();
-            decoder.clearProgramCode();
     }
 
     public void close(ActionEvent actionEvent) {
