@@ -105,19 +105,14 @@ public class Controller {
                     programCode.get(i).execute();
                     programCode.get(i).displayDebugInfo();
 
-                    // TODO: GUI Refresh durchführen
+                    // TODO: programcode sollte PC beinhalten
                     currentRow++;
 
                     textFieldRegisterW.setText(CPU.getInstance().register.w.toString());
 
-                    //textFieldPC.setText(CPU.getInstance().register.pc.toString());
                     textFieldPC.setText(String.format("%04x", CPU.getInstance().register.pc));
                     textFieldStatus.setText(CPU.getInstance().register.STATUS.toString());
                     Platform.runLater(() -> tableFileContent.refresh());
-                    //tableFileContent.refresh();
-
-
-
                     Thread.sleep(1000);
                 }
             } catch (Exception e) {
@@ -133,9 +128,18 @@ public class Controller {
     }
 
     public void reset(ActionEvent actionEvent) {
+        currentRow = 0;
+        // TODO: Initialisere alles neu
     }
 
     public void clear(ActionEvent actionEvent) {
+            currentRow = 0;
+            tableFileContent.getItems().clear();
+            decoder.clearProgramCode();
+    }
+
+    public void close(ActionEvent actionEvent) {
+    Platform.exit();
     }
 
     public void toggleA0(ActionEvent actionEvent) {

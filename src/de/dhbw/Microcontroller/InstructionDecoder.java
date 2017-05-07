@@ -395,4 +395,8 @@ public class InstructionDecoder {
 
             return null;
     }
+
+    public void clearProgramCode(){
+        programCode.clear();
+    }
 }
