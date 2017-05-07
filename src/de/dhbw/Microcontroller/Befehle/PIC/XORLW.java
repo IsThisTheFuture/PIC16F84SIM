@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
@@ -16,9 +17,12 @@ public class XORLW extends Instruction {
     public void execute(){
         byte k = (byte) argument;
 
+        memory.setRegisterW((byte) (memory.getRegisterW() ^ k));
+        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
+
         //TODO Prüfen ob das Ergebnis stimmt
-        cpu.register.w = (byte) (cpu.register.w ^ k);
-        cpu.register.pc++;
+        //cpu.register.w = (byte) (cpu.register.w ^ k);
+        //cpu.register.pc++;
     }
 
     @Override

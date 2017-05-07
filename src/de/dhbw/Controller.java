@@ -1,9 +1,10 @@
 package de.dhbw;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 import de.dhbw.Microcontroller.Befehle.InstructionView;
-import de.dhbw.Microcontroller.CPU;
 import de.dhbw.Microcontroller.InstructionDecoder;
+import de.dhbw.Microcontroller.Memory;
 import de.dhbw.Services.FileInputService;
 
 
@@ -39,6 +40,7 @@ public class Controller {
 
 
 
+    private Memory memory = Memory.getInstance();
     private List<InstructionView> instructions;
     private InstructionDecoder decoder;
     private FileInputService fileInputService;
@@ -51,7 +53,6 @@ public class Controller {
         tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("opcode"));
         tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("befehl"));
         tableColumnKommentar.setCellValueFactory(new PropertyValueFactory<>("comment"));
-
 
         if (instructions != null) instructions.clear();
         instructions = getFileInputService().importLstFile();
@@ -85,34 +86,36 @@ public class Controller {
         decoder.decode(opcodeList);
     }
 
-
     public void openDocumentation(ActionEvent actionEvent) {
     }
-
 
     public void run(ActionEvent actionEvent) {
         if (tableFileContent.getItems().isEmpty()) {
             return;
         }
 
-
         Thread cpuThread = new Thread(() -> {
             try {
-                // instructionList hat die eigentlichen Befehle, instructions ist der GUI Inhalt
                 List<Instruction> instructionList = decoder.getInstructionList();
-                System.out.println(instructionList.size());
+                //System.out.println(instructionList.size());
                 for (int i = 0; i < instructionList.size(); i++) {
                     currentRow = i;
 
+                    //memory.setRegisters(instructionList.get(i).execute());
+
+
                     instructionList.get(i).execute();
-                    instructionList.get(i).displayDebugInfo();
+                    //instructionList.get(i).displayDebugInfo();
 
                     // TODO: ProgramCounter richtig behandeln
+                    //textFieldRegisterW.setText(CPU.getInstance().register.w.toString());
+                    textFieldRegisterW.setText(memory.getRegisterW().toString());
 
+                    //textFieldPC.setText(String.format("%04x", CPU.getInstance().register.pc));
+                    textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
 
-                    textFieldRegisterW.setText(CPU.getInstance().register.w.toString());
-                    textFieldPC.setText(String.format("%04x", CPU.getInstance().register.pc));
-                    textFieldStatus.setText(CPU.getInstance().register.STATUS.toString());
+                    // textFieldStatus.setText(CPU.getInstance().register.STATUS.toString());
+                    textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
                     Platform.runLater(() -> tableFileContent.refresh());
                     Thread.sleep(500);
                 }
@@ -130,6 +133,13 @@ public class Controller {
 
     public void reset(ActionEvent actionEvent) {
         currentRow = 0;
+        memory.initializeMemory();
+        textFieldRegisterW.setText(memory.getRegisterW().toString());
+        textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
+        textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
+
+
+
         // TODO: Initialisere alles neu
     }
 
@@ -139,7 +149,7 @@ public class Controller {
     }
 
     public void close(ActionEvent actionEvent) {
-    Platform.exit();
+        Platform.exit();
     }
 
     public void toggleA0(ActionEvent actionEvent) {

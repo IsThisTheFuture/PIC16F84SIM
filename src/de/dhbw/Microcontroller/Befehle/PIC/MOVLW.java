@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
@@ -16,8 +17,13 @@ public class MOVLW extends Instruction {
     @Override
     public void execute(){
         byte k = (byte) argument;
-        cpu.register.w = k;
-        cpu.register.pc++;
+
+        memory.setRegisterW(k);
+        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
+
+
+        //cpu.register.w = k;
+        //cpu.register.pc++;
     }
 
     @Override

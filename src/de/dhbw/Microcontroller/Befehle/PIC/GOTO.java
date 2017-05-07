@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
@@ -15,6 +16,8 @@ public class GOTO extends Instruction {
     public void execute(){
         byte k = (byte) argument;
 
+
+        memory.setAddress(Const.PCL, k);
         // Program Counter setzen TODO Auf Korrektheit prüfen
         cpu.register.pc = k;
     }

@@ -8,11 +8,11 @@ package de.dhbw.Microcontroller;
 
 public class CPU {
     public Register register = new Register();
+
     private static final CPU emulator = new CPU();
 
     protected CPU() {}
 
-    // Runtime initialization - By default ThreadSafe
     public static CPU getInstance() {
         return emulator;
     }

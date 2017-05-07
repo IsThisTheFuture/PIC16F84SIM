@@ -1,6 +1,7 @@
 package de.dhbw.Microcontroller.Befehle;
-import de.dhbw.Microcontroller.CPU;
 
+import de.dhbw.Microcontroller.CPU;
+import de.dhbw.Microcontroller.Memory;
 
 public class Instruction {
     public int instruction; // HEX-Code für Opcode + Argumente
@@ -10,6 +11,8 @@ public class Instruction {
     public int argument2;
 
     protected CPU cpu = CPU.getInstance();
+    protected Memory memory = Memory.getInstance();
+    //protected Memory memory = new Memory();
 
     public Instruction(int instruction, int opcode){
         this.instruction = instruction;

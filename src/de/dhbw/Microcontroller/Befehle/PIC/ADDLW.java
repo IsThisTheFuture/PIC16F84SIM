@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
@@ -16,9 +17,13 @@ public class ADDLW extends Instruction {
     @Override
     public void execute(){
         byte k = (byte) argument;
+        memory.setRegisterW((byte) (memory.getRegisterW() + k));
+        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
-        cpu.register.w = (byte) (cpu.register.w + k);
-        cpu.register.pc++;
+
+
+        //cpu.register.w = (byte) (cpu.register.w + k);
+        //cpu.register.pc++;
     }
 
     @Override

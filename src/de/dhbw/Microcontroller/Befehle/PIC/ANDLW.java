@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 
@@ -18,12 +19,21 @@ public class ANDLW extends Instruction {
     public void execute(){
         byte k = (byte) argument;
 
+        memory.setRegisterW((byte) (memory.getRegisterW() & k));
+        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
+
+
+
+
 
         //TODO Prüfen ob das Ergebnis stimmt
-        cpu.register.w = (byte) (cpu.register.w & k);
+        //cpu.register.w = (byte) (cpu.register.w & k);
 
-        if (cpu.register.w == 0)
 
+
+
+
+        //if (cpu.register.w == 0)
         //else
             //TODO: Zero Bit 0 setzen
 
@@ -34,7 +44,7 @@ public class ANDLW extends Instruction {
                 Clear:
                 myByte &= ~(1 << bit);
          */
-        cpu.register.pc++;
+        //cpu.register.pc++;
     }
 
     @Override
