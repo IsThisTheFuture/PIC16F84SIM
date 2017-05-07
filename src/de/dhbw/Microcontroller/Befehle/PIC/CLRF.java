@@ -6,6 +6,7 @@ package de.dhbw.Microcontroller.Befehle.PIC;
  */
 
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 public class CLRF extends Instruction{
@@ -15,8 +16,13 @@ public class CLRF extends Instruction{
 
     @Override
     public void execute(){
+        byte f = (byte) argument;
+        argument = 0;
+        //memory.setRegisterW((byte) (memory.getRegisterW() ));
+        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
+
         //TODO: Speicher anlegen
-        cpu.register.pc++;
+        //cpu.register.pc++;
     }
 
     @Override

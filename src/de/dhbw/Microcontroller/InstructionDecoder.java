@@ -126,7 +126,8 @@ public class InstructionDecoder {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": BTFSS" + "  b: " + argument1 + "," + " f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": BTFSS" + "  b: " + argument1 + "," + " f: " + argument2);
+               // return new BTFSS(instruction,0x3800, 0x007F, argument1, argument2);
             }
 
 
@@ -151,7 +152,9 @@ public class InstructionDecoder {
                 argument2 = 0x007F & instruction;
 
                 System.out.println(String.format("%04X", instruction) + ": BSF" + "  b: " + argument1 + "," + " f: " + argument2);
+                //return new BFS(instruction,0x3E00, argument1);
             }
+
 
 
             //BCF (0001 00bb bfff ffff)

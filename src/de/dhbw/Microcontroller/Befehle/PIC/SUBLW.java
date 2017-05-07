@@ -17,7 +17,7 @@ public class SUBLW extends Instruction {
         public void execute(){
             byte k = (byte) argument;
 
-            memory.setRegisterW((byte) (k - memory.getRegisterW()));
+            memory.setRegisterW((byte) (memory.getRegisterW() & k));
             memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
 

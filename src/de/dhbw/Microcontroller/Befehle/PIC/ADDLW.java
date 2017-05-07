@@ -22,6 +22,7 @@ public class ADDLW extends Instruction {
 
 
 
+
         //cpu.register.w = (byte) (cpu.register.w + k);
         //cpu.register.pc++;
     }

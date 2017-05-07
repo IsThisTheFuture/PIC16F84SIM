@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
@@ -14,7 +15,8 @@ public class NOP extends Instruction {
 
         @Override
         public void execute(){
-                cpu.register.pc++;
+                memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
+                //cpu.register.pc++;
         }
 
         @Override

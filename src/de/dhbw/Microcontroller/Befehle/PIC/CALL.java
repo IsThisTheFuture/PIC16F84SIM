@@ -13,7 +13,8 @@ public class CALL extends Instruction {
 
     @Override
     public void execute(){
-        byte k = (byte) argument;
+        //
+        // byte k = (byte) argument;
 
         //TODO: Top of Stack = cpu.register.pc ++;
         //...

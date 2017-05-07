@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
@@ -14,10 +15,14 @@ public class ADDWF extends Instruction {
 
     @Override
     public void execute(){
-        byte k = (byte) argument2;
-        cpu.register.pc++;
-
+        byte f = (byte) argument2;
+        memory.setRegisterW((byte) (memory.getRegisterW() + f));
+        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
     }
+        //byte k = (byte) argument2;
+        //cpu.register.pc++;
+
+
 
     @Override
     public void displayDebugInfo()
