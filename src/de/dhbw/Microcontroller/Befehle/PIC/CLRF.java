@@ -17,12 +17,10 @@ public class CLRF extends Instruction{
     @Override
     public void execute(){
         byte f = (byte) argument;
-        argument = 0;
+        memory.setAddress(f, (byte) 0);
         //memory.setRegisterW((byte) (memory.getRegisterW() ));
         memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
-        //TODO: Speicher anlegen
-        //cpu.register.pc++;
     }
 
     @Override

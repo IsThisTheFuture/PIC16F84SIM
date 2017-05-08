@@ -12,7 +12,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 public class ANDLW extends Instruction {
 
     public ANDLW(int instruction, int opcode, int argument){
-        super(instruction, opcode, argument);
+        super(instruction, opcode,argument );
     }
 
     @Override
