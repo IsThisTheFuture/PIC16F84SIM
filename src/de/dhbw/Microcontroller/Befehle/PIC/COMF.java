@@ -20,9 +20,16 @@ public class COMF extends Instruction {
         byte f = (byte) argument1;
         byte d = (byte) argument2;
 
-        memory.setAddress(f, memory.getRegisterW());
 
-        memory.setAddress(memory.getRegisterW(), (byte) 0);
+        Byte fValue  = memory.getAddress(f);
+        fValue = (byte) (~ fValue & 0xFF);
+
+        if (d==0)
+            memory.setRegisterW(fValue);
+        else
+            memory.setAddress(f,fValue);
+
+
         memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
     }
