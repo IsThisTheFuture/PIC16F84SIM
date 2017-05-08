@@ -2,7 +2,7 @@ package de.dhbw.Microcontroller.Befehle.PIC;
 
 /*
  * Clear W
- * TODO: '0x00 -> W; 1 -> Z'
+ * '0x00 -> W; 1 -> Z'
  */
 
 import de.dhbw.Constants.Const;
