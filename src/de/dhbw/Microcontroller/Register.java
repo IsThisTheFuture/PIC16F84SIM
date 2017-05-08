@@ -23,7 +23,7 @@ public class Register {//extends CPU{
     // Der Datentyp byte ist Vorzeichenbehaftet. Um das zu Umgehen kann man "byte b = (byte) 0b11111111;" schreiben
 
     //          Register                                  Start- bzw. Reset-Wert
-    public Byte INDF    = (byte) 0b00000000;           // ---- ----
+    public Byte INDF    = (byte) 0b00000000;           // ----- ---
     public Byte TMR0    = (byte) 0b00000000;           // xxxx xxxx
     public Byte PCL     = (byte) 0b00000000;           // 0000 0000
     public Byte STATUS  = (byte) 0b00011000;           // 0001 1xxx

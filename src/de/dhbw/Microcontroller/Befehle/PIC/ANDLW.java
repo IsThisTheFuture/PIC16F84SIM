@@ -20,22 +20,22 @@ public class ANDLW extends Instruction {
         byte k = (byte) argument;
 
         memory.setRegisterW((byte) (memory.getRegisterW() & k));
+
+
+
+        //TODO: Prüfen!!
+        // CheckZero
+        Byte w = memory.getRegisterW();
+        Byte status = memory.getAddress(Const.STATUS);
+
+
+        if(w == 0)
+            status = (byte) (status | (1 << 2));
+        else
+            status = (byte) (status & ~(1 << 2));
+
+
         memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
-
-
-
-
-
-        //TODO Prüfen ob das Ergebnis stimmt
-        //cpu.register.w = (byte) (cpu.register.w & k);
-
-
-
-
-
-        //if (cpu.register.w == 0)
-        //else
-            //TODO: Zero Bit 0 setzen
 
         /*
                 Set:
