@@ -6,7 +6,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
  * AND literal (k) with W
- * TODO: 'w and k -> w; CheckZero'
+ * 'w and k -> w; CheckZero'
  */
 
 public class ANDLW extends Instruction {
@@ -21,18 +21,17 @@ public class ANDLW extends Instruction {
 
         memory.setRegisterW((byte) (memory.getRegisterW() & k));
 
-
-
         //TODO: Prüfen!!
         // CheckZero
         Byte w = memory.getRegisterW();
         Byte status = memory.getAddress(Const.STATUS);
 
-
         if(w == 0)
             status = (byte) (status | (1 << 2));
         else
             status = (byte) (status & ~(1 << 2));
+
+        memory.setAddress(Const.STATUS, status);
 
 
         memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));

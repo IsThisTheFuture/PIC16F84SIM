@@ -8,12 +8,12 @@ public class Memory {
     private Byte registerW;
 
     private Byte[] registers;
-    private Byte[] stack;
+
+    private int tos;
 
 
     protected Memory(){
         this.registers = new Byte[255]; // 0xFF
-        this.stack = new Byte[8];
         initializeMemory();
     }
 
@@ -54,7 +54,7 @@ public class Memory {
 
         registers[0]                = (byte) 0b11111111;
 
-        System.out.println(registers[0] & 0xFF);
+        //System.out.println(registers[0] & 0xFF);
 
         /*for (int i = 0; i < registers.length; i++)
         {
@@ -78,14 +78,6 @@ public class Memory {
 
     public void setRegisters(Byte[] registers){
         this.registers = registers;
-    }
-
-    public Byte[] getStack() {
-        return stack;
-    }
-
-    public void setStack(Byte[] stack) {
-        this.stack = stack;
     }
 
     public Byte getRegisterW() {

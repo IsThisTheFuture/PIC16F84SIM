@@ -20,7 +20,7 @@ public class CALL extends Instruction {
         //...
 
         //TODO: Prüfen
-        cpu.register.pc = (byte) argument;
+        //cpu.register.pc = (byte) argument;
 
     }
 

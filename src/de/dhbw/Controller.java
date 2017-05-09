@@ -46,6 +46,7 @@ public class Controller {
     private FileInputService fileInputService;
     private Integer opcodeList[];
     private int currentRow = 0;
+    private boolean isRunning = false;
 
 
     public void openFile(ActionEvent actionEvent) {
@@ -94,30 +95,32 @@ public class Controller {
             return;
         }
 
+        isRunning = true;
         Thread cpuThread = new Thread(() -> {
             try {
                 List<Instruction> instructionList = decoder.getInstructionList();
                 //System.out.println(instructionList.size());
-                for (int i = 0; i < instructionList.size(); i++) {
-                    currentRow = i;
-
-                    //memory.setRegisters(instructionList.get(i).execute());
 
 
-                    instructionList.get(i).execute();
-                    //instructionList.get(i).displayDebugInfo();
+                    for (int i = 0; i <= instructionList.size(); i++) {
+                        while(isRunning) {
+                        //currentRow = i;
 
-                    // TODO: ProgramCounter richtig behandeln
-                    //textFieldRegisterW.setText(CPU.getInstance().register.w.toString());
-                    textFieldRegisterW.setText(memory.getRegisterW().toString());
+                        // TODO: ProgramCounter richtig behandeln
+                        currentRow = memory.getAddress(Const.PCL);
+                        if (i != currentRow) i = currentRow;
 
-                    //textFieldPC.setText(String.format("%04x", CPU.getInstance().register.pc));
-                    textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
+                        instructionList.get(i).execute();
+                        //instructionList.get(i).displayDebugInfo();
 
-                    // textFieldStatus.setText(CPU.getInstance().register.STATUS.toString());
-                    textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
-                    Platform.runLater(() -> tableFileContent.refresh());
-                    Thread.sleep(500);
+                        System.out.println(memory.getRegisterW());
+                        textFieldRegisterW.setText(memory.getRegisterW().toString());
+                        textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
+                        textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
+                        Platform.runLater(() -> tableFileContent.refresh());
+                        Thread.sleep(500);
+
+                    }
                 }
             } catch (Exception e) {
                 System.err.println("Fehler in Methode run()");
@@ -132,6 +135,7 @@ public class Controller {
     }
 
     public void reset(ActionEvent actionEvent) {
+        isRunning = false;
         currentRow = 0;
         memory.initializeMemory();
         textFieldRegisterW.setText(memory.getRegisterW().toString());
@@ -144,6 +148,7 @@ public class Controller {
     }
 
     public void clear(ActionEvent actionEvent) {
+            isRunning = false;
             currentRow = 0;
             tableFileContent.getItems().clear();
     }

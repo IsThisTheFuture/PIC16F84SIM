@@ -2,6 +2,7 @@ package de.dhbw.Microcontroller.Befehle;
 
 import de.dhbw.Microcontroller.CPU;
 import de.dhbw.Microcontroller.Memory;
+import de.dhbw.Microcontroller.Stack;
 
 public class Instruction {
     public int instruction; // HEX-Code für Opcode + Argumente
@@ -10,9 +11,9 @@ public class Instruction {
     public int argument1;
     public int argument2;
 
-    protected CPU cpu = CPU.getInstance();
+    //protected CPU cpu = CPU.getInstance();
     protected Memory memory = Memory.getInstance();
-    //protected Memory memory = new Memory();
+    protected Stack stack = Stack.getInstance();
 
     public Instruction(int instruction, int opcode){
         this.instruction = instruction;

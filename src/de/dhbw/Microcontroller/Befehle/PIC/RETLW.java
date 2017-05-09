@@ -16,7 +16,7 @@ public class RETLW extends Instruction {
     public void execute(){
         byte k = (byte) argument;
 
-        cpu.register.w = k;
+        //cpu.register.w = k;
         //TODO: TOS -> PC
 
     }
