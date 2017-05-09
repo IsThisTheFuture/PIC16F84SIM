@@ -395,7 +395,6 @@ public class InstructionDecoder {
                 System.err.println("Fehler! Instruction " + String.format("%04X", instruction) + "wurde nicht erkannt");
                 return null;
             }
-
             return null;
     }
 }
