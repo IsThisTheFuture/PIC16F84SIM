@@ -19,15 +19,7 @@ public class ADDWF extends Instruction {
         memory.setRegisterW((byte) (memory.getRegisterW() + f));
 
         //TODO: Prüfen!!
-        // CheckZero
-        Byte w = memory.getRegisterW();
-        Byte status = memory.getAddress(Const.STATUS);
-
-
-        if(w == 0)
-            status = (byte) (status | (1 << 2));
-        else
-            status = (byte) (status & ~(1 << 2));
+        checkZeroFlag();
 
         memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
     }

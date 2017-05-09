@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.CPU;
 import de.dhbw.Microcontroller.Memory;
 import de.dhbw.Microcontroller.Stack;
@@ -36,6 +37,7 @@ public class Instruction {
     public void execute(){
         System.err.println("Dieser Befehl muss noch implementiert werden!");
         setZeroFlag();
+        checkZeroFlag();
     }
 
     public void displayDebugInfo(){
@@ -44,7 +46,20 @@ public class Instruction {
 
     public void setZeroFlag()
     {
+        byte status = memory.getAddress(Const.STATUS);
+        status = (byte) (status | (1<<2));
+        memory.setAddress(Const.STATUS, status);
+    }
 
+    public void checkZeroFlag()
+    {
+        Byte w = memory.getRegisterW();
+        Byte status = memory.getAddress(Const.STATUS);
+
+        if(w == 0)
+            status = (byte) (status | (1 << 2));
+        else
+            status = (byte) (status & ~(1 << 2));
     }
 
 }
