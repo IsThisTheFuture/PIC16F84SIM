@@ -30,6 +30,6 @@
                     00030             
                     00031           
                     00032  ende     
-0006 2805           00033           goto ende           ;Endlosschleife, verhindert Nirwana
+0006 2806           00033           goto ende           ;Endlosschleife, verhindert Nirwana
                     00034           
                     00035             
