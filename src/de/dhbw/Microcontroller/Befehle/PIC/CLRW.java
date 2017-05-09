@@ -2,7 +2,7 @@ package de.dhbw.Microcontroller.Befehle.PIC;
 
 /*
  * Clear W
- * TODO: '0x00 -> W; 1 -> Z'
+ * '0x00 -> W; 1 -> Z'
  */
 
 import de.dhbw.Constants.Const;
@@ -16,7 +16,12 @@ public class CLRW extends Instruction {
 
     @Override
     public void execute(){
-        memory.setAddress(memory.getRegisterW(), (byte) 0);
+        memory.setRegisterW( (byte) 0);
+
+        byte status = memory.getAddress(Const.STATUS);
+        status = (byte) (status | (1<<2));
+        memory.setAddress(Const.STATUS, status);
+
         memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
     }

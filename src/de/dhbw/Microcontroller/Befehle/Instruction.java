@@ -35,10 +35,16 @@ public class Instruction {
 
     public void execute(){
         System.err.println("Dieser Befehl muss noch implementiert werden!");
+        setZeroFlag();
     }
 
     public void displayDebugInfo(){
         System.err.println("Die Debug-Info für diesen Befehl muss noch implementiert werden!");
+    }
+
+    public void setZeroFlag()
+    {
+
     }
 
 }

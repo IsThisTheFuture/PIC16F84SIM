@@ -18,6 +18,18 @@ public class ADDLW extends Instruction {
     public void execute(){
         byte k = (byte) argument;
         memory.setRegisterW((byte) (memory.getRegisterW() + k));
+
+        //TODO: Prüfen!!
+        // CheckZero
+        Byte w = memory.getRegisterW();
+        Byte status = memory.getAddress(Const.STATUS);
+
+
+        if(w == 0)
+            status = (byte) (status | (1 << 2));
+        else
+            status = (byte) (status & ~(1 << 2));
+
         memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
 
