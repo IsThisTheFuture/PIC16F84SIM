@@ -36,8 +36,7 @@ public class Instruction {
 
     public void execute(){
         System.err.println("Dieser Befehl muss noch implementiert werden!");
-        setZeroFlag();
-        checkZeroFlag();
+
     }
 
     public void displayDebugInfo(){
@@ -51,7 +50,7 @@ public class Instruction {
         memory.setAddress(Const.STATUS, status);
     }
 
-    public void checkZeroFlag()
+    public void clearZeroFlag()
     {
         Byte w = memory.getRegisterW();
         Byte status = memory.getAddress(Const.STATUS);

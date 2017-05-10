@@ -19,7 +19,7 @@ public class ADDWF extends Instruction {
         memory.setRegisterW((byte) (memory.getRegisterW() + f));
 
         //TODO: Prüfen!!
-        checkZeroFlag();
+
 
         memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
     }

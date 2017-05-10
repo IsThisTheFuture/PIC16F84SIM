@@ -29,6 +29,8 @@ public class COMF extends Instruction {
         else
             memory.setAddress(f,fValue);
 
+
+
 //TODO: wenn d=0: Das Ergebnis-> W. f bleibt unverändert. d=1 Das Ergebnis -> f.
 
         memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
