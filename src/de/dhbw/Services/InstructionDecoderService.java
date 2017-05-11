@@ -1,4 +1,4 @@
-package de.dhbw.Microcontroller;
+package de.dhbw.Services;
 
 import de.dhbw.Microcontroller.Befehle.Instruction;
 import de.dhbw.Microcontroller.Befehle.PIC.*;
@@ -6,7 +6,7 @@ import de.dhbw.Microcontroller.Befehle.PIC.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InstructionDecoder {
+public class InstructionDecoderService {
     private int argument1 = 0;
     private int argument2 = 0;
 
