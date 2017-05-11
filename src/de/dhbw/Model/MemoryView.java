@@ -84,8 +84,6 @@ public class MemoryView {
         return memoryRow;
     }
 
-   // public void setMemoryRow(Integer memoryRow) {this.memoryRow = memoryRow;
-
     public void setMemoryRow (Integer memoryRow) {this.memoryRow = Integer.toHexString(memoryRow);
     }
 }
