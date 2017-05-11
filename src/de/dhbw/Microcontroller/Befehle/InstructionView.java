@@ -1,7 +1,7 @@
 package de.dhbw.Microcontroller.Befehle;
 
-/**
- * Created by tobi on 5/5/17.
+/*
+ * Model für die Anzeige des Assembler-Programmes in der GUI
  */
 public class InstructionView {
     private int zeilennummer;

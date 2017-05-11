@@ -5,9 +5,11 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 import de.dhbw.Microcontroller.Befehle.InstructionView;
 import de.dhbw.Microcontroller.InstructionDecoder;
 import de.dhbw.Microcontroller.Memory;
+import de.dhbw.Microcontroller.MemoryView;
 import de.dhbw.Services.FileInputService;
 
 
+import de.dhbw.Services.MemoryViewService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +32,26 @@ public class Controller {
     @FXML
     private TableColumn<InstructionView, String> tableColumnKommentar;
 
+    @FXML
+    private TableView<MemoryView> tableMemory;
+    @FXML
+    private TableColumn<MemoryView, String> tableColumnMemory00;
+    @FXML
+    private TableColumn<MemoryView, Byte> tableColumnMemory01;
+    @FXML
+    private TableColumn<MemoryView, Byte> tableColumnMemory02;
+    @FXML
+    private TableColumn<MemoryView, Byte> tableColumnMemory03;
+    @FXML
+    private TableColumn<MemoryView, Byte> tableColumnMemory04;
+    @FXML
+    private TableColumn<MemoryView, Byte> tableColumnMemory05;
+    @FXML
+    private TableColumn<MemoryView, Byte> tableColumnMemory06;
+    @FXML
+    private TableColumn<MemoryView, Byte> tableColumnMemory07;
+
+
 
     @FXML
     private TextField textFieldRegisterW = new TextField();
@@ -42,12 +64,32 @@ public class Controller {
 
     private Memory memory = Memory.getInstance();
     private List<InstructionView> instructions;
+    private List<MemoryView> memoryViewList;
     private InstructionDecoder decoder;
     private FileInputService fileInputService;
+    private MemoryViewService memoryViewService;
     private Integer opcodeList[];
     private int currentRow = 0;
     private boolean isRunning = false;
 
+    public Controller(){
+    }
+
+    public void updateMemoryView(){
+        memoryViewList = memoryViewService.getMemoryContent();
+
+        tableColumnMemory00.setCellValueFactory(new PropertyValueFactory<>("column0"));
+        tableColumnMemory01.setCellValueFactory(new PropertyValueFactory<>("column1"));
+        tableColumnMemory02.setCellValueFactory(new PropertyValueFactory<>("column2"));
+        tableColumnMemory03.setCellValueFactory(new PropertyValueFactory<>("column3"));
+        tableColumnMemory04.setCellValueFactory(new PropertyValueFactory<>("column4"));
+        tableColumnMemory05.setCellValueFactory(new PropertyValueFactory<>("column5"));
+        tableColumnMemory06.setCellValueFactory(new PropertyValueFactory<>("column6"));
+        tableColumnMemory07.setCellValueFactory(new PropertyValueFactory<>("column7"));
+
+        tableMemory.getColumns().addAll();
+
+    }
 
     public void openFile(ActionEvent actionEvent) {
         tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("zeilennummer"));
@@ -132,6 +174,9 @@ public class Controller {
     }
 
     public void next(ActionEvent actionEvent) {
+        //TODO: Dieser Inhalt steht hier nur zum Test. Bitte entfernen!!!!!
+        System.out.println("Updating MemoryView...");
+        updateMemoryView();
     }
 
     public void reset(ActionEvent actionEvent) {
@@ -208,6 +253,12 @@ public class Controller {
 
 
 
+    private MemoryViewService getMemoryViewService(){
+        if(memoryViewService == null) {
+            memoryViewService = new MemoryViewService();
+        }
+        return memoryViewService;
+    }
     private FileInputService getFileInputService() {
         if (fileInputService == null) {
             fileInputService = new FileInputService();
