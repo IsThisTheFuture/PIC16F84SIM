@@ -4,7 +4,7 @@ package de.dhbw.Model;
  *  Model für die Anzeige des Speichers in der GUI
  */
 public class MemoryView {
-    private Integer memoryRow;
+    private String memoryRow;
     private Byte column0;
     private Byte column1;
     private Byte column2;
@@ -13,6 +13,8 @@ public class MemoryView {
     private Byte column5;
     private Byte column6;
     private Byte column7;
+
+
 
     public Byte getColumn0() {
         return column0;
@@ -78,11 +80,12 @@ public class MemoryView {
         this.column7 = column7;
     }
 
-    public Integer getMemoryRow() {
+    public String getMemoryRow() {
         return memoryRow;
     }
 
-    public void setMemoryRow(Integer memoryRow) {
-        this.memoryRow = memoryRow;
+   // public void setMemoryRow(Integer memoryRow) {this.memoryRow = memoryRow;
+
+    public void setMemoryRow (Integer memoryRow) {this.memoryRow = Integer.toHexString(memoryRow);
     }
 }
