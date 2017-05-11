@@ -4,6 +4,7 @@ package de.dhbw.Microcontroller;
  *  Model für die Anzeige des Speichers in der GUI
  */
 public class MemoryView {
+    private Integer memoryRow;
     private Byte column0;
     private Byte column1;
     private Byte column2;
@@ -75,5 +76,13 @@ public class MemoryView {
 
     public void setColumn7(Byte column7) {
         this.column7 = column7;
+    }
+
+    public Integer getMemoryRow() {
+        return memoryRow;
+    }
+
+    public void setMemoryRow(Integer memoryRow) {
+        this.memoryRow = memoryRow;
     }
 }

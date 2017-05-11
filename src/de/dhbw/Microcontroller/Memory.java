@@ -9,11 +9,9 @@ public class Memory {
 
     private Byte[] registers;
 
-    private int tos;
-
 
     protected Memory(){
-        this.registers = new Byte[255]; // 0xFF
+        this.registers = new Byte[256];
         initializeMemory();
     }
 
@@ -52,7 +50,7 @@ public class Memory {
         registers[Const.EECON2]     = (byte) 0b00000000; // ---- ----
 
 
-        registers[0]                = (byte) 0b11111111;
+        //registers[0]                = (byte) 0b11111111;
 
         //System.out.println(registers[0] & 0xFF);
 

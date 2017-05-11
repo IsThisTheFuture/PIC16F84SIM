@@ -35,7 +35,9 @@ public class Controller {
     @FXML
     private TableView<MemoryView> tableMemory;
     @FXML
-    private TableColumn<MemoryView, String> tableColumnMemory00;
+    private TableColumn<MemoryView, Integer> tableColumnMemoryRow;
+    @FXML
+    private TableColumn<MemoryView, Byte> tableColumnMemory00;
     @FXML
     private TableColumn<MemoryView, Byte> tableColumnMemory01;
     @FXML
@@ -75,9 +77,8 @@ public class Controller {
     public Controller(){
     }
 
-    public void updateMemoryView(){
-        memoryViewList = memoryViewService.getMemoryContent();
-
+    public void initializeMemoryView(){
+        tableColumnMemoryRow.setCellValueFactory(new PropertyValueFactory<>("memoryRow"));
         tableColumnMemory00.setCellValueFactory(new PropertyValueFactory<>("column0"));
         tableColumnMemory01.setCellValueFactory(new PropertyValueFactory<>("column1"));
         tableColumnMemory02.setCellValueFactory(new PropertyValueFactory<>("column2"));
@@ -87,11 +88,21 @@ public class Controller {
         tableColumnMemory06.setCellValueFactory(new PropertyValueFactory<>("column6"));
         tableColumnMemory07.setCellValueFactory(new PropertyValueFactory<>("column7"));
 
-        tableMemory.getColumns().addAll();
 
+        if (memoryViewList != null) memoryViewList.clear();
+        memoryViewList = getMemoryViewService().getMemoryContent();
+
+        tableMemory.getItems().addAll(memoryViewList);
+    }
+
+    public void updateMemoryView(){
+        tableMemory.refresh();
     }
 
     public void openFile(ActionEvent actionEvent) {
+        initializeMemoryView();
+
+
         tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("zeilennummer"));
         tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("opcode"));
         tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("befehl"));
@@ -145,7 +156,7 @@ public class Controller {
 
 
                     for (int i = 0; i <= instructionList.size(); i++) {
-                        while(isRunning) {
+                        //while(isRunning) {
                         //currentRow = i;
 
                         // TODO: ProgramCounter richtig behandeln
@@ -160,9 +171,10 @@ public class Controller {
                         textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
                         textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
                         Platform.runLater(() -> tableFileContent.refresh());
+                        updateMemoryView();
                         Thread.sleep(500);
 
-                    }
+                    //}
                 }
             } catch (Exception e) {
                 System.err.println("Fehler in Methode run()");
