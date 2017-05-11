@@ -1,4 +1,4 @@
-package de.dhbw.Microcontroller;
+package de.dhbw.Model;
 
 /*
  *  Model für die Anzeige des Speichers in der GUI

@@ -1,6 +1,6 @@
 package de.dhbw.Services;
 
-import de.dhbw.Microcontroller.Befehle.InstructionView;
+import de.dhbw.Model.InstructionView;
 import javafx.stage.FileChooser;
 
 import java.io.*;

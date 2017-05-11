@@ -2,10 +2,10 @@ package de.dhbw;
 
 import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
-import de.dhbw.Microcontroller.Befehle.InstructionView;
+import de.dhbw.Model.InstructionView;
 import de.dhbw.Microcontroller.InstructionDecoder;
 import de.dhbw.Microcontroller.Memory;
-import de.dhbw.Microcontroller.MemoryView;
+import de.dhbw.Model.MemoryView;
 import de.dhbw.Services.FileInputService;
 
 
@@ -91,7 +91,6 @@ public class Controller {
 
         if (memoryViewList != null) memoryViewList.clear();
         memoryViewList = getMemoryViewService().getMemoryContent();
-
         tableMemory.getItems().addAll(memoryViewList);
     }
 

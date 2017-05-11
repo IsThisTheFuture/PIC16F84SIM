@@ -1,7 +1,7 @@
 package de.dhbw.Services;
 
 import de.dhbw.Microcontroller.Memory;
-import de.dhbw.Microcontroller.MemoryView;
+import de.dhbw.Model.MemoryView;
 
 import java.util.ArrayList;
 import java.util.List;

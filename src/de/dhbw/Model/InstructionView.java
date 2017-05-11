@@ -1,4 +1,4 @@
-package de.dhbw.Microcontroller.Befehle;
+package de.dhbw.Model;
 
 /*
  * Model für die Anzeige des Assembler-Programmes in der GUI
