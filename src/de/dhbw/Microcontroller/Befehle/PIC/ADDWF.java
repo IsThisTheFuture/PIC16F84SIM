@@ -15,19 +15,13 @@ public class ADDWF extends Instruction {
 
     @Override
     public void execute(){
+        byte d = (byte) argument1;
         byte f = (byte) argument2;
+
         memory.setRegisterW((byte) (memory.getRegisterW() + f));
 
         //TODO: Prüfen!!
-        // CheckZero
-        Byte w = memory.getRegisterW();
-        Byte status = memory.getAddress(Const.STATUS);
 
-
-        if(w == 0)
-            status = (byte) (status | (1 << 2));
-        else
-            status = (byte) (status & ~(1 << 2));
 
         memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
     }
@@ -39,6 +33,6 @@ public class ADDWF extends Instruction {
     @Override
     public void displayDebugInfo()
     {
-        System.out.println(String.format("%04X", instruction) + ": ADDWF" + "  f: " + argument2);
+        System.out.println(String.format("%04X", instruction) + ": ADDWF" + "  d: " + argument1 + "," + " f: " + argument2);
     }
 }

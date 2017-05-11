@@ -18,9 +18,7 @@ public class CLRW extends Instruction {
     public void execute(){
         memory.setRegisterW( (byte) 0);
 
-        byte status = memory.getAddress(Const.STATUS);
-        status = (byte) (status | (1<<2));
-        memory.setAddress(Const.STATUS, status);
+
 
         memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
