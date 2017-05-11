@@ -15,7 +15,9 @@ public class ADDWF extends Instruction {
 
     @Override
     public void execute(){
+        byte d = (byte) argument1;
         byte f = (byte) argument2;
+
         memory.setRegisterW((byte) (memory.getRegisterW() + f));
 
         //TODO: Prüfen!!
@@ -31,6 +33,6 @@ public class ADDWF extends Instruction {
     @Override
     public void displayDebugInfo()
     {
-        System.out.println(String.format("%04X", instruction) + ": ADDWF" + "  f: " + argument2);
+        System.out.println(String.format("%04X", instruction) + ": ADDWF" + "  d: " + argument1 + "," + " f: " + argument2);
     }
 }
