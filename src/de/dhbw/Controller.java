@@ -3,7 +3,7 @@ package de.dhbw;
 import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 import de.dhbw.Model.InstructionView;
-import de.dhbw.Microcontroller.InstructionDecoder;
+import de.dhbw.Services.InstructionDecoderService;
 import de.dhbw.Microcontroller.Memory;
 import de.dhbw.Model.MemoryView;
 import de.dhbw.Services.FileInputService;
@@ -18,9 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.List;
 
-
 public class Controller {
-
     @FXML
     private TableView<InstructionView> tableFileContent;
     @FXML
@@ -31,7 +29,6 @@ public class Controller {
     private TableColumn<InstructionView, String> tableColumnBefehl;
     @FXML
     private TableColumn<InstructionView, String> tableColumnKommentar;
-
     @FXML
     private TableView<MemoryView> tableMemory;
     @FXML
@@ -52,9 +49,6 @@ public class Controller {
     private TableColumn<MemoryView, Byte> tableColumnMemory06;
     @FXML
     private TableColumn<MemoryView, Byte> tableColumnMemory07;
-
-
-
     @FXML
     private TextField textFieldRegisterW = new TextField();
     @FXML
@@ -65,17 +59,21 @@ public class Controller {
 
 
     private Memory memory = Memory.getInstance();
-    private List<InstructionView> instructions;
+    private List<Instruction> instructionList;
+    private List<InstructionView> instructionViewList;
     private List<MemoryView> memoryViewList;
-    private InstructionDecoder decoder;
+    private InstructionDecoderService instructionDecoderService;
     private FileInputService fileInputService;
     private MemoryViewService memoryViewService;
     private Integer opcodeList[];
     private int currentRow = 0;
-    private boolean isRunning = false;
 
-    public Controller(){
+
+    public void initialize(){
+        initializeMemoryView();
+        initializeFileContentView();
     }
+
 
     public void initializeMemoryView(){
         tableColumnMemoryRow.setCellValueFactory(new PropertyValueFactory<>("memoryRow"));
@@ -88,29 +86,35 @@ public class Controller {
         tableColumnMemory06.setCellValueFactory(new PropertyValueFactory<>("column6"));
         tableColumnMemory07.setCellValueFactory(new PropertyValueFactory<>("column7"));
 
-
         if (memoryViewList != null) memoryViewList.clear();
         memoryViewList = getMemoryViewService().getMemoryContent();
         tableMemory.getItems().addAll(memoryViewList);
+    }
+
+    public void initializeFileContentView(){
+        tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("zeilennummer"));
+        tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("opcode"));
+        tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("befehl"));
+        tableColumnKommentar.setCellValueFactory(new PropertyValueFactory<>("comment"));
     }
 
     public void updateMemoryView(){
         tableMemory.refresh();
     }
 
+    public void updateTextfieldRegisters(){
+        textFieldRegisterW.setText(memory.getRegisterW().toString());
+        textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
+        textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
+        Platform.runLater(() -> tableFileContent.refresh());
+    }
+
+
     public void openFile(ActionEvent actionEvent) {
-        initializeMemoryView();
+        if (instructionViewList != null) instructionViewList.clear();
+        instructionViewList = getFileInputService().importLstFile();
 
-
-        tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("zeilennummer"));
-        tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("opcode"));
-        tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("befehl"));
-        tableColumnKommentar.setCellValueFactory(new PropertyValueFactory<>("comment"));
-
-        if (instructions != null) instructions.clear();
-        instructions = getFileInputService().importLstFile();
-
-        tableFileContent.getItems().addAll(instructions);
+        tableFileContent.getItems().addAll(instructionViewList);
         tableFileContent.setRowFactory(tv -> new TableRow<InstructionView>() {
             @Override
             public void updateItem(InstructionView item, boolean empty) {
@@ -126,38 +130,23 @@ public class Controller {
             }
         });
 
-
-        // Dekodiere eingelesene Instruktionen
-        opcodeList = new Integer[instructions.size()];
-
-        for (int i = 0; i < instructions.size(); i++)
+        opcodeList = new Integer[instructionViewList.size()];
+        for (int i = 0; i < instructionViewList.size(); i++)
         {
-            opcodeList[i] = Integer.parseInt(instructions.get(i).getOpcode(),16);
+            opcodeList[i] = Integer.parseInt(instructionViewList.get(i).getOpcode(),16);
         }
-
-        decoder = new InstructionDecoder();
-        decoder.decode(opcodeList);
+        instructionDecoderService = getInstructionDecoderService();
+        instructionDecoderService.decode(opcodeList);
     }
 
-    public void openDocumentation(ActionEvent actionEvent) {
-    }
 
     public void run(ActionEvent actionEvent) {
-        if (tableFileContent.getItems().isEmpty()) {
-            return;
-        }
+        if (tableFileContent.getItems().isEmpty()) {  return;  }
 
-        isRunning = true;
         Thread cpuThread = new Thread(() -> {
             try {
-                List<Instruction> instructionList = decoder.getInstructionList();
-                //System.out.println(instructionList.size());
-
-
+                instructionList = instructionDecoderService.getInstructionList();
                     for (int i = 0; i <= instructionList.size(); i++) {
-                        //while(isRunning) {
-                        //currentRow = i;
-
                         // TODO: ProgramCounter richtig behandeln
                         currentRow = memory.getAddress(Const.PCL);
                         if (i != currentRow) i = currentRow;
@@ -166,14 +155,10 @@ public class Controller {
                         //instructionList.get(i).displayDebugInfo();
 
                         System.out.println(memory.getRegisterW());
-                        textFieldRegisterW.setText(memory.getRegisterW().toString());
-                        textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
-                        textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
-                        Platform.runLater(() -> tableFileContent.refresh());
+
+                        updateTextfieldRegisters();
                         updateMemoryView();
                         Thread.sleep(500);
-
-                    //}
                 }
             } catch (Exception e) {
                 System.err.println("Fehler in Methode run()");
@@ -184,29 +169,21 @@ public class Controller {
         cpuThread.start();
     }
 
-    public void next(ActionEvent actionEvent) {
-        //TODO: Dieser Inhalt steht hier nur zum Test. Bitte entfernen!!!!!
-        System.out.println("Updating MemoryView...");
+    public void reset(ActionEvent actionEvent) {
+        currentRow = 0;
+        memory.initializeMemory();
+        updateTextfieldRegisters();
         updateMemoryView();
     }
 
-    public void reset(ActionEvent actionEvent) {
-        isRunning = false;
-        currentRow = 0;
-        memory.initializeMemory();
-        textFieldRegisterW.setText(memory.getRegisterW().toString());
-        textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
-        textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
-
-
-
-        // TODO: Initialisere alles neu
-    }
-
     public void clear(ActionEvent actionEvent) {
-            isRunning = false;
             currentRow = 0;
             tableFileContent.getItems().clear();
+    }
+
+    public void next(ActionEvent actionEvent) {}
+
+    public void openDocumentation(ActionEvent actionEvent) {
     }
 
     public void close(ActionEvent actionEvent) {
@@ -263,6 +240,12 @@ public class Controller {
 
 
 
+    private InstructionDecoderService getInstructionDecoderService(){
+        if(instructionDecoderService == null) {
+            instructionDecoderService = new InstructionDecoderService();
+        }
+        return instructionDecoderService;
+    }
 
     private MemoryViewService getMemoryViewService(){
         if(memoryViewService == null) {
@@ -270,6 +253,7 @@ public class Controller {
         }
         return memoryViewService;
     }
+
     private FileInputService getFileInputService() {
         if (fileInputService == null) {
             fileInputService = new FileInputService();
