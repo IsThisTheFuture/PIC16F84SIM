@@ -191,6 +191,7 @@ public class Controller {
     }
 
     public void toggleA0(ActionEvent actionEvent) {
+
     }
 
     public void toggleA1(ActionEvent actionEvent) {

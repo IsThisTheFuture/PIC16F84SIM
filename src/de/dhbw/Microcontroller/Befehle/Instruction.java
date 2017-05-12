@@ -12,7 +12,6 @@ public class Instruction {
     public int argument1;
     public int argument2;
 
-    //protected CPU cpu = CPU.getInstance();
     protected Memory memory = Memory.getInstance();
     protected Stack stack = Stack.getInstance();
 
@@ -36,11 +35,17 @@ public class Instruction {
 
     public void execute(){
         System.err.println("Dieser Befehl muss noch implementiert werden!");
-
     }
 
     public void displayDebugInfo(){
         System.err.println("Die Debug-Info für diesen Befehl muss noch implementiert werden!");
+    }
+
+    public boolean zeroFlagIsSet(){
+        Byte status = memory.getAddress(Const.STATUS);
+
+        if (((status >> 3) & 1) == 1)   return true;
+        else    return false;
     }
 
     public void setZeroFlag()
