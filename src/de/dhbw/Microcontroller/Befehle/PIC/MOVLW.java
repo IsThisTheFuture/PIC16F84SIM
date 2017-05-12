@@ -19,11 +19,9 @@ public class MOVLW extends Instruction {
         byte k = (byte) argument;
 
         memory.setRegisterW(k);
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
+        incrementProgramCounter();
 
-        //cpu.register.w = k;
-        //cpu.register.pc++;
     }
 
     @Override

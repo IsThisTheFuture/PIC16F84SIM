@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
@@ -13,15 +14,11 @@ public class CALL extends Instruction {
 
     @Override
     public void execute(){
-        //
-        // byte k = (byte) argument;
+        byte k = (byte) argument;
 
-        //TODO: Top of Stack = cpu.register.pc ++;
-        //...
-
-        //TODO: Prüfen
-        //cpu.register.pc = (byte) argument;
-
+        stack.push(memory.getAddress(Const.PCL+1));
+        // TODO: PCL, PC, PCLATH benutzen?
+        memory.setAddress(Const.PCL, k);
     }
 
     @Override

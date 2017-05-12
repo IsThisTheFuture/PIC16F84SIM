@@ -25,8 +25,7 @@ public class MOVF extends Instruction {
             memory.setRegisterW(fValue);
         else {}
 
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
-
+        incrementProgramCounter();
     }
 
     @Override

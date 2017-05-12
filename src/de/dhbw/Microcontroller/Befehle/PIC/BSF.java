@@ -19,11 +19,8 @@ public class BSF extends Instruction {
         int f = argument2;
 
         b = (byte) (b |(1 << (f-1))); //das bit f wird in b  auf 1 gesetzt
-        //memory.setRegisterW((byte) (memory.getRegisterW() ));
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
-        // cpu.register.pc++;
-
+        incrementProgramCounter();
     }
 
     @Override

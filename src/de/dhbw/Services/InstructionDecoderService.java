@@ -127,7 +127,7 @@ public class InstructionDecoderService {
                 argument2 = 0x007F & instruction;
 
                 //System.out.println(String.format("%04X", instruction) + ": BTFSS" + "  b: " + argument1 + "," + " f: " + argument2);
-               //return new BTFSS(instruction,0x3800, 0x007F, argument1, argument2);
+               return new BTFSS(instruction,0x1C00, argument1, argument2);
             }
 
 
@@ -139,7 +139,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": BTFSC" + "  b: " + argument1 + "," + " f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": BTFSC" + "  b: " + argument1 + "," + " f: " + argument2);
+                return new BTFSC(instruction, 0x1800, argument1, argument2);
             }
 
 
@@ -151,8 +152,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": BSF" + "  b: " + argument1 + "," + " f: " + argument2);
-                return new BSF(instruction,0x3E00, argument1, argument2);
+                //System.out.println(String.format("%04X", instruction) + ": BSF" + "  b: " + argument1 + "," + " f: " + argument2);
+                return new BSF(instruction,0x1400, argument1, argument2);
             }
 
 
@@ -177,7 +178,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": INCFSZ" + "  b: " + argument1 + "," + " f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": INCFSZ" + "  b: " + argument1 + "," + " f: " + argument2);
+                return new INCFSZ(instruction, 0x0F00, argument1, argument2);
             }
 
 
@@ -201,7 +203,7 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": RLF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": RLF" + "  d: " + argument1 + "," + "  f: " + argument2);
             }
 
 
@@ -225,7 +227,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": DECFSZ" + "  d: " + argument1 + "," + " f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": DECFSZ" + "  d: " + argument1 + "," + " f: " + argument2);
+                return new DECFSZ(instruction, 0x0B00, argument1, argument2);
             }
 
 
@@ -237,7 +240,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": INCF" + "  d: " + argument1 + "," + " f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": INCF" + "  d: " + argument1 + "," + " f: " + argument2);
+                return new INCF(instruction, 0x0A00, argument1, argument2);
             }
 
 
@@ -249,7 +253,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": COMF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": COMF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                return new COMF(instruction, 0x0900, argument1, argument2);
             }
 
 
@@ -261,7 +266,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": MOVF" + "  d: " + argument1 + "," + " f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": MOVF" + "  d: " + argument1 + "," + " f: " + argument2);
+                return new MOVF(instruction, 0x0800, argument1, argument2);
             }
 
 
@@ -287,7 +293,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": XORWF" + "  d:" + argument1 + "," + " f:" + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": XORWF" + "  d:" + argument1 + "," + " f:" + argument2);
+                return new XORWF(instruction, 0x0080, argument1, argument2);
             }
 
 
@@ -299,7 +306,8 @@ public class InstructionDecoderService {
                 //f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": ANDWF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": ANDWF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                return new ANDWF(instruction, 0x0500, argument1, argument2);
             }
 
 
@@ -311,7 +319,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": IORWF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": IORWF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                return new IORWF(instruction, 0x0400, argument1, argument2);
             }
 
 

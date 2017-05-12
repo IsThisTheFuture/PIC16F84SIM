@@ -26,8 +26,7 @@ public class INCF extends Instruction {
         else
             memory.setAddress(f, fValue);
 
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
-
+        incrementProgramCounter();
     }
 
     @Override

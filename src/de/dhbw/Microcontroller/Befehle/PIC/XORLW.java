@@ -20,9 +20,10 @@ public class XORLW extends Instruction {
         byte k = (byte) argument;
 
         memory.setRegisterW((byte) (memory.getRegisterW() ^ k));
-        if (memory.getRegisterW() == 0)     setZeroFlag();
+        if (memory.getRegisterW() == 0)
+            setZeroFlag();
 
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
+        incrementProgramCounter();
 
         //TODO Prüfen ob das Ergebnis stimmt
     }

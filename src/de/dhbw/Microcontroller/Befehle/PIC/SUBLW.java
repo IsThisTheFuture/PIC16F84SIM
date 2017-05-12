@@ -18,11 +18,7 @@ public class SUBLW extends Instruction {
             byte k = (byte) argument;
 
             memory.setRegisterW((byte) (k - memory.getRegisterW()));
-            memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
-
-
-            //cpu.register.w = (byte) (k - cpu.register.w);
-            //cpu.register.pc++;
+            incrementProgramCounter();
         }
 
     @Override

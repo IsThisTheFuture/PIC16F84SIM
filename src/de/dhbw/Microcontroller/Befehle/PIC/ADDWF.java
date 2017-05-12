@@ -20,15 +20,11 @@ public class ADDWF extends Instruction {
 
         memory.setRegisterW((byte) (memory.getRegisterW() + f));
 
-        //TODO: Prüfen!!
+        //TODO: Prüfen!! Ergebnis nicht in W speichern, sonder in d?
 
 
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
+        incrementProgramCounter();
     }
-        //byte k = (byte) argument2;
-        //cpu.register.pc++;
-
-
 
     @Override
     public void displayDebugInfo()

@@ -19,11 +19,10 @@ public class BCF extends Instruction {
         byte b = (byte) argument1;
         int f = argument2;
 
+        // TODO: Hier stimmt was nicht
         b = (byte) (b & ~(1 << (f-1))); //das bit f wird in b  auf 0 gesetzt
-        //memory.setRegisterW((byte) (memory.getRegisterW() ));
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
-
-       // cpu.register.pc++;
+        memory.setAddress(f, b);
+        incrementProgramCounter();
 
     }
 

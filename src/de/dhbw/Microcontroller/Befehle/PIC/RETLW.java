@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
@@ -16,9 +17,9 @@ public class RETLW extends Instruction {
     public void execute(){
         byte k = (byte) argument;
 
-        //cpu.register.w = k;
-        //TODO: TOS -> PC
+        memory.setRegisterW(k);
 
+        memory.setAddress(Const.PCL, stack.pop());
     }
 
     @Override

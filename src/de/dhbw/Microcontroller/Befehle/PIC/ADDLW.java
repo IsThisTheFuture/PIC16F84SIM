@@ -19,24 +19,13 @@ public class ADDLW extends Instruction {
         byte k = (byte) argument;
         memory.setRegisterW((byte) (memory.getRegisterW() + k));
 
-        //TODO: Prüfen!!
-        // CheckZero
         Byte w = memory.getRegisterW();
-        Byte status = memory.getAddress(Const.STATUS);
-
-
         if(w == 0)
-            status = (byte) (status | (1 << 2));
+            setZeroFlag();
         else
-            status = (byte) (status & ~(1 << 2));
+            clearZeroFlag();
 
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
-
-
-
-
-        //cpu.register.w = (byte) (cpu.register.w + k);
-        //cpu.register.pc++;
+        incrementProgramCounter();
     }
 
     @Override
@@ -44,5 +33,4 @@ public class ADDLW extends Instruction {
     {
         System.out.println(String.format("%04X", instruction) + ": ADDLW" + "  k: " + argument);
     }
-
 }

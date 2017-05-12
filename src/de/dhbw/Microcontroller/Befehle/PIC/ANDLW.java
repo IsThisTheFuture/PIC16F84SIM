@@ -22,28 +22,14 @@ public class ANDLW extends Instruction {
         memory.setRegisterW((byte) (memory.getRegisterW() & k));
 
         //TODO: Prüfen!!
-        // CheckZero
         Byte w = memory.getRegisterW();
-        Byte status = memory.getAddress(Const.STATUS);
 
         if(w == 0)
-            status = (byte) (status | (1 << 2));
+            setZeroFlag();
         else
-            status = (byte) (status & ~(1 << 2));
+            clearZeroFlag();
 
-        memory.setAddress(Const.STATUS, status);
-
-
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
-
-        /*
-                Set:
-                myByte |= 1 << bit;
-
-                Clear:
-                myByte &= ~(1 << bit);
-         */
-        //cpu.register.pc++;
+        incrementProgramCounter();
     }
 
     @Override

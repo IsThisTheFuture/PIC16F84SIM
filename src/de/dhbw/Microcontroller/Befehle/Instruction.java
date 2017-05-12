@@ -37,6 +37,11 @@ public class Instruction {
         System.err.println("Dieser Befehl muss noch implementiert werden!");
     }
 
+    public void incrementProgramCounter(){
+        // TODO: Richtig behandeln. Unterschied PC, PCL, PLATH?
+        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
+    }
+
     public void displayDebugInfo(){
         System.err.println("Die Debug-Info für diesen Befehl muss noch implementiert werden!");
     }
@@ -57,13 +62,9 @@ public class Instruction {
 
     public void clearZeroFlag()
     {
-        Byte w = memory.getRegisterW();
         Byte status = memory.getAddress(Const.STATUS);
-
-        if(w == 0)
-            status = (byte) (status | (1 << 2));
-        else
-            status = (byte) (status & ~(1 << 2));
+        status = (byte) (status & ~(1 << 2));
+        memory.setAddress(Const.STATUS, status);
     }
 
 }

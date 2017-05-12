@@ -18,9 +18,10 @@ public class CLRF extends Instruction{
     public void execute(){
         byte f = (byte) argument;
         memory.setAddress(f, (byte) 0);
-        //memory.setRegisterW((byte) (memory.getRegisterW() ));
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
+        setZeroFlag();
+
+        incrementProgramCounter();
     }
 
     @Override

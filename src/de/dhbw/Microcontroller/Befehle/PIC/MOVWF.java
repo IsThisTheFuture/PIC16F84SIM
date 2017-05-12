@@ -19,11 +19,8 @@ public class MOVWF extends Instruction {
         byte f = (byte) argument;
 
         memory.setAddress(f, memory.getRegisterW());
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
-        //TODO: Speicher.f = cpu.register.w
-       // cpu.register.pc++;
-
+        incrementProgramCounter();
     }
 
     @Override

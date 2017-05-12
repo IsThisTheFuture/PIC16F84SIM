@@ -21,15 +21,9 @@ public class BTFSC extends Instruction {
 
         b = (byte) (f &(1 << (b-1))); //das bit b in f wird verundet um zu prüfen was für ein wert dort steht
         if (b==0) {
-            //TODO: dann übergehen den nachfolgenden Befehl
         }
-        else {}
 
-        //memory.setRegisterW((byte) (memory.getRegisterW() ));
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
-
-        // cpu.register.pc++;
-
+        incrementProgramCounter();
     }
 
     @Override

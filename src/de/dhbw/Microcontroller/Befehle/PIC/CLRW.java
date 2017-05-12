@@ -18,10 +18,9 @@ public class CLRW extends Instruction {
     public void execute(){
         memory.setRegisterW( (byte) 0);
 
+        setZeroFlag();
 
-
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
-
+        incrementProgramCounter();
     }
 
     @Override

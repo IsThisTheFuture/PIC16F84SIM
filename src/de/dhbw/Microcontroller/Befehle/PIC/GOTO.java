@@ -17,17 +17,13 @@ public class GOTO extends Instruction {
     public void execute(){
         byte k = (byte) argument;
 
-
         memory.setAddress(Const.PCL, k);
         // Program Counter setzen TODO Auf Korrektheit prüfen
-        //cpu.register.pc = k;
     }
 
     @Override
     public void displayDebugInfo()
     {
         System.out.println(String.format("%04X", instruction) + ": GOTO" + "  k: " + argument);
-        //System.out.println("ProgramCounter neu gesetzt: " + cpu.register.pc);
-
     }
 }

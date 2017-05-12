@@ -5,7 +5,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
  * No Operation
- * TODO: Ein Zyklus aussetzen?
  */
 
 public class NOP extends Instruction {
@@ -15,8 +14,7 @@ public class NOP extends Instruction {
 
         @Override
         public void execute(){
-                memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
-                //cpu.register.pc++;
+        incrementProgramCounter();
         }
 
         @Override
