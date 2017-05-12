@@ -332,7 +332,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": DECF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": DECF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                return new DECF(instruction, 0x0300, argument1, argument2);
             }
 
 
@@ -344,7 +345,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": SUBWF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": SUBWF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                return new SUBWF(instruction, 0x200, argument1, argument2);
             }
 
 
@@ -358,7 +360,8 @@ public class InstructionDecoderService {
 
             //CLRW (0000 0001 0xxx xxxx)
             else if ((instruction & 0x0100) == 0x0100) {
-                System.out.println(String.format("%04X", instruction) + ": CLRW");
+                //System.out.println(String.format("%04X", instruction) + ": CLRW");
+                return new CLRW(instruction, 0x0100);
             }
 
 
@@ -374,6 +377,7 @@ public class InstructionDecoderService {
             //CLRWDT (0000 0000 0110 0100)
             else if ((instruction & 0x0064) == 0x0064) {
                 System.out.println(String.format("%04X", instruction) + ": CLRWDT");
+                //return new CLRWDT(instruction, 0x0064);
             }
 
 
