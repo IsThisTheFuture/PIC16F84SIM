@@ -50,11 +50,11 @@ public class Controller {
     @FXML
     private TableColumn<MemoryView, Byte> tableColumnMemory07;
     @FXML
-    private TextField textFieldRegisterW = new TextField();
+    private TextField textFieldRegisterW;
     @FXML
-    private TextField textFieldPC = new TextField();
+    private TextField textFieldPC;
     @FXML
-    private TextField textFieldStatus = new TextField();
+    private TextField textFieldStatus;
 
 
 
@@ -89,6 +89,7 @@ public class Controller {
         if (memoryViewList != null) memoryViewList.clear();
         memoryViewList = getMemoryViewService().getMemoryContent();
         tableMemory.getItems().addAll(memoryViewList);
+
     }
 
     public void initializeFileContentView(){
@@ -96,9 +97,15 @@ public class Controller {
         tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("opcode"));
         tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("befehl"));
         tableColumnKommentar.setCellValueFactory(new PropertyValueFactory<>("comment"));
+
     }
 
     public void updateMemoryView(){
+        tableMemory.getItems().clear();
+
+        if (memoryViewList != null) memoryViewList.clear();
+        memoryViewList = getMemoryViewService().getMemoryContent();
+        tableMemory.getItems().addAll(memoryViewList);
         tableMemory.refresh();
     }
 
@@ -154,9 +161,10 @@ public class Controller {
                         instructionList.get(i).execute();
                         //instructionList.get(i).displayDebugInfo();
 
-                        System.out.println(memory.getRegisterW());
+                        //System.out.println("W: " + memory.getRegisterW() + "   STATUS: " + memory.getAddress(Const.STATUS));
 
                         updateTextfieldRegisters();
+                        //initializeMemoryView();
                         updateMemoryView();
                         Thread.sleep(500);
                 }
