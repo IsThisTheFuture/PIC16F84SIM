@@ -19,6 +19,20 @@ public class Memory {
         return memory;
     }
 
+    //TODO: Lesen/Einsetzen des Wertes im Register A
+
+    public void readPortA ()
+    {
+       Byte AValue = memory.getAddress(Const.PORTA);
+       memory.setAddress(Const.PORTA, AValue);
+    }
+    // TODO: Lesen/Einsetzen des Wertes im Register A
+    public void readPortB ()
+    {
+        Byte BValue = memory.getAddress(Const.PORTB);
+        memory.setAddress(Const.PORTB, BValue);
+    }
+
     public void initializeMemory() {
         registerW = (byte) 0b00000000;
 
