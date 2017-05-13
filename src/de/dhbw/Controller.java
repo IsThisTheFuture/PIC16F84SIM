@@ -73,6 +73,18 @@ public class Controller {
         initializeMemoryView();
         initializeFileContentView();
     }
+    // TODO: Lesen/Einsetzen des Wertes im Register A
+    public void readPortA ()
+    {
+        Byte AValue = memory.getAddress(Const.PORTA);
+        memory.setAddress(Const.PORTA, AValue);
+    }
+    // TODO: Lesen/Einsetzen des Wertes im Register b
+    public void readPortB ()
+    {
+        Byte BValue = memory.getAddress(Const.PORTB);
+        memory.setAddress(Const.PORTB, BValue);
+    }
 
 
     public void initializeMemoryView(){
