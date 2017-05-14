@@ -1,6 +1,5 @@
 package de.dhbw;
 
-import de.dhbw.Microcontroller.Memory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

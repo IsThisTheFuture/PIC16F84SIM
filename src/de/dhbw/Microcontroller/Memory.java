@@ -6,9 +6,7 @@ public class Memory {
     private static final Memory memory = new Memory();
 
     private Byte registerW;
-
     private Byte[] registers;
-
 
     protected Memory(){
         this.registers = new Byte[256];
@@ -18,10 +16,6 @@ public class Memory {
     public static Memory getInstance() {
         return memory;
     }
-
-    //TODO: Lesen/Einsetzen des Wertes im Register A
-
-
 
     public void initializeMemory() {
         registerW = (byte) 0b00000000;
@@ -41,7 +35,6 @@ public class Memory {
         registers[Const.STATUS]     = (byte) 0b00011000; // 0001 1xxx
         registers[Const.FSR]        = (byte) 0b00000000; // xxxx xxxx
         registers[Const.PORTA]      = (byte) 0b00000000; // ---x xxxx
-        registers[Const.PORTB]      = (byte) 0b00000000; // xxxx xxxx
         registers[Const.PORTB]      = (byte) 0b00000000; // xxxx xxxx
         registers[Const.EEDATA]     = (byte) 0b00000000; // xxxx xxxx
         registers[Const.EEADR]      = (byte) 0b00000000; // xxxx xxxx

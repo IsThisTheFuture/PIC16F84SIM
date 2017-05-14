@@ -13,10 +13,7 @@ public class MemoryView {
     private Byte column5;
     private Byte column6;
     private Byte column7;
-    private Byte textFieldRegisterA7;
 
-
-    public Byte textFieldRegisterA7 () {return textFieldRegisterA7;}
 
     public Byte getColumn0() {
         return column0;

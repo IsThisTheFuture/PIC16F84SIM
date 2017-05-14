@@ -14,7 +14,7 @@
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.Controller">
+<AnchorPane prefHeight="1000.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.Controller">
     <children>
         <MenuBar prefHeight="17.0" prefWidth="600.0" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
@@ -104,8 +104,8 @@
                                     <TextField fx:id="textFieldR4gisterA4" layoutX="144.0" layoutY="27.0" onAction="#toggleA4" prefHeight="25.0" prefWidth="23.0" text="0" />
                                     <TextField fx:id="textFieldRegisterA3" layoutX="165.0" layoutY="27.0" onAction="#toggleA3" prefHeight="25.0" prefWidth="23.0" text="0" />
                                     <TextField fx:id="textFieldRegisterA2" layoutX="188.0" layoutY="27.0" onAction="#toggleA2" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterA1" layoutX="209.0" layoutY="27.0" onAction="#toggleA1" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterA0" layoutX="232.0" layoutY="27.0" onAction="#toggleA0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterA1" layoutX="209.0" layoutY="27.0" onMouseClicked="#toggleA1" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterA0" layoutX="232.0" layoutY="27.0" onMouseClicked="#toggleA0" prefHeight="25.0" prefWidth="23.0" text="0" />
                                     <TextField layoutX="79.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
                                     <TextField layoutX="101.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
                                     <TextField layoutX="123.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />

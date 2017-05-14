@@ -12,6 +12,7 @@ import de.dhbw.Services.FileInputService;
 import de.dhbw.Services.MemoryViewService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -56,6 +57,24 @@ public class Controller {
     @FXML
     private TextField textFieldStatus;
 
+    @FXML
+    private TextField textFieldRegisterA7;
+    @FXML
+    private TextField textFieldRegisterA6;
+    @FXML
+    private TextField textFieldRegisterA5;
+    @FXML
+    private TextField textFieldRegisterA4;
+    @FXML
+    private TextField textFieldRegisterA3;
+    @FXML
+    private TextField textFieldRegisterA2;
+    @FXML
+    private TextField textFieldRegisterA1;
+    @FXML
+    private TextField textFieldRegisterA0;
+
+
 
 
     private Memory memory = Memory.getInstance();
@@ -72,18 +91,24 @@ public class Controller {
     public void initialize(){
         initializeMemoryView();
         initializeFileContentView();
+        initializeTextfieldRegisters();
     }
+
+
     // TODO: Lesen/Einsetzen des Wertes im Register A
     public void readPortA ()
     {
-        Byte AValue = memory.getAddress(Const.PORTA);
-        memory.setAddress(Const.PORTA, AValue);
     }
     // TODO: Lesen/Einsetzen des Wertes im Register b
     public void readPortB ()
     {
-        Byte BValue = memory.getAddress(Const.PORTB);
-        memory.setAddress(Const.PORTB, BValue);
+    }
+
+
+    public void initializeTextfieldRegisters(){
+        textFieldRegisterW.setText(memory.getRegisterW().toString());
+        textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
+        textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
     }
 
 
@@ -125,7 +150,10 @@ public class Controller {
         textFieldRegisterW.setText(memory.getRegisterW().toString());
         textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
         textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
-        Platform.runLater(() -> tableFileContent.refresh());
+        //Platform.runLater(() -> tableFileContent.refresh());
+    }
+
+    public void updateTextfieldRegisterAB(){
     }
 
 
@@ -175,6 +203,7 @@ public class Controller {
 
                         //System.out.println("W: " + memory.getRegisterW() + "   STATUS: " + memory.getAddress(Const.STATUS));
 
+                        Platform.runLater(() -> tableFileContent.refresh());
                         updateTextfieldRegisters();
                         //initializeMemoryView();
                         updateMemoryView();
@@ -210,11 +239,52 @@ public class Controller {
         Platform.exit();
     }
 
-    public void toggleA0(ActionEvent actionEvent) {
 
+    public byte getBit(byte b, int position)
+    {
+        return (byte) ((b >> position) & 1);
     }
 
-    public void toggleA1(ActionEvent actionEvent) {
+    public void toggleBit(int bitPosition, int address){
+        Byte b = memory.getAddress(address);
+
+        // Wenn das Bit an der Stelle bitPosition 0 ist, dann... sonst...
+        if(getBit(memory.getAddress(address), bitPosition) == 0){
+            // Bit auf 1 setzen
+            b = (byte) (b | (1 << (bitPosition)));
+        } else {
+            // Bit auf 0 setzen
+            b = (byte) (b & ~(1 << (bitPosition)));
+        }
+        memory.setAddress(address, b);
+    }
+
+    public void toggleA0(Event clickEvent) {
+        toggleBit(0, Const.PORTA);
+
+        if (getBit(memory.getAddress(Const.PORTA), 0) == 0)
+        {
+            textFieldRegisterA0.setText("0");
+        } else {
+            textFieldRegisterA0.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
+    }
+
+    public void toggleA1(Event clickEvent) {
+        toggleBit(1, Const.PORTA);
+
+        if (getBit(memory.getAddress(Const.PORTA), 1) == 0)
+        {
+            textFieldRegisterA1.setText("0");
+        } else {
+            textFieldRegisterA1.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
     public void toggleA2(ActionEvent actionEvent) {
