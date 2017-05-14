@@ -16,7 +16,7 @@ public class MOVWF extends Instruction {
 
     @Override
     public void execute(){
-        byte f = (byte) argument;
+        int f = argument;
 
         memory.setAddress(f, memory.getRegisterW());
 

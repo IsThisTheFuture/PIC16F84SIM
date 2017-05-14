@@ -15,7 +15,7 @@ public class GOTO extends Instruction {
 
     @Override
     public void execute(){
-        byte k = (byte) argument;
+        int k = argument;
 
         memory.setAddress(Const.PCL, k);
         // Program Counter setzen TODO Auf Korrektheit prüfen

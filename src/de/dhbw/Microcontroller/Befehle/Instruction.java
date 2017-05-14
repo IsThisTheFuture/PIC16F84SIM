@@ -1,7 +1,6 @@
 package de.dhbw.Microcontroller.Befehle;
 
 import de.dhbw.Constants.Const;
-import de.dhbw.Microcontroller.CPU;
 import de.dhbw.Microcontroller.Memory;
 import de.dhbw.Microcontroller.Stack;
 
@@ -39,43 +38,36 @@ public class Instruction {
 
     public void incrementProgramCounter(){
         // TODO: Richtig behandeln. Unterschied PC, PCL, PLATH?
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
+        memory.setAddress(Const.PCL, (memory.getAddress(Const.PCL) + 1));
     }
 
     public void displayDebugInfo(){
         System.err.println("Die Debug-Info für diesen Befehl muss noch implementiert werden!");
     }
 
-    public boolean zeroFlagIsSet(){
-        Byte status = memory.getAddress(Const.STATUS);
-
-        if (((status >> 3) & 1) == 1)   return true;
-        else    return false;
-    }
-
     public void setZeroFlag()
     {
-        byte status = memory.getAddress(Const.STATUS);
-        status = (byte) (status | (1<<2));
+        int status = memory.getAddress(Const.STATUS);
+        status = (status | (1<<2));
         memory.setAddress(Const.STATUS, status);
     }
 
     public void clearZeroFlag()
     {
-        Byte status = memory.getAddress(Const.STATUS);
-        status = (byte) (status & ~(1 << 2));
+        int status = memory.getAddress(Const.STATUS);
+        status = (status & ~(1 << 2));
         memory.setAddress(Const.STATUS, status);
     }
 
     public void setCarryFlag(){
-        byte status = (byte) memory.getAddress(Const.STATUS);
-        status = (byte) (status | (1<<0));
+        int status =  memory.getAddress(Const.STATUS);
+        status = (status | (1<<0));
         memory.setAddress(Const.STATUS, status);
     }
 
     public void clearCarryFlag(){
-        byte status = (byte) memory.getAddress(Const.STATUS);
-        status = (byte) (status & ~(1 << 0));
+        int status = memory.getAddress(Const.STATUS);
+        status = (status & ~(1 << 0));
         memory.setAddress(Const.STATUS, status);
     }
 

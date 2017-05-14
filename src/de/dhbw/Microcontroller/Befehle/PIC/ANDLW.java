@@ -17,12 +17,12 @@ public class ANDLW extends Instruction {
 
     @Override
     public void execute(){
-        byte k = (byte) argument;
+        int k = argument;
 
-        memory.setRegisterW((byte) (memory.getRegisterW() & k));
+        memory.setRegisterW((memory.getRegisterW() & k));
 
         //TODO: Prüfen!!
-        Byte w = memory.getRegisterW();
+        int w = memory.getRegisterW();
 
         if(w == 0)
             setZeroFlag();

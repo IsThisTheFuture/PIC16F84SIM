@@ -15,10 +15,10 @@ public class ADDWF extends Instruction {
 
     @Override
     public void execute(){
-        byte d = (byte) argument1;
-        byte f = (byte) argument2;
+        int d = argument1;
+        int f = argument2;
 
-        memory.setRegisterW((byte) (memory.getRegisterW() + f));
+        memory.setRegisterW(memory.getRegisterW() + f);
 
         //TODO: Prüfen!! Ergebnis nicht in W speichern, sonder in d?
 

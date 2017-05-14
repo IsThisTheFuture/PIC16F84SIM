@@ -16,14 +16,16 @@ public class BCF extends Instruction {
 
     @Override
     public void execute(){
-        byte b = (byte) argument1;
+        int b = argument1;
         int f = argument2;
 
-        // TODO: Hier stimmt was nicht
-        b = (byte) (b & ~(1 << (f-1))); //das bit f wird in b  auf 0 gesetzt
-        memory.setAddress(f, b);
-        incrementProgramCounter();
+        int fValue = memory.getAddress(f);
+        fValue = (fValue & ~(1 << (b-1))); //das bit b wird in f  auf 0 gesetzt
 
+        memory.setAddress(f, fValue);
+
+
+        incrementProgramCounter();
     }
 
     @Override

@@ -35,21 +35,21 @@ public class Controller {
     @FXML
     private TableColumn<MemoryView, Integer> tableColumnMemoryRow;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory00;
+    private TableColumn<MemoryView, Integer> tableColumnMemory00;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory01;
+    private TableColumn<MemoryView, Integer> tableColumnMemory01;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory02;
+    private TableColumn<MemoryView, Integer> tableColumnMemory02;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory03;
+    private TableColumn<MemoryView, Integer> tableColumnMemory03;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory04;
+    private TableColumn<MemoryView, Integer> tableColumnMemory04;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory05;
+    private TableColumn<MemoryView, Integer> tableColumnMemory05;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory06;
+    private TableColumn<MemoryView, Integer> tableColumnMemory06;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory07;
+    private TableColumn<MemoryView, Integer> tableColumnMemory07;
     @FXML
     private TextField textFieldRegisterW;
     @FXML
@@ -240,21 +240,21 @@ public class Controller {
     }
 
 
-    public byte getBit(byte b, int position)
+    public int getBit(int b, int position)
     {
-        return (byte) ((b >> position) & 1);
+        return ((b >> position) & 1);
     }
 
     public void toggleBit(int bitPosition, int address){
-        Byte b = memory.getAddress(address);
+        int b = memory.getAddress(address);
 
         // Wenn das Bit an der Stelle bitPosition 0 ist, dann... sonst...
         if(getBit(memory.getAddress(address), bitPosition) == 0){
             // Bit auf 1 setzen
-            b = (byte) (b | (1 << (bitPosition)));
+            b = (b | (1 << (bitPosition)));
         } else {
             // Bit auf 0 setzen
-            b = (byte) (b & ~(1 << (bitPosition)));
+            b = (b & ~(1 << (bitPosition)));
         }
         memory.setAddress(address, b);
     }

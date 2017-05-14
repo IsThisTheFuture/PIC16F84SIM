@@ -18,8 +18,8 @@ public class DECFSZ extends Instruction {
         byte d = (byte) argument1;
         byte f = (byte) argument2;
 
-        Byte fValue  = memory.getAddress(f);
-        fValue = (byte) ((~ fValue & 0xFF)-1);
+        int fValue  = memory.getAddress(f);
+        fValue = (fValue - 1);
 
         if (fValue==0) {
             //TODO: dann wird der nächste Befehl im Programm übersprungen, und mit dem übernächsten weitergebacht.
@@ -30,8 +30,8 @@ public class DECFSZ extends Instruction {
              else
                 memory.setAddress(f, fValue);
         }
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
+        incrementProgramCounter();
     }
 
     @Override

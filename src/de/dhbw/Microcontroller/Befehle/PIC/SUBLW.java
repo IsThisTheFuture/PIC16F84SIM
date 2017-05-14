@@ -23,7 +23,7 @@ public class SUBLW extends Instruction {
 
         @Override
         public void execute(){
-            byte k = (byte) argument;
+            int k = argument;
 
             // TODO: Wann müssen wir das Zerobit prüfen? Vor der Rechnung mit if(w == k) oder nach der Rechnung mit if(w==0)?
             if(k == memory.getRegisterW())
@@ -31,7 +31,7 @@ public class SUBLW extends Instruction {
             else
                 clearZeroFlag();
 
-            memory.setRegisterW((byte) (k - memory.getRegisterW()));
+            memory.setRegisterW(k - memory.getRegisterW());
 
             // CarryBit setzen
             if(memory.getRegisterW() > k)

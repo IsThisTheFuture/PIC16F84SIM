@@ -5,11 +5,11 @@ public class Memory {
 
     private static final Memory memory = new Memory();
 
-    private Byte registerW;
-    private Byte[] registers;
+    private Integer registerW;
+    private Integer[] registers;
 
     protected Memory(){
-        this.registers = new Byte[256];
+        this.registers = new Integer[256];
         initializeMemory();
     }
 
@@ -18,10 +18,10 @@ public class Memory {
     }
 
     public void initializeMemory() {
-        registerW = (byte) 0b00000000;
+        registerW =  0b00000000;
 
         for (int i = 0; i < registers.length; i++){
-            registers[i] = (byte) 0b00000000;
+            registers[i] = 0b00000000;
         }
 
         /*
@@ -30,21 +30,21 @@ public class Memory {
          */
 
                                                          // Start- bzw. Reset-Wert
-        registers[Const.TMR0]       = (byte) 0b00000000; // xxxx xxxx
-        registers[Const.PCL]        = (byte) 0b00000000; // 0000 0000
-        registers[Const.STATUS]     = (byte) 0b00011000; // 0001 1xxx
-        registers[Const.FSR]        = (byte) 0b00000000; // xxxx xxxx
-        registers[Const.PORTA]      = (byte) 0b00000000; // ---x xxxx
-        registers[Const.PORTB]      = (byte) 0b00000000; // xxxx xxxx
-        registers[Const.EEDATA]     = (byte) 0b00000000; // xxxx xxxx
-        registers[Const.EEADR]      = (byte) 0b00000000; // xxxx xxxx
-        registers[Const.PCLATH]     = (byte) 0b00000000; // ---0 0000
-        registers[Const.INTCON]     = (byte) 0b00000000; // 0000 000x
-        registers[Const.OPTION_REG] = (byte) 0b11111111; // 1111 1111
-        registers[Const.TRISA]      = (byte) 0b11111111; // ---1 1111
-        registers[Const.TRISB]      = (byte) 0b11111111; // 1111 1111
-        registers[Const.EECON1]     = (byte) 0b00000000; // ---0 x000
-        registers[Const.EECON2]     = (byte) 0b00000000; // ---- ----
+        registers[Const.TMR0]       = 0b00000000; // xxxx xxxx
+        registers[Const.PCL]        = 0b00000000; // 0000 0000
+        registers[Const.STATUS]     = 0b00011000; // 0001 1xxx
+        registers[Const.FSR]        = 0b00000000; // xxxx xxxx
+        registers[Const.PORTA]      = 0b00000000; // ---x xxxx
+        registers[Const.PORTB]      = 0b00000000; // xxxx xxxx
+        registers[Const.EEDATA]     = 0b00000000; // xxxx xxxx
+        registers[Const.EEADR]      = 0b00000000; // xxxx xxxx
+        registers[Const.PCLATH]     = 0b00000000; // ---0 0000
+        registers[Const.INTCON]     = 0b00000000; // 0000 000x
+        registers[Const.OPTION_REG] = 0b11111111; // 1111 1111
+        registers[Const.TRISA]      = 0b11111111; // ---1 1111
+        registers[Const.TRISB]      = 0b11111111; // 1111 1111
+        registers[Const.EECON1]     = 0b00000000; // ---0 x000
+        registers[Const.EECON2]     = 0b00000000; // ---- ----
 
 
         //registers[0]                = (byte) 0b11111111;
@@ -59,27 +59,27 @@ public class Memory {
     }
 
 
-    public void setAddress(int address, byte value){
+    public void setAddress(int address, int value){
         this.registers[address] = value;
     }
 
-    public byte getAddress(int address){
+    public Integer getAddress(int address){
         return registers[address];
     }
 
-    public Byte[] getRegisters(){
+    public Integer[] getRegisters(){
         return registers;
     }
 
-    public void setRegisters(Byte[] registers){
+    public void setRegisters(Integer[] registers){
         this.registers = registers;
     }
 
-    public Byte getRegisterW() {
+    public Integer getRegisterW() {
         return registerW;
     }
 
-    public void setRegisterW(Byte registerW) {
+    public void setRegisterW(int registerW) {
         this.registerW = registerW;
     }
 }

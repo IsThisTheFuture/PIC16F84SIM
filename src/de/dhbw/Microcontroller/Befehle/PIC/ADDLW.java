@@ -16,10 +16,10 @@ public class ADDLW extends Instruction {
 
     @Override
     public void execute(){
-        byte k = (byte) argument;
-        memory.setRegisterW((byte) (memory.getRegisterW() + k));
+        int k = argument;
+        memory.setRegisterW(memory.getRegisterW() + k);
 
-        Byte w = memory.getRegisterW();
+        int w = memory.getRegisterW();
         if(w == 0)
             setZeroFlag();
         else

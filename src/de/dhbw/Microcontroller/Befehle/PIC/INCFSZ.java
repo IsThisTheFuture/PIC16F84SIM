@@ -15,11 +15,13 @@ public class INCFSZ extends Instruction {
 
     @Override
     public void execute(){
-        byte d = (byte) argument1;
-        byte f = (byte) argument2;
+        int d = argument1;
+        int f = argument2;
 
-        Byte fValue  = memory.getAddress(f);
-        fValue = (byte) ((~ fValue & 0xFF)+1);
+        int fValue  = memory.getAddress(f);
+
+        //TODO: Ist das  & 0xFF wegen des alten datentyp byte hier stehen geblieben?
+        fValue = fValue + 1;
 
         if (fValue==0) {
             //TODO: dann wird der nächste Befehl im Programm übersprungen, und mit dem übernächsten weitergebacht.
@@ -30,8 +32,8 @@ public class INCFSZ extends Instruction {
             else
                 memory.setAddress(f, fValue);
         }
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
+        incrementProgramCounter();
     }
 
     @Override

@@ -15,11 +15,11 @@ public class ANDWF extends Instruction {
 
     @Override
     public void execute() {
-        byte f = (byte) argument1;
+        int f = argument1;
 
-        memory.setRegisterW((byte) (memory.getRegisterW() + f));
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
+        memory.setRegisterW(memory.getRegisterW() + f);
 
+        incrementProgramCounter();
     }
 
         @Override

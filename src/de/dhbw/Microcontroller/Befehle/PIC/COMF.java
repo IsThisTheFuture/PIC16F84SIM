@@ -1,6 +1,5 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
-import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
@@ -17,12 +16,12 @@ public class COMF extends Instruction {
 
     @Override
     public void execute(){
-        byte d = (byte) argument1;
-        byte f = (byte) argument2;
+        int d = argument1;
+        int f = argument2;
 
 
-        Byte fValue  = memory.getAddress(f);
-        fValue = (byte) (~ fValue & 0xFF);
+        int fValue  = memory.getAddress(f);
+        fValue = ~fValue;
 
         if (d==0)
             memory.setRegisterW(fValue);
@@ -31,10 +30,9 @@ public class COMF extends Instruction {
 
 
 
-//TODO: wenn d=0: Das Ergebnis-> W. f bleibt unverändert. d=1 Das Ergebnis -> f.
+        //TODO: wenn d=0: Das Ergebnis-> W. f bleibt unverändert. d=1 Das Ergebnis -> f.
 
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
-
+        incrementProgramCounter();
     }
 
     @Override

@@ -15,11 +15,11 @@ public class MOVF extends Instruction {
 
     @Override
     public void execute(){
-        byte d = (byte) argument1;
-        byte f = (byte) argument2;
+        int d = argument1;
+        int f = argument2;
 
-        Byte fValue  = memory.getAddress(f);
-        fValue = (byte) (~ fValue & 0xFF);
+        int fValue  = memory.getAddress(f);
+        fValue = (~ fValue & 0xFF);
 
         if (d == 0)
             memory.setRegisterW(fValue);

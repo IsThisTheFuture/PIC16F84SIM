@@ -14,7 +14,7 @@ public class CALL extends Instruction {
 
     @Override
     public void execute(){
-        byte k = (byte) argument;
+        int k = argument;
 
         stack.push(memory.getAddress(Const.PCL+1));
         // TODO: PCL, PC, PCLATH benutzen?
