@@ -15,10 +15,10 @@ public class INCF extends Instruction {
 
     @Override
     public void execute(){
-        byte d = (byte) argument1;
-        byte f = (byte) argument2;
+        int d = (byte) argument1;
+        int f = (byte) argument2;
 
-        Byte fValue  = memory.getAddress(f);
+        int fValue  = memory.getAddress(f);
         fValue = (byte) ((~ fValue & 0xFF)+1);
 
         if (d == 0)

@@ -15,20 +15,17 @@ public class BTFSS extends Instruction {
 
     @Override
     public void execute(){
-        byte f = (byte) argument1;
+        int f = argument1;
         int b = argument2;
 
-        b = (byte) (f &(1 << (b-1))); //das bit b in f wird verundet um zu prüfen was für ein wert dort steht
+        b = (f &(1 << (b-1))); //das bit b in f wird verundet um zu prüfen was für ein wert dort steht
         if (b==1) {
-            //TODO: dann übergehen den nachfolgenden Befehl
         }
-        else {}
+        else {
 
-        //memory.setRegisterW((byte) (memory.getRegisterW() ));
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
+        }
 
-        // cpu.register.pc++;
-
+        incrementProgramCounter();
     }
 
     @Override

@@ -7,6 +7,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Inclusive OR W with f
  * TODO: ->	'w or f -> d; CheckZero'
  */
+
 public class IORWF extends Instruction {
     public IORWF(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);
@@ -14,19 +15,19 @@ public class IORWF extends Instruction {
 
     @Override
     public void execute(){
-        byte d = (byte) argument1;
-        byte f = (byte) argument2;
+        int d = (byte) argument1;
+        int f = (byte) argument2;
 
-        Byte fValue  = memory.getAddress(f);
-        fValue = (byte) (memory.getRegisterW() | fValue);
+        int fValue  = memory.getAddress(f);
+        fValue = (memory.getRegisterW() | fValue);
 
         if (d == 0)
             memory.setRegisterW(fValue);
         else
             memory.setAddress(f, fValue);
 
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
+        incrementProgramCounter();
 
     }
 

@@ -5,12 +5,12 @@ public class Stack {
     private static final Stack s = new Stack();
     private static final int STACK_SIZE = 8;
 
-    private Byte[] stack;
+    private Integer[] stack;
     private int top;
 
 
     protected Stack(){
-        this.stack = new Byte[8];
+        this.stack = new Integer[8];
         top = -1;
         initializeStack();
     }
@@ -26,13 +26,13 @@ public class Stack {
     }
 
 
-    public void push(byte b) {
+    public void push(int b) {
         stack[++top] = b;
     }
-    public byte pop() {
+    public int pop() {
         return stack[top--];
     }
-    public byte peek() {
+    public int peek() {
         return stack[top];
     }
     public boolean isEmpty() {

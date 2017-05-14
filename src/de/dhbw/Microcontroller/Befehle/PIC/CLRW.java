@@ -5,7 +5,6 @@ package de.dhbw.Microcontroller.Befehle.PIC;
  * '0x00 -> W; 1 -> Z'
  */
 
-import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 
@@ -16,7 +15,7 @@ public class CLRW extends Instruction {
 
     @Override
     public void execute(){
-        memory.setRegisterW( (byte) 0);
+        memory.setRegisterW(0);
 
         setZeroFlag();
 

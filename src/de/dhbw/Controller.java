@@ -240,21 +240,21 @@ public class Controller {
     }
 
 
-    public byte getBit(byte b, int position)
+    public int getBit(int b, int position)
     {
-        return (byte) ((b >> position) & 1);
+        return ((b >> position) & 1);
     }
 
     public void toggleBit(int bitPosition, int address){
-        Byte b = memory.getAddress(address);
+        int b = memory.getAddress(address);
 
         // Wenn das Bit an der Stelle bitPosition 0 ist, dann... sonst...
         if(getBit(memory.getAddress(address), bitPosition) == 0){
             // Bit auf 1 setzen
-            b = (byte) (b | (1 << (bitPosition)));
+            b = (b | (1 << (bitPosition)));
         } else {
             // Bit auf 0 setzen
-            b = (byte) (b & ~(1 << (bitPosition)));
+            b = (b & ~(1 << (bitPosition)));
         }
         memory.setAddress(address, b);
     }

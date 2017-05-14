@@ -17,9 +17,9 @@ public class XORLW extends Instruction {
 
     @Override
     public void execute(){
-        byte k = (byte) argument;
+        int k = argument;
 
-        memory.setRegisterW((byte) (memory.getRegisterW() ^ k));
+        memory.setRegisterW(memory.getRegisterW() ^ k);
 
         if (memory.getRegisterW() == 0)
             setZeroFlag();

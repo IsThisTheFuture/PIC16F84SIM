@@ -15,7 +15,7 @@ public class RETLW extends Instruction {
 
     @Override
     public void execute(){
-        byte k = (byte) argument;
+        int k = argument;
 
         memory.setRegisterW(k);
 

@@ -14,11 +14,11 @@ public class XORWF extends Instruction {
 
     @Override
     public void execute(){
-        byte d = (byte) argument1;
-        byte f = (byte) argument2;
+        int d = argument1;
+        int f = argument2;
 
-        Byte fValue  = memory.getAddress(f);
-        fValue = (byte) ((~ fValue & 0xFF)^memory.getRegisterW());
+        int fValue  = memory.getAddress(f);
+        fValue = (fValue ^ memory.getRegisterW());
 
 
         if (d == 0)
@@ -26,8 +26,7 @@ public class XORWF extends Instruction {
         else
             memory.setAddress(f, fValue);
 
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
-
+        incrementProgramCounter();
     }
 
     @Override
