@@ -20,8 +20,11 @@ public class XORLW extends Instruction {
         byte k = (byte) argument;
 
         memory.setRegisterW((byte) (memory.getRegisterW() ^ k));
+
         if (memory.getRegisterW() == 0)
             setZeroFlag();
+        else
+            clearZeroFlag();
 
         incrementProgramCounter();
 

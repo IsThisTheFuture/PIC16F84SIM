@@ -25,6 +25,8 @@ public class ADDLW extends Instruction {
         else
             clearZeroFlag();
 
+        //TODO Wie CheckCarry und CheckDC prüfen????
+
         incrementProgramCounter();
     }
 

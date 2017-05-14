@@ -205,7 +205,7 @@ public class Controller {
 
                         Platform.runLater(() -> tableFileContent.refresh());
                         updateTextfieldRegisters();
-                        //initializeMemoryView();
+                        updateTextfieldRegisterAB();
                         updateMemoryView();
                         Thread.sleep(500);
                 }

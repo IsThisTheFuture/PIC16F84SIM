@@ -67,4 +67,16 @@ public class Instruction {
         memory.setAddress(Const.STATUS, status);
     }
 
+    public void setCarryFlag(){
+        byte status = (byte) memory.getAddress(Const.STATUS);
+        status = (byte) (status | (1<<0));
+        memory.setAddress(Const.STATUS, status);
+    }
+
+    public void clearCarryFlag(){
+        byte status = (byte) memory.getAddress(Const.STATUS);
+        status = (byte) (status & ~(1 << 0));
+        memory.setAddress(Const.STATUS, status);
+    }
+
 }

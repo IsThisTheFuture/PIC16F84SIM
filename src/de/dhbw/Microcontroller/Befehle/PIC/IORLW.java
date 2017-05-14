@@ -18,11 +18,16 @@ public class IORLW extends Instruction {
         byte k = (byte) argument;
 
         memory.setRegisterW((byte) (memory.getRegisterW() | k));
-        memory.setAddress(Const.PCL, (byte) (memory.getAddress(Const.PCL) + 1));
 
-        //TODO Prüfen ob das Ergebnis stimmt
-        //cpu.register.w = (byte) (cpu.register.w | k);
-        //cpu.register.pc++;
+        // CheckZero
+        Byte w = memory.getRegisterW();
+        if(w == 0)
+            setZeroFlag();
+        else
+            clearZeroFlag();
+
+
+        incrementProgramCounter();
     }
 
     @Override
