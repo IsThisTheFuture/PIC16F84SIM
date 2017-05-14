@@ -45,13 +45,6 @@ public class Instruction {
         System.err.println("Die Debug-Info für diesen Befehl muss noch implementiert werden!");
     }
 
-    public boolean zeroFlagIsSet(){
-        int status = memory.getAddress(Const.STATUS);
-
-        if (((status >> 3) & 1) == 1)   return true;
-        else    return false;
-    }
-
     public void setZeroFlag()
     {
         int status = memory.getAddress(Const.STATUS);
