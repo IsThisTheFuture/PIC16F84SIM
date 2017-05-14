@@ -35,21 +35,21 @@ public class Controller {
     @FXML
     private TableColumn<MemoryView, Integer> tableColumnMemoryRow;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory00;
+    private TableColumn<MemoryView, Integer> tableColumnMemory00;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory01;
+    private TableColumn<MemoryView, Integer> tableColumnMemory01;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory02;
+    private TableColumn<MemoryView, Integer> tableColumnMemory02;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory03;
+    private TableColumn<MemoryView, Integer> tableColumnMemory03;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory04;
+    private TableColumn<MemoryView, Integer> tableColumnMemory04;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory05;
+    private TableColumn<MemoryView, Integer> tableColumnMemory05;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory06;
+    private TableColumn<MemoryView, Integer> tableColumnMemory06;
     @FXML
-    private TableColumn<MemoryView, Byte> tableColumnMemory07;
+    private TableColumn<MemoryView, Integer> tableColumnMemory07;
     @FXML
     private TextField textFieldRegisterW;
     @FXML
