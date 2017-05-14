@@ -15,8 +15,8 @@ public class MOVF extends Instruction {
 
     @Override
     public void execute(){
-        byte d = (byte) argument1;
-        byte f = (byte) argument2;
+        int d = argument1;
+        int f = argument2;
 
         int fValue  = memory.getAddress(f);
         fValue = (~ fValue & 0xFF);

@@ -4,7 +4,8 @@ import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
- * Created by TInf on 08.05.2017.
+ * Bit set file ( set Bit b to 1)
+ * TODO: '1 -> f (Bit b)'
  */
 
 public class BSF extends Instruction {
@@ -18,7 +19,9 @@ public class BSF extends Instruction {
         int b = argument1;
         int f = argument2;
 
-        b = (b |(1 << (f-1))); //das bit f wird in b  auf 1 gesetzt
+        int fValue = memory.getAddress(f);
+        fValue = (fValue |(1 << (b-1))); //das bit b wird in f  auf 1 gesetzt
+        memory.setAddress(f,fValue);
 
         incrementProgramCounter();
     }

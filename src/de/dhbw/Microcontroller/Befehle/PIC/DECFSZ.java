@@ -19,7 +19,7 @@ public class DECFSZ extends Instruction {
         byte f = (byte) argument2;
 
         int fValue  = memory.getAddress(f);
-        fValue = ((~ fValue & 0xFF)-1);
+        fValue = (fValue - 1);
 
         if (fValue==0) {
             //TODO: dann wird der nächste Befehl im Programm übersprungen, und mit dem übernächsten weitergebacht.

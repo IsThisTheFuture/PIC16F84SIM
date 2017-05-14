@@ -18,7 +18,8 @@ public class ANDWF extends Instruction {
         int f = argument1;
 
         memory.setRegisterW(memory.getRegisterW() + f);
-        memory.setAddress(Const.PCL, memory.getAddress(Const.PCL) + 1);
+
+        incrementProgramCounter();
     }
 
         @Override

@@ -15,8 +15,8 @@ public class IORWF extends Instruction {
 
     @Override
     public void execute(){
-        int d = (byte) argument1;
-        int f = (byte) argument2;
+        int d = argument1;
+        int f = argument2;
 
         int fValue  = memory.getAddress(f);
         fValue = (memory.getRegisterW() | fValue);

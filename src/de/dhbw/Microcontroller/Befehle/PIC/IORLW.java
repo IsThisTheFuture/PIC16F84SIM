@@ -15,7 +15,7 @@ public class IORLW extends Instruction {
 
     @Override
     public void execute(){
-        int k = (byte) argument;
+        int k = argument;
 
         memory.setRegisterW(memory.getRegisterW() | k);
 

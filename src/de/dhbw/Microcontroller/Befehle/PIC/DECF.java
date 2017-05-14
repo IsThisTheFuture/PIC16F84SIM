@@ -20,15 +20,14 @@ public class DECF extends Instruction {
 
 
         int fValue  = memory.getAddress(f);
-        fValue = (~ fValue & 0xFF);
+        fValue = fValue -1;
 
 
+        //TODO Prüfen
         if (d==0) {
-            fValue = ((~ fValue & 0xFF)-1);
             memory.setRegisterW(fValue);
         }
         else {
-            fValue = ((~fValue & 0xFF) - 1);
             memory.setAddress(f, fValue);
         }
 

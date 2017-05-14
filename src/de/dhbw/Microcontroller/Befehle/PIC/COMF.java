@@ -1,6 +1,5 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
-import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
@@ -22,7 +21,7 @@ public class COMF extends Instruction {
 
 
         int fValue  = memory.getAddress(f);
-        fValue = (~ fValue & 0xFF);
+        fValue = ~fValue;
 
         if (d==0)
             memory.setRegisterW(fValue);
