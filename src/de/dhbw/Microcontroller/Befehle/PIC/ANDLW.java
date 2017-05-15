@@ -6,7 +6,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
  * AND literal (k) with W
- * 'w and k -> w; CheckZero'
+ * TODO:'w and k -> w; CheckZero'
  */
 
 public class ANDLW extends Instruction {
