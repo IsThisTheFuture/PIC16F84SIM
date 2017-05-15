@@ -37,7 +37,7 @@ public class ADDLW extends Instruction {
 
         memory.setRegisterW(w + k);
 
-        if(w == 0)
+        if(memory.getRegisterW() == 0)
             setZeroFlag();
         else
             clearZeroFlag();
