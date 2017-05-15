@@ -139,6 +139,8 @@
                                     <Text fx:id="textStatusReg2Z" layoutX="171.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                     <Text fx:id="textStatusReg1DC" layoutX="196.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                     <Text fx:id="textStatusReg0C" layoutX="220.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <TextField fx:id="textFieldSpeed" layoutX="9.0" layoutY="423.0" onAction="#setSpeed" prefHeight="26.0" prefWidth="81.0" text="500" />
+                                    <Label layoutX="9.0" layoutY="407.0" text="Speed in ms" />
                                             </children>
                                         </AnchorPane>
                                     <AnchorPane layoutX="280.0" layoutY="-133.0" prefHeight="260.0" prefWidth="243.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="-133.0" />

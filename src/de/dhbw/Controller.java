@@ -90,6 +90,8 @@ public class Controller {
     private Text textStatusReg1DC;
     @FXML
     private Text textStatusReg0C;
+    @FXML
+    private TextField textFieldSpeed;
 
 
 
@@ -104,6 +106,7 @@ public class Controller {
     private MemoryViewService memoryViewService;
     private Integer opcodeList[];
     private int currentRow = 0;
+    private int speed = 500;
 
 
     public void initialize(){
@@ -220,7 +223,7 @@ public class Controller {
                         updateTextfieldRegisters();
                         updateTextfieldRegisterAB();
                         updateMemoryView();
-                        Thread.sleep(1500);
+                        Thread.sleep(speed);
                 }
             } catch (Exception e) {
                 System.err.println("Fehler in Methode run()");
@@ -343,6 +346,9 @@ public class Controller {
     }
 
 
+    public void setSpeed(ActionEvent actionEvent){
+        this.speed = Integer.parseInt(textFieldSpeed.getText());
+    }
 
     private InstructionDecoderService getInstructionDecoderService(){
         if(instructionDecoderService == null) {
