@@ -24,6 +24,12 @@ public class SUBLW extends Instruction {
             else
                 clearCarryFlag();
 
+
+
+            // Subtraktion mit 2er Komplement von w:
+            w = ~w + 1;
+            memory.setRegisterW(k + w);
+
             // DigitCarry prüfen
             int wRechts = w & 0b00001111;
             int kRechts = k & 0b00001111;
@@ -33,9 +39,6 @@ public class SUBLW extends Instruction {
                 clearDigitCarryFlag();
             }
 
-            // Subtraktion mit 2er Komplement von w:
-            w = ~w + 1;
-            memory.setRegisterW(k + w);
 
             // ZeroBit prüfen
             if (memory.getRegisterW() == 0)
