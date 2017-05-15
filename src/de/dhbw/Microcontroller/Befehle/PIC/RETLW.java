@@ -19,7 +19,8 @@ public class RETLW extends Instruction {
 
         memory.setRegisterW(k);
 
-        memory.setAddress(Const.PCL, stack.pop());
+        memory.setPc(stack.pop());
+        memory.setAddress(Const.PCL, memory.getPc()&255);
     }
 
     @Override
