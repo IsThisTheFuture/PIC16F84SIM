@@ -191,7 +191,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": SWAPF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": SWAPF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                return new SWAPF(instruction, 0x0E00, argument1, argument2);
             }
 
 
