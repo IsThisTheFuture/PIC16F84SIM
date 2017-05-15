@@ -6,6 +6,7 @@ public class Memory {
     private static final Memory memory = new Memory();
 
     private Integer registerW;
+    private Integer pc;
     private Integer[] registers;
 
     protected Memory(){
@@ -18,7 +19,9 @@ public class Memory {
     }
 
     public void initializeMemory() {
+        // W ist 8 Bit, pc ist 13 Bit
         registerW =  0b00000000;
+        pc        =  0b0000000000000;
 
         for (int i = 0; i < registers.length; i++){
             registers[i] = 0b00000000;
@@ -81,5 +84,13 @@ public class Memory {
 
     public void setRegisterW(int registerW) {
         this.registerW = registerW;
+    }
+
+    public Integer getPc() {
+        return pc;
+    }
+
+    public void setPc(Integer pc) {
+        this.pc = pc;
     }
 }

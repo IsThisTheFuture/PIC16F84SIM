@@ -227,7 +227,10 @@ public class Controller {
                 instructionList = instructionDecoderService.getInstructionList();
                     for (int i = 0; i <= instructionList.size(); i++) {
                         // TODO: ProgramCounter richtig behandeln
-                        currentRow = memory.getAddress(Const.PCL);
+                        //currentRow = memory.getAddress(Const.PCL);
+                        currentRow = memory.getPc();
+
+
                         if (i != currentRow) i = currentRow;
 
                         instructionList.get(i).execute();

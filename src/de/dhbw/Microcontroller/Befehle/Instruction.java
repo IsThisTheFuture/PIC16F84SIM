@@ -38,7 +38,11 @@ public class Instruction {
 
     public void incrementProgramCounter(){
         // TODO: Richtig behandeln. Unterschied PC, PCL, PLATH?
-        memory.setAddress(Const.PCL, (memory.getAddress(Const.PCL) + 1));
+        //memory.setAddress(Const.PCL, (memory.getAddress(Const.PCL) + 1));
+        memory.setPc(memory.getPc() + 1);
+
+        // In PCL stehen nur die unteren 8 Bit von PC
+        memory.setAddress(Const.PCL, memory.getPc()&255);
     }
 
     public void displayDebugInfo(){
