@@ -35,7 +35,9 @@ public class ADDLW extends Instruction {
             clearDigitCarryFlag();
         }
 
-        memory.setRegisterW(w + k);
+        int result = (w+k) & 255;
+        memory.setRegisterW(result);
+
 
         if(memory.getRegisterW() == 0)
             setZeroFlag();

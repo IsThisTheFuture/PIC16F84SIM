@@ -28,7 +28,8 @@ public class SUBLW extends Instruction {
 
             // Subtraktion mit 2er Komplement von w:
             w = ~w + 1;
-            memory.setRegisterW(k + w);
+            int result = (k + w) & 255;
+            memory.setRegisterW(result);
 
             // DigitCarry prüfen
             int wRechts = w & 0b00001111;
