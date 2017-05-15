@@ -10,7 +10,7 @@
                     00010           ;zuerst Hardware-Register
                     00011           status   equ 03h
                     00012           ra       equ 05h
-                    00013           rb       equ 06h
+                 C=1, DC=1   00013           rb       equ 06h
                     00014           
                     00015           ;f�r den Benutzer frei verwendbare Register
                     00016           count    equ 0ch
