@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.Controller">
+<AnchorPane prefHeight="1000.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.Controller">
     <children>
         <MenuBar prefHeight="17.0" prefWidth="600.0" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
@@ -99,22 +99,22 @@
                                           <ColorAdjust />
                                        </effect>
                                     </TextField>
-                                    <TextField fx:id="textFieldRegisterA7" layoutX="78.0" layoutY="27.0" onAction="#toggleA7" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterA6" layoutX="100.0" layoutY="27.0" onAction="#toggleA6" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterA5" layoutX="122.0" layoutY="27.0" onAction="#toggleA5" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldR4gisterA4" layoutX="144.0" layoutY="27.0" onAction="#toggleA4" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterA3" layoutX="165.0" layoutY="27.0" onAction="#toggleA3" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterA2" layoutX="188.0" layoutY="27.0" onAction="#toggleA2" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterA7" layoutX="78.0" layoutY="27.0" onMouseClicked="#toggleA7" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterA6" layoutX="100.0" layoutY="27.0" onMouseClicked="#toggleA6" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterA5" layoutX="122.0" layoutY="27.0" onMouseClicked="#toggleA5" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldR4gisterA4" layoutX="144.0" layoutY="27.0" onMouseClicked="#toggleA4" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterA3" layoutX="165.0" layoutY="27.0" onMouseClicked="#toggleA3" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterA2" layoutX="188.0" layoutY="27.0" onMouseClicked="#toggleA2" prefHeight="25.0" prefWidth="23.0" text="0" />
                                     <TextField fx:id="textFieldRegisterA1" layoutX="209.0" layoutY="27.0" onMouseClicked="#toggleA1" prefHeight="25.0" prefWidth="23.0" text="0" />
                                     <TextField fx:id="textFieldRegisterA0" layoutX="232.0" layoutY="27.0" onMouseClicked="#toggleA0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField layoutX="79.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField layoutX="101.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField layoutX="123.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField layoutX="145.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField layoutX="167.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField layoutX="189.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField layoutX="211.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField layoutX="233.0" layoutY="90.0" onAction="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="79.0" layoutY="90.0" onMouseClicked="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="101.0" layoutY="90.0" onMouseClicked="#toggleB1" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="123.0" layoutY="90.0" onMouseClicked="#toggleB5" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="145.0" layoutY="90.0" onMouseClicked="#toggleB4" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="167.0" layoutY="90.0" onMouseClicked="#toggleB3" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="189.0" layoutY="90.0" onMouseClicked="#toggleB2" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="211.0" layoutY="90.0" onMouseClicked="#toggleB1" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField layoutX="233.0" layoutY="90.0" onAction="#toggleB0" onMouseClicked="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
                                     <Separator layoutX="1.0" layoutY="58.0" prefHeight="3.0" prefWidth="252.0" />
                                     <Separator layoutX="67.0" layoutY="3.0" orientation="VERTICAL" prefHeight="109.0" prefWidth="5.0" />
                                     <Label layoutX="12.0" layoutY="192.0" text="Spezialregister" />
