@@ -395,7 +395,8 @@ public class InstructionDecoderService {
 
             //RETURN (0000 0000 0000 1000)
             else if ((instruction & 0x0008) == 0x0008) {
-                System.out.println(String.format("%04X", instruction) + ": RETURN");
+                //System.out.println(String.format("%04X", instruction) + ": RETURN");
+                return new RETURN(instruction, 0x0008);
             }
 
 
