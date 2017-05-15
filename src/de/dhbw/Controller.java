@@ -75,6 +75,22 @@ public class Controller {
     @FXML
     private TextField textFieldRegisterA0;
     @FXML
+    private TextField textFieldRegisterB0;
+    @FXML
+    private TextField textFieldRegisterB1;
+    @FXML
+    private TextField textFieldRegisterB2;
+    @FXML
+    private TextField textFieldRegisterB3;
+    @FXML
+    private TextField textFieldRegisterB4;
+    @FXML
+    private TextField textFieldRegisterB5;
+    @FXML
+    private TextField textFieldRegisterB6;
+    @FXML
+    private TextField textFieldRegisterB7;
+    @FXML
     private Text textStatusReg7IRP;
     @FXML
     private Text textStatusReg6RP1;
@@ -303,46 +319,200 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleA2(ActionEvent actionEvent) {
+    public void toggleA2(Event clickEvent) {
+        toggleBit(2, Const.PORTA);
+
+        if (getBit(memory.getAddress(Const.PORTA), 2) == 0)
+        {
+            textFieldRegisterA2.setText("0");
+        } else {
+            textFieldRegisterA2.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleA3(ActionEvent actionEvent) {
+    public void toggleA3(Event clickEvent) {
+        toggleBit(3, Const.PORTA);
+
+        if (getBit(memory.getAddress(Const.PORTA), 3) == 0)
+        {
+            textFieldRegisterA3.setText("0");
+        } else {
+            textFieldRegisterA3.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleA4(ActionEvent actionEvent) {
+    public void toggleA4(Event clickEvent) {
+        toggleBit(4, Const.PORTA);
+
+        if (getBit(memory.getAddress(Const.PORTA), 4) == 0)
+        {
+            textFieldRegisterA4.setText("0");
+        } else {
+            textFieldRegisterA4.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleA5(ActionEvent actionEvent) {
+    public void toggleA5(Event clickEvent) {
+        toggleBit(5, Const.PORTA);
+
+        if (getBit(memory.getAddress(Const.PORTA), 5) == 0)
+        {
+            textFieldRegisterA5.setText("0");
+        } else {
+            textFieldRegisterA5.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleA6(ActionEvent actionEvent) {
+    public void toggleA6(Event clickEvent) {
+        toggleBit(6, Const.PORTA);
+
+        if (getBit(memory.getAddress(Const.PORTA), 6) == 0)
+        {
+            textFieldRegisterA6.setText("0");
+        } else {
+            textFieldRegisterA6.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleA7(ActionEvent actionEvent) {
+    public void toggleA7(Event clickEvent) {
+        toggleBit(7, Const.PORTA);
+
+        if (getBit(memory.getAddress(Const.PORTA), 7) == 0)
+        {
+            textFieldRegisterA7.setText("0");
+        } else {
+            textFieldRegisterA7.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleB0(ActionEvent actionEvent) {
+    public void toggleB0(Event clickEvent) {
+        toggleBit(0, Const.PORTB);
+
+        if (getBit(memory.getAddress(Const.PORTB), 0) == 0)
+        {
+            textFieldRegisterB0.setText("0");
+        } else {
+            textFieldRegisterB0.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleB1(ActionEvent actionEvent) {
+    public void toggleB1(Event clickEvent) {
+        toggleBit(1, Const.PORTB);
+
+        if (getBit(memory.getAddress(Const.PORTB), 1) == 0)
+        {
+            textFieldRegisterB1.setText("0");
+        } else {
+            textFieldRegisterB1.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleB2(ActionEvent actionEvent) {
+    public void toggleB2(Event clickEvent) {
+        toggleBit(2, Const.PORTB);
+
+        if (getBit(memory.getAddress(Const.PORTB), 2) == 0)
+        {
+            textFieldRegisterB2.setText("0");
+        } else {
+            textFieldRegisterB2.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleB3(ActionEvent actionEvent) {
+    public void toggleB3(Event clickEvent) {
+        toggleBit(3, Const.PORTB);
+
+        if (getBit(memory.getAddress(Const.PORTB), 3) == 0)
+        {
+            textFieldRegisterB3.setText("0");
+        } else {
+            textFieldRegisterB3.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleB4(ActionEvent actionEvent) {
+    public void toggleB4(Event clickEvent) {
+        toggleBit(4, Const.PORTB);
+
+        if (getBit(memory.getAddress(Const.PORTB), 4) == 0)
+        {
+            textFieldRegisterB4.setText("0");
+        } else {
+            textFieldRegisterB4.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleB5(ActionEvent actionEvent) {
+    public void toggleB5(Event clickEvent) {
+        toggleBit(5, Const.PORTB);
+
+        if (getBit(memory.getAddress(Const.PORTB), 5) == 0)
+        {
+            textFieldRegisterB5.setText("0");
+        } else {
+            textFieldRegisterB5.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleB6(ActionEvent actionEvent) {
+    public void toggleB6(Event clickEvent) {
+        toggleBit(6, Const.PORTB);
+
+        if (getBit(memory.getAddress(Const.PORTB), 6) == 0)
+        {
+            textFieldRegisterB6.setText("0");
+        } else {
+            textFieldRegisterB6.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
-    public void toggleB7(ActionEvent actionEvent) {
+    public void toggleB7(Event clickEvent) {
+        toggleBit(7, Const.PORTB);
+
+        if (getBit(memory.getAddress(Const.PORTB), 7) == 0)
+        {
+            textFieldRegisterB7.setText("0");
+        } else {
+            textFieldRegisterB7.setText("1");
+        }
+
+        updateTextfieldRegisterAB();
+        updateMemoryView();
     }
 
 
