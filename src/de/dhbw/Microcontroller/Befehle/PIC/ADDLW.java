@@ -17,9 +17,26 @@ public class ADDLW extends Instruction {
     @Override
     public void execute(){
         int k = argument;
-        memory.setRegisterW(memory.getRegisterW() + k);
-
         int w = memory.getRegisterW();
+
+        //CarryFlag prüfen
+
+        if ((w+k)>255)
+            setCarryFlag();
+        else
+            clearCarryFlag();
+
+        // DigitCarry prüfen
+        int wRechts = w & 0b00001111;
+        int kRechts = k & 0b00001111;
+        if((wRechts + kRechts) >= 16){
+            setDigitCarryFlag();
+        } else {
+            clearDigitCarryFlag();
+        }
+
+        memory.setRegisterW(w + k);
+
         if(w == 0)
             setZeroFlag();
         else
