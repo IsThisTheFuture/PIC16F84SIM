@@ -4,7 +4,7 @@ import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
- * Created by TInf on 08.05.2017.
+ * TODO: 'w and f -> d; CheckZero'
  */
 public class ANDWF extends Instruction {
 
