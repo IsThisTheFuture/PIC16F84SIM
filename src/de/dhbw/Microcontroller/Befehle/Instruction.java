@@ -71,4 +71,15 @@ public class Instruction {
         memory.setAddress(Const.STATUS, status);
     }
 
+    public void setDigitCarryFlag(){
+        int status =  memory.getAddress(Const.STATUS);
+        status = (status | (1<<1));
+        memory.setAddress(Const.STATUS, status);
+    }
+
+    public void clearDigitCarryFlag(){
+        int status = memory.getAddress(Const.STATUS);
+        status = (status & ~(1 << 1));
+        memory.setAddress(Const.STATUS, status);
+    }
 }
