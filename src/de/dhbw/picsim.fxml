@@ -13,6 +13,7 @@
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="1000.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.Controller">
     <children>
@@ -123,9 +124,25 @@
                                     <TextField fx:id="textFieldPC" editable="false" layoutX="70.0" layoutY="254.0" prefHeight="26.0" prefWidth="97.0" text="0000" />
                                     <Label layoutX="12.0" layoutY="288.0" text="Status:" />
                                     <TextField fx:id="textFieldStatus" layoutX="71.0" layoutY="283.0" prefHeight="26.0" prefWidth="97.0" />
+                                    <Label layoutX="49.0" layoutY="323.0" text="RP1" />
+                                    <Label layoutX="83.0" layoutY="323.0" text="RP0" />
+                                    <Label layoutX="117.0" layoutY="323.0" text="TO" />
+                                    <Label layoutX="140.0" layoutY="323.0" text="PD" />
+                                    <Label layoutX="171.0" layoutY="323.0" text="Z" />
+                                    <Label layoutX="190.0" layoutY="323.0" text="DC" />
+                                    <Label layoutX="219.0" layoutY="323.0" text="C" />
+                                    <Text fx:id="textStatusReg5RP0" layoutX="92.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textStatusReg7IRP" layoutX="26.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textStatusReg6RP1" layoutX="58.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textStatusReg4TO" layoutX="122.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textStatusReg3PD" layoutX="145.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textStatusReg2Z" layoutX="171.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textStatusReg1DC" layoutX="196.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textStatusReg0C" layoutX="220.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                             </children>
                                         </AnchorPane>
                                     <AnchorPane layoutX="280.0" layoutY="-133.0" prefHeight="260.0" prefWidth="243.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="-133.0" />
+                              <Label layoutX="50.0" layoutY="330.0" text="IRP" />
                            </children></AnchorPane>
                             </items>
                         </SplitPane>

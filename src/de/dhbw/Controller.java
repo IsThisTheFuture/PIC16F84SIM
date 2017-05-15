@@ -16,6 +16,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 
 import java.util.List;
 
@@ -73,6 +74,23 @@ public class Controller {
     private TextField textFieldRegisterA1;
     @FXML
     private TextField textFieldRegisterA0;
+    @FXML
+    private Text textStatusReg7IRP;
+    @FXML
+    private Text textStatusReg6RP1;
+    @FXML
+    private Text textStatusReg5RP0;
+    @FXML
+    private Text textStatusReg4TO;
+    @FXML
+    private Text textStatusReg3PD;
+    @FXML
+    private Text textStatusReg2Z;
+    @FXML
+    private Text textStatusReg1DC;
+    @FXML
+    private Text textStatusReg0C;
+
 
 
 
@@ -91,24 +109,7 @@ public class Controller {
     public void initialize(){
         initializeMemoryView();
         initializeFileContentView();
-        initializeTextfieldRegisters();
-    }
-
-
-    // TODO: Lesen/Einsetzen des Wertes im Register A
-    public void readPortA ()
-    {
-    }
-    // TODO: Lesen/Einsetzen des Wertes im Register b
-    public void readPortB ()
-    {
-    }
-
-
-    public void initializeTextfieldRegisters(){
-        textFieldRegisterW.setText(memory.getRegisterW().toString());
-        textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
-        textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
+        updateTextfieldRegisters();
     }
 
 
@@ -147,10 +148,22 @@ public class Controller {
     }
 
     public void updateTextfieldRegisters(){
-        textFieldRegisterW.setText(memory.getRegisterW().toString());
-        textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
-        textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
+       // textFieldRegisterW.setText(memory.getRegisterW().toString());
+        //textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
+        //textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
         //Platform.runLater(() -> tableFileContent.refresh());
+        textFieldRegisterW.setText(String.format("%02x",memory.getRegisterW()).toUpperCase());
+        textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
+        textFieldStatus.setText(String.format("%02x", memory.getAddress(Const.STATUS)).toUpperCase());
+
+        textStatusReg0C.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 0)));
+        textStatusReg1DC.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 1)));
+        textStatusReg2Z.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 2)));
+        textStatusReg3PD.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 3)));
+        textStatusReg4TO.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 4)));
+        textStatusReg5RP0.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 5)));
+        textStatusReg6RP1.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 6)));
+        textStatusReg7IRP.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 7)));
     }
 
     public void updateTextfieldRegisterAB(){
@@ -207,7 +220,7 @@ public class Controller {
                         updateTextfieldRegisters();
                         updateTextfieldRegisterAB();
                         updateMemoryView();
-                        Thread.sleep(500);
+                        Thread.sleep(1500);
                 }
             } catch (Exception e) {
                 System.err.println("Fehler in Methode run()");
