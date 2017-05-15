@@ -1,2 +1,0 @@
-0003 070C           00040           addwf wert1,w       ;W = 25h, DC=0, C=0, Z=0
-0004 078C           00041           addwf wert1         ;W = 25h, wert1 = 36h, DC=0, C=0, Z=0
