@@ -112,7 +112,6 @@ public class Controller {
 
 
 
-
     private Memory memory = Memory.getInstance();
     private List<Instruction> instructionList;
     private List<InstructionView> instructionViewList;
@@ -123,6 +122,7 @@ public class Controller {
     private Integer opcodeList[];
     private int currentRow = 0;
     private int speed = 500;
+    private boolean isRunning = true;
 
 
     public void initialize(){
@@ -226,24 +226,21 @@ public class Controller {
         Thread cpuThread = new Thread(() -> {
             try {
                 instructionList = instructionDecoderService.getInstructionList();
-                    for (int i = 0; i <= instructionList.size(); i++) {
-                        // TODO: ProgramCounter richtig behandeln
-                        //currentRow = memory.getAddress(Const.PCL);
+                for (int i = 0; i <= instructionList.size(); i++) {
+                    while(isRunning){
                         currentRow = memory.getPc();
-
 
                         if (i != currentRow) i = currentRow;
 
                         instructionList.get(i).execute();
                         //instructionList.get(i).displayDebugInfo();
 
-                        //System.out.println("W: " + memory.getRegisterW() + "   STATUS: " + memory.getAddress(Const.STATUS));
-
                         Platform.runLater(() -> tableFileContent.refresh());
                         updateTextfieldRegisters();
                         updateTextfieldRegisterAB();
                         updateMemoryView();
                         Thread.sleep(speed);
+                    }
                 }
             } catch (Exception e) {
                 System.err.println("Fehler in Methode run()");
@@ -255,7 +252,9 @@ public class Controller {
     }
 
     public void reset(ActionEvent actionEvent) {
+        isRunning = false;
         currentRow = 0;
+        Platform.runLater(() -> tableFileContent.refresh());
         memory.initializeMemory();
         updateTextfieldRegisters();
         updateMemoryView();
