@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.Controller">
+<AnchorPane prefHeight="1000.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.Controller">
     <children>
         <MenuBar prefHeight="17.0" prefWidth="600.0" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
@@ -139,7 +139,7 @@
                                     <Text fx:id="textStatusReg2Z" layoutX="171.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                     <Text fx:id="textStatusReg1DC" layoutX="196.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                     <Text fx:id="textStatusReg0C" layoutX="220.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <TextField fx:id="textFieldSpeed" layoutX="9.0" layoutY="423.0" onAction="#setSpeed" prefHeight="26.0" prefWidth="81.0" text="500" />
+                                    <TextField fx:id="textFieldSpeed" layoutX="9.0" layoutY="423.0" onAction="#setSpeed" onInputMethodTextChanged="#setSpeed" prefHeight="26.0" prefWidth="81.0" text="500" />
                                     <Label layoutX="9.0" layoutY="407.0" text="Speed in ms" />
                                             </children>
                                         </AnchorPane>

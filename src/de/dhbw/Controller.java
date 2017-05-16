@@ -225,6 +225,7 @@ public class Controller {
 
         Thread cpuThread = new Thread(() -> {
             try {
+                isRunning = true;
                 instructionList = instructionDecoderService.getInstructionList();
                 for (int i = 0; i <= instructionList.size(); i++) {
                     while(isRunning){
