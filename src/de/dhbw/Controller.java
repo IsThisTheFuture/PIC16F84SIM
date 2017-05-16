@@ -157,20 +157,21 @@ public class Controller {
 
     }
 
+    public void updateUI(){
+        updateMemoryView();
+        updateTextfieldRegisters();
+    }
+
     public void updateMemoryView(){
         tableMemory.getItems().clear();
 
         if (memoryViewList != null) memoryViewList.clear();
         memoryViewList = getMemoryViewService().getMemoryContent();
         tableMemory.getItems().addAll(memoryViewList);
-        tableMemory.refresh();
+        Platform.runLater(() -> tableMemory.refresh());
     }
 
     public void updateTextfieldRegisters(){
-       // textFieldRegisterW.setText(memory.getRegisterW().toString());
-        //textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
-        //textFieldStatus.setText(memory.getRegisters()[Const.STATUS].toString());
-        //Platform.runLater(() -> tableFileContent.refresh());
         textFieldRegisterW.setText(String.format("%02x",memory.getRegisterW()).toUpperCase());
         textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
         textFieldStatus.setText(String.format("%02x", memory.getAddress(Const.STATUS)).toUpperCase());
@@ -183,12 +184,9 @@ public class Controller {
         textStatusReg5RP0.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 5)));
         textStatusReg6RP1.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 6)));
         textStatusReg7IRP.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 7)));
-    }
 
-    public void updateTextfieldRegisterAB(){
-        //TODO
+        // TODO: update TextfieldRegisterAB
     }
-
 
     public void openFile(ActionEvent actionEvent) {
         if (instructionViewList != null) instructionViewList.clear();
@@ -232,14 +230,14 @@ public class Controller {
                         currentRow = memory.getPc();
 
                         if (i != currentRow) i = currentRow;
-
+                        Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
                         instructionList.get(i).execute();
                         //instructionList.get(i).displayDebugInfo();
 
+
+
                         Platform.runLater(() -> tableFileContent.refresh());
-                        updateTextfieldRegisters();
-                        updateTextfieldRegisterAB();
-                        updateMemoryView();
+                        Platform.runLater(() -> updateUI());
                         Thread.sleep(speed);
                     }
                 }
@@ -305,7 +303,6 @@ public class Controller {
             textFieldRegisterA0.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -319,7 +316,6 @@ public class Controller {
             textFieldRegisterA1.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -333,7 +329,6 @@ public class Controller {
             textFieldRegisterA2.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -347,7 +342,6 @@ public class Controller {
             textFieldRegisterA3.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -361,7 +355,6 @@ public class Controller {
             textFieldRegisterA4.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -375,7 +368,6 @@ public class Controller {
             textFieldRegisterA5.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -389,7 +381,6 @@ public class Controller {
             textFieldRegisterA6.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -403,7 +394,6 @@ public class Controller {
             textFieldRegisterA7.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -417,7 +407,6 @@ public class Controller {
             textFieldRegisterB0.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -431,7 +420,6 @@ public class Controller {
             textFieldRegisterB1.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -445,7 +433,6 @@ public class Controller {
             textFieldRegisterB2.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -459,7 +446,6 @@ public class Controller {
             textFieldRegisterB3.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -473,7 +459,6 @@ public class Controller {
             textFieldRegisterB4.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -487,7 +472,6 @@ public class Controller {
             textFieldRegisterB5.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -501,7 +485,6 @@ public class Controller {
             textFieldRegisterB6.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 
@@ -515,7 +498,6 @@ public class Controller {
             textFieldRegisterB7.setText("1");
         }
 
-        updateTextfieldRegisterAB();
         updateMemoryView();
     }
 

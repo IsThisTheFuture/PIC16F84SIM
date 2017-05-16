@@ -17,10 +17,35 @@ public class ADDWF extends Instruction {
         int d = argument1;
         int f = argument2;
 
-        memory.setRegisterW(memory.getRegisterW() + f);
+        int fValue = memory.getAddress(f);
+        int w      = memory.getRegisterW();
+        int result = (fValue + w) & 255;
 
-        //TODO: Prüfen!! Ergebnis nicht in W speichern, sonder in d?
+        // ZeroBit prüfen
+        if (result == 0)
+            setZeroFlag();
+        else clearZeroFlag();
 
+        // CarryBit prüfen
+        if ((fValue + w) > 255)
+            setCarryFlag();
+        else clearCarryFlag();
+
+        // DigitCarry prüfen
+        int wRechts = w      & 0b00001111;
+        int fRechts = fValue & 0b00001111;
+        if((wRechts + fRechts) >= 16){
+            setDigitCarryFlag();
+        } else {
+            clearDigitCarryFlag();
+        }
+
+
+        // Result nach Destination schreiben
+        if(d == 0)
+            memory.setRegisterW(result);
+        else
+            memory.setAddress(f, result);
 
         incrementProgramCounter();
     }
