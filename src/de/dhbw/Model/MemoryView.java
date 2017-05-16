@@ -5,78 +5,78 @@ package de.dhbw.Model;
  */
 public class MemoryView {
     private String memoryRow;
-    private int column0;
-    private int column1;
-    private int column2;
-    private int column3;
-    private int column4;
-    private int column5;
-    private int column6;
-    private int column7;
+    private String column0;
+    private String column1;
+    private String column2;
+    private String column3;
+    private String column4;
+    private String column5;
+    private String column6;
+    private String column7;
 
 
-    public int getColumn0() {
+    public String getColumn0() {
         return column0;
     }
 
-    public void setColumn0(int column0) {
-        this.column0 = column0;
+    public void setColumn0(Integer column0) {
+        this.column0 = String.format("%02x", column0).toUpperCase();
     }
 
-    public int getColumn1() {
+    public String getColumn1() {
         return column1;
     }
 
-    public void setColumn1(int column1) {
-        this.column1 = column1;
+    public void setColumn1(Integer column1) {
+        this.column1 = String.format("%02x", column1).toUpperCase();
     }
 
-    public int getColumn2() {
+    public String getColumn2() {
         return column2;
     }
 
-    public void setColumn2(int column2) {
-        this.column2 = column2;
+    public void setColumn2(Integer column2) {
+        this.column2 = String.format("%02x", column2).toUpperCase();
     }
 
-    public int getColumn3() {
+    public String getColumn3() {
         return column3;
     }
 
-    public void setColumn3(int column3) {
-        this.column3 = column3;
+    public void setColumn3(Integer column3) {
+        this.column3 = String.format("%02x", column3).toUpperCase();
     }
 
-    public int getColumn4() {
+    public String getColumn4() {
         return column4;
     }
 
-    public void setColumn4(int column4) {
-        this.column4 = column4;
+    public void setColumn4(Integer column4) {
+        this.column4 = String.format("%02x", column4).toUpperCase();
     }
 
-    public int getColumn5() {
+    public String getColumn5() {
         return column5;
     }
 
-    public void setColumn5(int column5) {
-        this.column5 = column5;
+    public void setColumn5(Integer column5) {
+        this.column5 = String.format("%02x", column5).toUpperCase();
     }
 
-    public int getColumn6() {
+    public String getColumn6() {
         return column6;
     }
 
-    public void setColumn6(int column6) {
-        this.column6 = column6;
+    public void setColumn6(Integer column6) {
+        this.column6 = String.format("%02x", column6).toUpperCase();
     }
 
-    public int getColumn7() {
+    public String getColumn7() {
         return column7;
     }
 
-    public void setColumn7(int column7) {
-        this.column7 = column7;
+    public void setColumn7(Integer column7) {
+        this.column7 = String.format("%02x", column7).toUpperCase();
     }
 
     public String getMemoryRow() {

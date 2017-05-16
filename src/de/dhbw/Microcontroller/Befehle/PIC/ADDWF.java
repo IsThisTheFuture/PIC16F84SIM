@@ -1,11 +1,10 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
-import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
-/*
+/**
  * Add W and f
- * TODO: 'w + f -> d; CheckZero; CheckCarry; CheckDC'
+ * 'w + f -> d; CheckZero; CheckCarry; CheckDC'
  */
 
 public class ADDWF extends Instruction {
