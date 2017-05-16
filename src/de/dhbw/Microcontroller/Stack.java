@@ -42,10 +42,4 @@ public class Stack {
         return (top == STACK_SIZE - 1);
     }
 
-
-
-
-
-
-
 }
