@@ -1,11 +1,10 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
-import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Move f
- * TODO: ->	'f -> d; CheckZero'
+ * 'f -> d; CheckZero'
  */
 
 public class MOVF extends Instruction {
@@ -19,11 +18,17 @@ public class MOVF extends Instruction {
         int f = argument2;
 
         int fValue  = memory.getAddress(f);
-        fValue = (~ fValue & 0xFF);
 
         if (d == 0)
             memory.setRegisterW(fValue);
-        else {}
+        else
+            memory.setAddress(f, fValue);
+
+        // ZeroBit prüfen
+        if(fValue == 0)
+            setZeroFlag();
+        else
+            clearZeroFlag();
 
         incrementProgramCounter();
     }

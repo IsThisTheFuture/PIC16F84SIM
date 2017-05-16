@@ -19,12 +19,20 @@ public class INCF extends Instruction {
         int f = argument2;
 
         int fValue  = memory.getAddress(f);
-        fValue = fValue +1;
+        int result = (fValue + 1) & 255;
 
+        // Ergebnis an Destination schreiben
         if (d == 0)
-            memory.setRegisterW(fValue);
+            memory.setRegisterW(result);
         else
-            memory.setAddress(f, fValue);
+            memory.setAddress(f, result);
+
+        // ZeroBit prüfen
+        if(result == 0)
+            setZeroFlag();
+        else
+            clearZeroFlag();
+
 
         incrementProgramCounter();
     }

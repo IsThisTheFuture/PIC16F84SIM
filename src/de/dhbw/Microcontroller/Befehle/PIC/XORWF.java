@@ -5,7 +5,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Exclusive OR W with f
- * TODO: ->	'w xor f -> d; CheckZero'
+ * 'w xor f -> d; CheckZero'
  */
 public class XORWF extends Instruction {
     public XORWF(int instruction, int opcode, int argument1, int argument2){
@@ -18,7 +18,9 @@ public class XORWF extends Instruction {
         int f = argument2;
 
         int fValue  = memory.getAddress(f);
-        int result = (fValue ^ memory.getRegisterW());
+        int w       = memory.getRegisterW();
+
+        int result = (fValue ^ w);
 
 
         if (d == 0)

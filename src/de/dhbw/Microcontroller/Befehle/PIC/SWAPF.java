@@ -4,7 +4,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Swap nibbles in f
- * TODO: 'Tausche untere/obere 4 Bit von f -> d'
+ * 'Tausche untere/obere 4 Bit von f -> d'
  */
 
 public class SWAPF extends Instruction {
@@ -16,10 +16,10 @@ public class SWAPF extends Instruction {
     @Override
     public void execute() {
         int d = argument1;
-        int f = argument2; // Register an der Adresse f
+        int f = argument2;
 
-        int leftNibble  = memory.getAddress(argument2) & 0b11110000;
-        int rightNibble = memory.getAddress(argument2) & 0b00001111;
+        int leftNibble  = memory.getAddress(f) & 0b11110000;
+        int rightNibble = memory.getAddress(f) & 0b00001111;
 
         // Durch teilen / multiplizieren schieben wir die bits und führen die Nibble danach wieder zusammen
         int result = (leftNibble / 16) + (rightNibble * 16);

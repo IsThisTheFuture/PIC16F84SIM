@@ -9,7 +9,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 public class ADDWF extends Instruction {
     public ADDWF(int instruction, int opcode, int argument1, int argument2){
-        super(instruction, opcode, argument1,argument2);
+        super(instruction, opcode, argument1, argument2);
     }
 
     @Override
@@ -29,7 +29,8 @@ public class ADDWF extends Instruction {
         // CarryBit prüfen
         if ((fValue + w) > 255)
             setCarryFlag();
-        else clearCarryFlag();
+        else
+            clearCarryFlag();
 
         // DigitCarry prüfen
         int wRechts = w      & 0b00001111;

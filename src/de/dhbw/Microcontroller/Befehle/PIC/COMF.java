@@ -2,9 +2,9 @@ package de.dhbw.Microcontroller.Befehle.PIC;
 
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
-/*
+/**
  * Complement f
- * TODO: 'invertiere f -> d; CheckZero'
+ * 'invertiere f -> d; CheckZero'
  */
 
 
@@ -30,7 +30,7 @@ public class COMF extends Instruction {
             clearZeroFlag();
 
         // Ergebnis in Destination schreiben
-        if (d==0)
+        if (d == 0)
             memory.setRegisterW(result);
         else
             memory.setAddress(f,result);

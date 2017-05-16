@@ -5,7 +5,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Decrement f
- * TODO: 'f - 1 -> d; CheckZero'
+ * 'f - 1 -> d; CheckZero'
  */
 
 public class DECF extends Instruction {
@@ -20,7 +20,7 @@ public class DECF extends Instruction {
 
 
         int fValue  = memory.getAddress(f);
-        int result = (fValue -1) & 255;
+        int result = (fValue - 1) & 255;
 
 
         if (d==0) {

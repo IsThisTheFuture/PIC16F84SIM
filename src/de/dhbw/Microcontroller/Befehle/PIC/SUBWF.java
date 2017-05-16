@@ -1,11 +1,10 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
-import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Subtract W from f
- * TODO: ->	'f - w -> d; Wenn w > f: 1 -> C/DC; Wenn w = f: 1 -> Z'
+ * 'f - w -> d; Wenn w > f: 1 -> C/DC; Wenn w = f: 1 -> Z'
  */
 
 public class SUBWF extends Instruction {
@@ -19,7 +18,23 @@ public class SUBWF extends Instruction {
         int f = argument2;
 
         int fValue  = memory.getAddress(f);
-        int result = (fValue -memory.getRegisterW()) & 255;
+        int w       = memory.getRegisterW();
+
+        int result = (fValue - w) & 255;
+
+        if (w > f){
+            setCarryFlag();
+            setDigitCarryFlag();
+        } else {
+            clearCarryFlag();
+            clearDigitCarryFlag();
+        }
+
+
+        if(result == 0)
+            setZeroFlag();
+        else
+            clearZeroFlag();
 
 
         if (d == 0) {
@@ -29,10 +44,7 @@ public class SUBWF extends Instruction {
             memory.setAddress(f, result);
         }
 
-        if(result == 0)
-            setZeroFlag();
-        else
-            clearZeroFlag();
+
 
         incrementProgramCounter();
     }

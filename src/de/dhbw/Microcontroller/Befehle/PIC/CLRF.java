@@ -2,7 +2,7 @@ package de.dhbw.Microcontroller.Befehle.PIC;
 
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
-/*
+/**
  * Clear f
  * '0x00 -> f; 1 -> Z'
  */

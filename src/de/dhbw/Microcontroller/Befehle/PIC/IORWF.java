@@ -1,11 +1,10 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
-import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Inclusive OR W with f
- * TODO: ->	'w or f -> d; CheckZero'
+ * 'w or f -> d; CheckZero'
  */
 
 public class IORWF extends Instruction {
@@ -19,12 +18,21 @@ public class IORWF extends Instruction {
         int f = argument2;
 
         int fValue  = memory.getAddress(f);
-        fValue = (memory.getRegisterW() | fValue);
+        int w       = memory.getRegisterW();
+
+
+        int result = (w | fValue);
 
         if (d == 0)
-            memory.setRegisterW(fValue);
+            memory.setRegisterW(result);
         else
-            memory.setAddress(f, fValue);
+            memory.setAddress(f, result);
+
+
+        if(result == 0)
+            setZeroFlag();
+        else
+            clearZeroFlag();
 
 
         incrementProgramCounter();
