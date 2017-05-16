@@ -5,6 +5,12 @@ import de.dhbw.Microcontroller.Befehle.PIC.*;
 
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * Die Auswertung der Argumente hatte nicht korrekt funktioniert für Argumente die nicht rechts aussen stehen. Beispiel:
+ * ADDWF (0000 0111 dfff ffff)   -> Es soll d ausgelesen werden
+ * d = 0x0080 & instruction;
+ * In d steht jetzt 128. Das heißt wir müssen noch korrekt shiften!
+ */
 
 public class InstructionDecoderService {
     private int argument1 = 0;
@@ -121,7 +127,7 @@ public class InstructionDecoderService {
             //BTFSS (0001 11bb bfff ffff)
             else if ((instruction & 0x1C00) == 0x1C00) {
                 // b:
-                argument1 = 0x0380 & instruction;
+                argument1 = (0x0380 & instruction) / 128; // Shiften um richtige Stellenwertigkeit zu erhalten
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -130,11 +136,10 @@ public class InstructionDecoderService {
                return new BTFSS(instruction,0x1C00, argument1, argument2);
             }
 
-
-            //BTSFC (0001 10bb bfff ffff)
+            //BTFSC (0001 10bb bfff ffff)
             else if ((instruction & 0x1800) == 0x1800) {
                 // b:
-                argument1 = 0x0380 & instruction;
+                argument1 = (0x0380 & instruction) / 128; // Shiften um richtige Stellenwertigkeit zu erhalten
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -147,7 +152,7 @@ public class InstructionDecoderService {
             //BSF (0001 01bb bfff ffff)
             else if ((instruction & 0x1400) == 0x1400) {
                 // b:
-                argument1 = 0x0380 & instruction;
+                argument1 = (0x0380 & instruction) / 128; // Shiften um richtige Stellenwertigkeit zu erhalten
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -157,11 +162,10 @@ public class InstructionDecoderService {
             }
 
 
-
             //BCF (0001 00bb bfff ffff)
             else if ((instruction & 0x1000) == 0x1000) {
                 // b:
-                argument1 = 0x0380 & instruction;
+                argument1 = (0x0380 & instruction) / 128; // Shiften um richtige Stellenwertigkeit zu erhalten
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -173,7 +177,7 @@ public class InstructionDecoderService {
             //INCFSZ (0001 10bb bfff ffff)
             else if ((instruction & 0x0F00) == 0x0F00) {
                 // b:
-                argument1 = 0x0380 & instruction;
+                argument1 = (0x0380 & instruction) / 128; // Shiften um richtige Stellenwertigkeit zu erhalten
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -186,7 +190,7 @@ public class InstructionDecoderService {
             //SWAPF (0000 1110 dfff ffff)
             else if ((instruction & 0x0E00) == 0x0E00) {
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128; // Shiften um richtige Stellenwertigkeit zu erhalten
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -199,7 +203,7 @@ public class InstructionDecoderService {
             //RLF (0000 1101 dfff ffff)
             else if ((instruction & 0x0D00) == 0x0D00) {
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128; // Shiften um richtige Stellenwertigkeit zu erhalten
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -212,7 +216,7 @@ public class InstructionDecoderService {
             //RRF (0000 1100 dfff ffff)
             else if ((instruction & 0x0C00) == 0x0C00) {
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128; // Shiften um richtige Stellenwertigkeit zu erhalten
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -225,7 +229,7 @@ public class InstructionDecoderService {
             //DECFSZ (0000 1011 dfff ffff)
             else if ((instruction & 0x0B00) == 0x0B00) {
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128; // Shiften um richtige Stellenwertigkeit zu erhalten
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -238,7 +242,7 @@ public class InstructionDecoderService {
             //INCF (0000 1010 dfff ffff)
             else if ((instruction & 0x0A00) == 0x0A00) {
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128; // Shiften um richtige Stellenwertigkeit zu erhalten
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -251,7 +255,7 @@ public class InstructionDecoderService {
             //COMF (0000 1001 dfff ffff)
             else if ((instruction & 0x0900) == 0x0900) {
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128 ; // Shiften um richtige Stellenwertigkeit zu erhalten
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -264,7 +268,7 @@ public class InstructionDecoderService {
             //MOVF (0000 1000 dfff ffff)
             else if ((instruction & 0x0800) == 0x0800) {
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128;
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -278,12 +282,12 @@ public class InstructionDecoderService {
             else if ((instruction & 0x0700) == 0x0700) {
 
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128;
 
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": ADDWF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                //System.out.println(String.format("%04X", instruction) + ": ADDWF" + "  d: " + argument1 + "," + "  f: " + argument2);
                 return new ADDWF(instruction, 0x0700, argument1, argument2);
             }
 
@@ -291,7 +295,7 @@ public class InstructionDecoderService {
             //XORWF ( 0000 0110 dfff ffff)
             else if ((instruction & 0x0600) == 0x0600) {
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128;
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -304,7 +308,7 @@ public class InstructionDecoderService {
             //ANDWF (0000 0101 dfff ffff)
             else if ((instruction & 0x0500) == 0x0500) {
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128;
 
                 //f:
                 argument2 = 0x007F & instruction;
@@ -317,7 +321,7 @@ public class InstructionDecoderService {
             //IORWF (0000 0100 dfff ffff)
             else if ((instruction & 0x0400) == 0x0400) {
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128;
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -330,7 +334,7 @@ public class InstructionDecoderService {
             //DECF (0000 0011 dfff ffff)
             else if ((instruction & 0x0300) == 0x0300) {
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128;
 
                 // f:
                 argument2 = 0x007F & instruction;
@@ -343,7 +347,7 @@ public class InstructionDecoderService {
             //SUBWF (0000 0010 dfff ffff)
             else if ((instruction & 0x0200) == 0x0200) {
                 // d:
-                argument1 = 0x0080 & instruction;
+                argument1 = (0x0080 & instruction) / 128;
 
                 // f:
                 argument2 = 0x007F & instruction;
