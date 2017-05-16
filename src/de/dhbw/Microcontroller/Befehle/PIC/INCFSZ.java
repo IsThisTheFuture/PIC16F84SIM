@@ -8,6 +8,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * TODO: Skip if 0	->	'f + 1 -> d (wenn result != 0)'
  */
 
+@SuppressWarnings("Duplicates")
 public class INCFSZ extends Instruction {
     public INCFSZ(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);
@@ -20,11 +21,13 @@ public class INCFSZ extends Instruction {
 
         int fValue  = memory.getAddress(f);
 
-        //TODO: Ist das  & 0xFF wegen des alten datentyp byte hier stehen geblieben?
-        fValue = fValue + 1;
+        //Im Register darf max 255 stehen. Wenn 255 inkrementiert wird, steht wieder 0 drin
+        fValue = (fValue + 1) & 255;
 
         if (fValue==0) {
-            //TODO: dann wird der nächste Befehl im Programm übersprungen, und mit dem übernächsten weitergebacht.
+            NOP nop = new NOP(0x0000, 0x0000);
+            // TODO: Prüfen wie der ProgramCounter verändert wird
+            nop.execute();
         }
         else {
             if (d == 0)

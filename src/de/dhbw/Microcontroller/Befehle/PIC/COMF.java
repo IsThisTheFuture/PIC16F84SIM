@@ -29,9 +29,6 @@ public class COMF extends Instruction {
             memory.setAddress(f,fValue);
 
 
-
-        //TODO: wenn d=0: Das Ergebnis-> W. f bleibt unverändert. d=1 Das Ergebnis -> f.
-
         incrementProgramCounter();
     }
 

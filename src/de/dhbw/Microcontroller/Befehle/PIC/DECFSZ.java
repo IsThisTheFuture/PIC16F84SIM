@@ -5,9 +5,10 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Decrement f, Skip if 0
- * TODO: ->	'f - 1 -> d (wenn result != 0)'
+ * 'f - 1 -> d (wenn result != 0)'
  */
 
+@SuppressWarnings("ALL")
 public class DECFSZ extends Instruction {
     public DECFSZ(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);
@@ -19,12 +20,13 @@ public class DECFSZ extends Instruction {
         byte f = (byte) argument2;
 
         int fValue  = memory.getAddress(f);
-        fValue = (fValue - 1);
+        fValue--;
 
         if (fValue==0) {
-            //TODO: dann wird der nächste Befehl im Programm übersprungen, und mit dem übernächsten weitergebacht.
-        }
-        else {
+            NOP nop = new NOP(0x0000, 0x0000);
+            // TODO: Prüfen wie der ProgramCounter verändert wird
+            nop.execute();
+        } else {
             if (d == 0)
                 memory.setRegisterW(fValue);
              else

@@ -4,7 +4,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
  * Clear f
- * TODO: '0x00 -> f; 1 -> Z'
+ * '0x00 -> f; 1 -> Z'
  */
 
 

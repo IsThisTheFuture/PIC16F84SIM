@@ -204,6 +204,7 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
+                return new RLF(instruction, 0x0D00, argument1, argument2);
                 //System.out.println(String.format("%04X", instruction) + ": RLF" + "  d: " + argument1 + "," + "  f: " + argument2);
             }
 
@@ -216,7 +217,8 @@ public class InstructionDecoderService {
                 // f:
                 argument2 = 0x007F & instruction;
 
-                System.out.println(String.format("%04X", instruction) + ": RRF" + "  d: " + argument1 + "," + "  f: " + argument2);
+                return new RRF(instruction, 0x0C00, argument1, argument2);
+                //System.out.println(String.format("%04X", instruction) + ": RRF" + "  d: " + argument1 + "," + "  f: " + argument2);
             }
 
 

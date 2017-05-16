@@ -18,13 +18,19 @@ public class XORWF extends Instruction {
         int f = argument2;
 
         int fValue  = memory.getAddress(f);
-        fValue = (fValue ^ memory.getRegisterW());
+        int result = (fValue ^ memory.getRegisterW());
 
 
         if (d == 0)
-            memory.setRegisterW(fValue);
+            memory.setRegisterW(result);
         else
-            memory.setAddress(f, fValue);
+            memory.setAddress(f, result);
+
+        if(result == 0)
+            setZeroFlag();
+        else
+            clearZeroFlag();
+
 
         incrementProgramCounter();
     }
