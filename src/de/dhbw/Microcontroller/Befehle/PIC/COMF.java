@@ -4,7 +4,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
  * Complement f
- * TODO: '0x00 -> w; 1 -> Z'
+ * TODO: 'invertiere f -> d; CheckZero'
  */
 
 
@@ -21,12 +21,19 @@ public class COMF extends Instruction {
 
 
         int fValue  = memory.getAddress(f);
-        fValue = ~fValue;
+        int result = ~fValue & 255;
 
-        if (d==0)
-            memory.setRegisterW(fValue);
+        // ZeroFlag prüfen
+        if (result == 0)
+            setZeroFlag();
         else
-            memory.setAddress(f,fValue);
+            clearZeroFlag();
+
+        // Ergebnis in Destination schreiben
+        if (d==0)
+            memory.setRegisterW(result);
+        else
+            memory.setAddress(f,result);
 
 
         incrementProgramCounter();

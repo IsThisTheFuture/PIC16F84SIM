@@ -20,16 +20,20 @@ public class DECF extends Instruction {
 
 
         int fValue  = memory.getAddress(f);
-        fValue = fValue -1;
+        int result = (fValue -1) & 255;
 
 
-        //TODO Prüfen
         if (d==0) {
-            memory.setRegisterW(fValue);
+            memory.setRegisterW(result);
         }
         else {
-            memory.setAddress(f, fValue);
+            memory.setAddress(f, result);
         }
+
+        if(result == 0)
+            setZeroFlag();
+        else
+            clearZeroFlag();
 
         incrementProgramCounter();
     }
