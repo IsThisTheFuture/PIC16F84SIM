@@ -19,16 +19,25 @@ public class SUBWF extends Instruction {
         int f = argument2;
 
         int fValue  = memory.getAddress(f);
-        fValue = fValue - memory.getRegisterW();
+        int result = (fValue -memory.getRegisterW()) & 255;
 
-        if (d == 0)
-            memory.setRegisterW(fValue);
+
+        if (d == 0) {
+            memory.setRegisterW(result);
+        }
+        else {
+            memory.setAddress(f, result);
+        }
+
+        if(result == 0)
+            setZeroFlag();
         else
-            memory.setAddress(f, fValue);
-
+            clearZeroFlag();
 
         incrementProgramCounter();
     }
+
+
 
 
 
