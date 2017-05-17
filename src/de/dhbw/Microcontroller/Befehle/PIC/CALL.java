@@ -17,10 +17,6 @@ public class CALL extends Instruction {
         int k = argument;
         int pclath = memory.getAddress(Const.PCLATH);
 
-        // TODO: Indirekte Addressierung hier notwendig?
-        if(k == Const.IND)
-            k = memory.getAddress(Const.FSR);
-
 
         // Top of Stack = PC + 1
         stack.push(memory.getPc() +1);

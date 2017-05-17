@@ -18,14 +18,10 @@ public class GOTO extends Instruction {
         int k = argument;
         int pclath = memory.getAddress(Const.PCLATH);
 
-        // TODO: Indirekte Addressierung hier notwendig?
-        if(k == Const.IND)
-            k = memory.getAddress(Const.FSR);
-
 
         // Die 11-Bit Addresse k wird in das 13-Bit Register geladen (Bit 0-10)
         // Die oberen 2 Bits werden von PCLATH (Bit 3 und 4) geladen
-        pclath = pclath & 0b00011000;
+        pclath = (pclath & 0b00011000) * 256;
         // Damit sie die richtige Wertigkeit haben multiplizieren wir sie mit 256
         /*
             0b0000000011000 *1
