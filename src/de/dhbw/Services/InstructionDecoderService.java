@@ -384,19 +384,21 @@ public class InstructionDecoderService {
             //CLRWDT (0000 0000 0110 0100)
             else if ((instruction & 0x0064) == 0x0064) {
                 System.out.println(String.format("%04X", instruction) + ": CLRWDT");
-                //return new CLRWDT(instruction, 0x0064);
+                return new CLRWDT(instruction, 0x0064);
             }
 
 
             //SLEEP (0000 0000 0110 0011)
             else if ((instruction & 0x0063) == 0x0063) {
-                System.out.println(String.format("%04X", instruction) + ": SLEEP");
+                //System.out.println(String.format("%04X", instruction) + ": SLEEP");
+                return new SLEEP(instruction, 0x0063);
             }
 
 
             //RETFIE (0000 0000 0000 1001)
             else if ((instruction & 0x0009) == 0x0009) {
-                System.out.println(String.format("%04X", instruction) + ": RETIE");
+                //System.out.println(String.format("%04X", instruction) + ": RETIE");
+                return new RETFIE(instruction, 0x0009);
             }
 
 
@@ -416,6 +418,5 @@ public class InstructionDecoderService {
                 System.err.println("Fehler! Instruction " + String.format("%04X", instruction) + "wurde nicht erkannt");
                 return null;
             }
-            return null;
     }
 }

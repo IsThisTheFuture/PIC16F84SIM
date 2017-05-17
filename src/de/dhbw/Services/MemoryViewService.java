@@ -15,7 +15,7 @@ public class MemoryViewService {
         {
             MemoryView memoryView = new MemoryView();
 
-            memoryView.setMemoryRow(i/8);
+            memoryView.setMemoryRow(i);
             memoryView.setColumn0(memory.getAddress(i));
             memoryView.setColumn1(memory.getAddress(i+1));
             memoryView.setColumn2(memory.getAddress(i+2));
