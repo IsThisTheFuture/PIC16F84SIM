@@ -19,12 +19,14 @@ public class BTFSC extends Instruction {
         int f = argument1;
         int b = argument2;
 
-        b = (f &(1 << (b-1))); //das bit b in f wird verundet um zu prüfen was für ein wert dort steht
-        if (b==0) {
-            //....
+        b = (f &(1 << b)); //das bit b in f wird verundet um zu prüfen was für ein wert dort steht
+        if (b==1) {
+            incrementProgramCounter();
         }
-
-        incrementProgramCounter();
+        else {
+            incrementProgramCounter();
+            incrementProgramCounter();
+        }
     }
 
     @Override
