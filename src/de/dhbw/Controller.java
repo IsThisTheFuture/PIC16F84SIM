@@ -232,7 +232,7 @@ public class Controller {
                         if (i != currentRow) i = currentRow;
                         Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
                         instructionList.get(i).execute();
-                        //instructionList.get(i).displayDebugInfo();
+                        instructionList.get(i).displayDebugInfo();
 
 
 
@@ -264,7 +264,28 @@ public class Controller {
             tableFileContent.getItems().clear();
     }
 
-    public void next(ActionEvent actionEvent) {}
+    public void next(ActionEvent actionEvent) {
+        Thread thread = new Thread(() -> {
+            try {
+                instructionList = instructionDecoderService.getInstructionList();
+                        currentRow = memory.getPc();
+
+                        Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
+                        instructionList.get(currentRow).execute();
+                        instructionList.get(currentRow).displayDebugInfo();
+
+                        Platform.runLater(() -> tableFileContent.refresh());
+                        Platform.runLater(() -> updateUI());
+
+            } catch (Exception e) {
+                System.err.println("Fehler in Methode next()");
+                e.printStackTrace();
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
+
+    }
 
     public void openDocumentation(ActionEvent actionEvent) {
     }

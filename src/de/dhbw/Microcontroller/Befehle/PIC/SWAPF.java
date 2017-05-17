@@ -22,7 +22,7 @@ public class SWAPF extends Instruction {
         int rightNibble = memory.getAddress(f) & 0b00001111;
 
         // Durch teilen / multiplizieren schieben wir die bits und führen die Nibble danach wieder zusammen
-        int result = (leftNibble / 16) + (rightNibble * 16);
+        int result = (leftNibble / 16) | (rightNibble * 16);
 
         // Wenn d=0, dann result -> w     sonst result -> f
         if(d == 0)

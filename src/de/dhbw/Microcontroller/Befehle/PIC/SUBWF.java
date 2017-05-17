@@ -18,11 +18,12 @@ public class SUBWF extends Instruction {
         int f = argument2;
 
         int fValue  = memory.getAddress(f);
-        int w       = memory.getRegisterW();
+        int w       = ~memory.getRegisterW() + 1; // 2er Komplement
 
-        int result = (fValue - w) & 255;
+        int result = (fValue + w) & 255;
 
-        if (w > f){
+
+        if (w > fValue){
             setCarryFlag();
             setDigitCarryFlag();
         } else {
