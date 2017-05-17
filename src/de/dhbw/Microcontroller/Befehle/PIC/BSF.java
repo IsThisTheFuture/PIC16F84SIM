@@ -19,6 +19,12 @@ public class BSF extends Instruction {
         int b = argument1;
         int f = argument2;
 
+
+        // Indirekte Addressierung
+        if(f == Const.IND)
+            f = memory.getAddress(Const.FSR);
+
+
         int fValue = memory.getAddress(f);
         fValue = (fValue |(1 << b)); //das bit b wird in f  auf 1 gesetzt
         memory.setAddress(f,fValue);

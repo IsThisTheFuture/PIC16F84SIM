@@ -5,7 +5,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Bit Test, Skip if Clear
- * TODO: ->	'if b = 1: PC += 1; else PC += 2'
+ * 'if b = 1: PC += 1; else PC += 2'
  */
 
 public class BTFSC extends Instruction {
@@ -16,11 +16,17 @@ public class BTFSC extends Instruction {
 
     @Override
     public void execute(){
-        int f = argument1;
         int b = argument2;
+        int f = argument1;
 
-        b = (f &(1 << b)); //das bit b in f wird verundet um zu prüfen was für ein wert dort steht
-        if (b==1) {
+        // Indirekte Addressierung
+        if(f == Const.IND)
+            f = memory.getAddress(Const.FSR);
+
+        int fValue = memory.getAddress(f);
+
+        int bitValue = (fValue &(1 << b)); //das bit b in f wird verundet um zu prüfen was für ein wert dort steht
+        if (bitValue==1) {
             incrementProgramCounter();
         }
         else {

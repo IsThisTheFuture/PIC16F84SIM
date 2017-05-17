@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
@@ -16,6 +17,11 @@ public class CLRF extends Instruction{
     @Override
     public void execute(){
         int f = argument;
+
+        // Indirekte Addressierung
+        if(f == Const.IND)
+            f = memory.getAddress(Const.FSR);
+
         memory.setAddress(f, 0);
 
         setZeroFlag();

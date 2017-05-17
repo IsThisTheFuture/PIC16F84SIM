@@ -4,6 +4,7 @@ package de.dhbw.Model;
  * Model für die Anzeige des Assembler-Programmes in der GUI
  */
 public class InstructionView {
+    private boolean isExecutable;
     private int zeilennummer;
     private String opcode;
     private String befehl;
@@ -45,5 +46,13 @@ public class InstructionView {
 
     public void setBefehl(String befehl) {
         this.befehl = befehl;
+    }
+
+    public boolean isExecutable() {
+        return isExecutable;
+    }
+
+    public void setExecutable(boolean executable) {
+        isExecutable = executable;
     }
 }

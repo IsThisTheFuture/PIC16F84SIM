@@ -16,8 +16,13 @@ public class DECFSZ extends Instruction {
 
     @Override
     public void execute(){
-        byte d = (byte) argument1;
-        byte f = (byte) argument2;
+        int d = argument1;
+        int f = argument2;
+
+        // Indirekte Addressierung
+        if(f == Const.IND)
+            f = memory.getAddress(Const.FSR);
+
 
         int fValue  = memory.getAddress(f);
         fValue--;

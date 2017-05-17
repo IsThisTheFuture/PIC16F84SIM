@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
@@ -17,6 +18,10 @@ public class SWAPF extends Instruction {
     public void execute() {
         int d = argument1;
         int f = argument2;
+
+        // Indirekte Addressierung
+        if(f == Const.IND)
+            f = memory.getAddress(Const.FSR);
 
         int leftNibble  = memory.getAddress(f) & 0b11110000;
         int rightNibble = memory.getAddress(f) & 0b00001111;

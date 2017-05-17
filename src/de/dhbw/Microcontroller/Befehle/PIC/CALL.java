@@ -5,7 +5,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
  * Call subroutine
- * TODO:  'PC + 1 -> TOS; k -> PC (Bits 0-10); PCLATH (Bits 3-4) -> PC (Bits 11-12)'
+ * 'PC + 1 -> TOS; k -> PC (Bits 0-10); PCLATH (Bits 3-4) -> PC (Bits 11-12)'
  */
 public class CALL extends Instruction {
     public CALL(int instruction, int opcode, int argument){
@@ -16,6 +16,10 @@ public class CALL extends Instruction {
     public void execute(){
         int k = argument;
         int pclath = memory.getAddress(Const.PCLATH);
+
+        // TODO: Indirekte Addressierung hier notwendig?
+        if(k == Const.IND)
+            k = memory.getAddress(Const.FSR);
 
 
         // Top of Stack = PC + 1

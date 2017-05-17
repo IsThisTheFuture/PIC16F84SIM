@@ -17,6 +17,12 @@ public class XORWF extends Instruction {
         int d = argument1;
         int f = argument2;
 
+
+        // Indirekte Addressierung
+        if(f == Const.IND)
+            f = memory.getAddress(Const.FSR);
+
+
         int fValue  = memory.getAddress(f);
         int w       = memory.getRegisterW();
 

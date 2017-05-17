@@ -18,8 +18,15 @@ public class BTFSS extends Instruction {
         int f = argument1;
         int b = argument2;
 
-        b = (f &(1 << b));
-        if (b==0) {
+
+        // Indirekte Addressierung
+        if(f == Const.IND)
+            f = memory.getAddress(Const.FSR);
+
+        int fValue = memory.getAddress(f);
+
+        int bitValue = (fValue &(1 << b));
+        if (bitValue==0) {
             incrementProgramCounter();
         }
         else {

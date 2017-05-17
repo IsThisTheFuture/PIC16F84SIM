@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
@@ -16,6 +17,10 @@ public class ADDWF extends Instruction {
     public void execute(){
         int d = argument1;
         int f = argument2;
+
+        // Indirekte Addressierung
+        if(f == Const.IND)
+            f = memory.getAddress(Const.FSR);
 
         int fValue = memory.getAddress(f);
         int w      = memory.getRegisterW();

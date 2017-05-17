@@ -18,6 +18,12 @@ public class RLF extends Instruction {
         int d = argument1;
         int f = argument2;
 
+
+        // Indirekte Addressierung
+        if(f == Const.IND)
+            f = memory.getAddress(Const.FSR);
+
+
         int fValue = memory.getAddress(f);
         int currentCarryBit = getBit(Const.STATUS, 0);
         int rotatingBit = fValue & 0b10000000;

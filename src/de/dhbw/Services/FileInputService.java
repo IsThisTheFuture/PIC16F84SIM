@@ -31,8 +31,8 @@ public class FileInputService {
 
                     // Prüfen, ob Befehl ausführbar ist. Nur dann wird er zur Liste hinzugefügt
                     char c = line.charAt(0);
-                    if (c != ' ' && c != '\t' && c != '\r' && c != '\n')
-                    {
+                    if (c != ' ' && c != '\t' && c != '\r' && c != '\n') {
+                        instruction.setExecutable(true);
                         String subline = line.substring(0, 25);
                         //subline = subline.replaceAll("\\s+", "");
 

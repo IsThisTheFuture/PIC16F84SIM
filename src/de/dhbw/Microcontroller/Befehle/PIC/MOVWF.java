@@ -1,6 +1,9 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
+
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Move W to f
@@ -16,6 +19,10 @@ public class MOVWF extends Instruction {
     @Override
     public void execute(){
         int f = argument;
+
+        // Indirekte Addressierung
+        if(f == Const.IND)
+            f = memory.getAddress(Const.FSR);
 
         memory.setAddress(f, memory.getRegisterW());
 

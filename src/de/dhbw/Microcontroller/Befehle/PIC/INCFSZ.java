@@ -19,6 +19,11 @@ public class INCFSZ extends Instruction {
         int d = argument1;
         int f = argument2;
 
+        // Indirekte Addressierung
+        if(f == Const.IND)
+            f = memory.getAddress(Const.FSR);
+
+
         int fValue  = memory.getAddress(f);
 
         //Im Register darf max 255 stehen. Wenn 255 inkrementiert wird, steht wieder 0 drin

@@ -19,6 +19,10 @@ public class DECF extends Instruction {
         int f = argument2;
 
 
+        // Indirekte Addressierung
+        if(f == Const.IND)
+            f = memory.getAddress(Const.FSR);
+
         int fValue  = memory.getAddress(f);
         int result = (fValue - 1) & 255;
 

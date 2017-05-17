@@ -5,7 +5,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
  * Inclusive OR literal (k) with W
- * TODO: 'w or k -> w; CheckZero'
+ * 'w or k -> w; CheckZero'
  */
 
 public class IORLW extends Instruction {
@@ -16,6 +16,8 @@ public class IORLW extends Instruction {
     @Override
     public void execute(){
         int k = argument;
+
+
 
         memory.setRegisterW(memory.getRegisterW() | k);
 
