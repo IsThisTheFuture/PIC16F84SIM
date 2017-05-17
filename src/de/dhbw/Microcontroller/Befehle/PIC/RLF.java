@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
@@ -18,6 +19,7 @@ public class RLF extends Instruction {
         int f = argument2;
 
         int fValue = memory.getAddress(f);
+        int currentCarryBit = getBit(Const.STATUS, 0);
         int rotatingBit = fValue & 0b10000000;
 
         // Carry-Bit nur setzen, wenn das rotierte Bit 1 ist
@@ -27,15 +29,22 @@ public class RLF extends Instruction {
             clearCarryFlag();
 
         // Inhalt von Adresse f wird eine Stelle nach links geshiftet. Darf Max 255 sein
-        fValue = (fValue * 2) & 255;
+        int result = (fValue * 2) & 255;
+
+        //Jetzt das CarryBit hinzuaddieren (falls es gesetzt ist)
+        result = result + currentCarryBit;
 
         // d=0 : fValue -> W     d=1 : fValue -> f
         if (d==0)
-            memory.setRegisterW(fValue);
+            memory.setRegisterW(result);
         else
-            memory.setAddress(f, fValue);
+            memory.setAddress(f, result);
 
         incrementProgramCounter();
     }
 
+    private int getBit(int address, int position)
+    {
+        return ((memory.getAddress(address) >> position) & 1);
+    }
 }

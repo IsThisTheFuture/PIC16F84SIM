@@ -232,7 +232,6 @@ public class Controller {
                         if (i != currentRow) i = currentRow;
                         Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
                         instructionList.get(i).execute();
-                        instructionList.get(i).displayDebugInfo();
 
 
 
@@ -272,7 +271,6 @@ public class Controller {
 
                         Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
                         instructionList.get(currentRow).execute();
-                        instructionList.get(currentRow).displayDebugInfo();
 
                         Platform.runLater(() -> tableFileContent.refresh());
                         Platform.runLater(() -> updateUI());
