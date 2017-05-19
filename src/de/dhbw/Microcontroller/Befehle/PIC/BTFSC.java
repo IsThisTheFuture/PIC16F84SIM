@@ -16,17 +16,15 @@ public class BTFSC extends Instruction {
 
     @Override
     public void execute(){
-        int b = argument2;
-        int f = argument1;
+        int b = argument1;
+        int f = argument2;
 
         // Indirekte Addressierung
         if(f == Const.IND)
             f = memory.getAddress(Const.FSR);
 
-        int fValue = memory.getAddress(f);
-
         int bitValue = getBit(f, b);
-//        int bitValue = (fValue &(1 << b)); //das bit b in f wird verundet um zu prüfen was für ein wert dort steht
+
         if (bitValue==1) {
             incrementProgramCounter();
         }

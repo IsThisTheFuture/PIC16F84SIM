@@ -306,17 +306,17 @@ public class Controller {
     }
 
     public void toggleBit(int bitPosition, int address){
-        int b = memory.getAddress(address);
+        int byteValue = memory.getAddress(address);
 
         // Wenn das Bit an der Stelle bitPosition 0 ist, dann... sonst...
         if(getBit(memory.getAddress(address), bitPosition) == 0){
             // Bit auf 1 setzen
-            b = (b | (1 << (bitPosition)));
+            byteValue = (byteValue | (1 << (bitPosition)));
         } else {
             // Bit auf 0 setzen
-            b = (b & ~(1 << (bitPosition)));
+            byteValue = (byteValue & ~(1 << (bitPosition)));
         }
-        memory.setAddress(address, b);
+        memory.setAddress(address, byteValue);
     }
 
     public void toggleA0() {
