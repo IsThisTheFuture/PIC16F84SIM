@@ -59,11 +59,16 @@ public class Memory {
     }
 
 
-    // Diese Methode ist für die GUI gedacht, da dort nur absolute Werte aus dem Speicher geholt werden
+    // Diese Methoden sind für die GUI gedacht,
+    // da dort nur absolute Adressen benutzt werden
     // (also unabhängig davon, ob Bank1 oder Bank2 aktiv ist)
     public Integer getAbsoluteAddress(int address){
             return registers[address];
         }
+
+    public void setAbsoluteAddress(int address, int value){
+        this.registers[address] = value;
+    }
 
     public void setAddress(int address, int value){
         // Das Statusregister soll auf beiden Bänken gleichen Inhalt haben

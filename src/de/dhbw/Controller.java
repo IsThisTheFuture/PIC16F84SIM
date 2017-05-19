@@ -342,7 +342,7 @@ public class Controller {
             // Bit auf 0 setzen
             byteValue = (byteValue & ~(1 << (bitPosition)));
         }
-        memory.setAddress(address, byteValue);
+        memory.setAbsoluteAddress(address, byteValue);
     }
 
     public void toggleA0() {
