@@ -2,7 +2,7 @@ package de.dhbw.Microcontroller.Befehle.PIC;
 
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
-/*
+/**
  * Subtract W from literal (k)
  * 'k - w -> w; Wenn w > k: 1 -> C; Wenn w = k: 1 -> Z; CheckDC'
  */
@@ -18,7 +18,7 @@ public class SUBLW extends Instruction {
             int w = memory.getRegisterW();
 
 
-            // CarryBit prüfen. TODO: Hier steht w < k, da 2er Komplement. Ändern?
+            // CarryBit prüfen. Hier steht w < k, da 2er Komplement.
             if(w < k)
                 setCarryFlag();
             else
@@ -48,6 +48,7 @@ public class SUBLW extends Instruction {
                 clearZeroFlag();
 
             incrementProgramCounter();
+            incrementRuntime();
         }
 
     @Override

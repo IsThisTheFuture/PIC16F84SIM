@@ -5,9 +5,9 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/*
+/**
  * Exclusive OR literal (k) with W
- * TODO: 'w xor k -> w; CheckZero'
+ * 'w xor k -> w; CheckZero'
  */
 
 public class XORLW extends Instruction {
@@ -27,6 +27,7 @@ public class XORLW extends Instruction {
             clearZeroFlag();
 
         incrementProgramCounter();
+        incrementRuntime();
     }
 
     @Override

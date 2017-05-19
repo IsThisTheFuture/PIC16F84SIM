@@ -3,7 +3,7 @@ package de.dhbw.Microcontroller.Befehle.PIC;
 import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
-/*
+/**
  * Call subroutine
  * 'PC + 1 -> TOS; k -> PC (Bits 0-10); PCLATH (Bits 3-4) -> PC (Bits 11-12)'
  */
@@ -40,7 +40,8 @@ public class CALL extends Instruction {
         // Jetzt addieren wir beide und schreiben sie in PC
         memory.setPc(k+pclath);
 
-        // TODO: "CALL is 2-Cycle Instruction"
+        incrementRuntime();
+        incrementRuntime();
     }
 
     @Override

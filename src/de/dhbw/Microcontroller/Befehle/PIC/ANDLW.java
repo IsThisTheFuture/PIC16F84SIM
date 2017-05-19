@@ -6,7 +6,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
  * AND literal (k) with W
- * TODO:'w and k -> w; CheckZero'
+ * 'w and k -> w; CheckZero'
  */
 
 public class ANDLW extends Instruction {
@@ -18,18 +18,19 @@ public class ANDLW extends Instruction {
     @Override
     public void execute(){
         int k = argument;
-
-        memory.setRegisterW((memory.getRegisterW() & k));
-
-        //TODO: Prüfen!!
         int w = memory.getRegisterW();
 
-        if(w == 0)
+        int result = k & w;
+        memory.setRegisterW(result);
+
+
+        if(result == 0)
             setZeroFlag();
         else
             clearZeroFlag();
 
         incrementProgramCounter();
+        incrementRuntime();
     }
 
     @Override

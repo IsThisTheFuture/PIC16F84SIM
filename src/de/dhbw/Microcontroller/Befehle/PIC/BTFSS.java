@@ -29,8 +29,10 @@ public class BTFSS extends Instruction {
         }
         else {
             incrementProgramCounter();
-            incrementProgramCounter();
+            NOP NOP = new NOP(0x0000, 0x0000);
+            NOP.execute();
         }
+        incrementRuntime();
     }
 
     @Override

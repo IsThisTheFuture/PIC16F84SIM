@@ -4,8 +4,8 @@ import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /*
- * Add literal and WDT
- * TODO: 'w + k -> w; CheckZero; CheckCarry, CheckDC'
+ * Add literal and W
+ * 'w + k -> w; CheckZero; CheckCarry, CheckDC'
  */
 
 public class ADDLW extends Instruction {
@@ -44,9 +44,9 @@ public class ADDLW extends Instruction {
         else
             clearZeroFlag();
 
-        //TODO Wie CheckCarry und CheckDC prüfen????
 
         incrementProgramCounter();
+        incrementRuntime();
     }
 
     @Override

@@ -3,7 +3,7 @@ package de.dhbw.Microcontroller.Befehle.PIC;
 import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
-/*
+/**
  * No Operation
  */
 
@@ -15,6 +15,7 @@ public class NOP extends Instruction {
         @Override
         public void execute(){
         incrementProgramCounter();
+        incrementRuntime();
         }
 
         @Override

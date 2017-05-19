@@ -42,6 +42,8 @@ public class ANDWF extends Instruction {
 
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
         @Override

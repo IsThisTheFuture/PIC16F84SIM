@@ -47,6 +47,7 @@ public class RRF extends Instruction {
             memory.setAddress(f, result);
 
         incrementProgramCounter();
+        incrementRuntime();
 
     }
 

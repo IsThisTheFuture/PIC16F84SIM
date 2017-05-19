@@ -111,6 +111,8 @@ public class Controller {
     @FXML
     private TextField textFieldSpeed;
     @FXML
+    private TextField textFieldOption;
+    @FXML
     private Text textOptionReg7RBPU;
     @FXML
     private Text textOptionReg6INTEDG;
@@ -144,6 +146,10 @@ public class Controller {
     private int currentRow = 0;
     private int speed = 500;
     private boolean isRunning = true;
+
+    public static int runtime = 0;
+    public static double runtimeCalculated = 0;
+    public static double clockSpeed = 4000; // PIC16F84 läuft mit 4MHz
 
 
     public void initialize(){
@@ -207,6 +213,7 @@ public class Controller {
         textStatusReg7IRP.setText(String.format("%1x",getBit(memory.getAbsoluteAddress(Const.STATUS), 7)));
 
 
+        textFieldOption.setText(String.format("%02x", memory.getAbsoluteAddress(Const.OPTION_REG)).toUpperCase());
         textOptionReg0PS0.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 0)));
         textOptionReg1PS1.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 1)));
         textOptionReg2PS2.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 2)));

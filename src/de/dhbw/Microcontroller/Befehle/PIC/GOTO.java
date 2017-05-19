@@ -3,9 +3,9 @@ package de.dhbw.Microcontroller.Befehle.PIC;
 import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
-/*
+/**
  * Go to address
- * TODO: 'k -> PC (Bits 0-10); PCLATH (Bits 3-4) -> PC (11-12)'
+ * 'k -> PC (Bits 0-10); PCLATH (Bits 3-4) -> PC (11-12)'
  */
 
 public class GOTO extends Instruction {
@@ -41,7 +41,9 @@ public class GOTO extends Instruction {
         // In PCL stehen aber nur die unteren 8 Bit von PC, deshalb verunden wir mit 255
         memory.setAddress(Const.PCL, memory.getPc()&255);
 
-        //TODO: "GOTO is a 2-Cycle Instruction"
+        incrementRuntime();
+        incrementRuntime();
+
     }
 
     @Override

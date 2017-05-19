@@ -27,7 +27,7 @@ BSF		-	0x1..f	-	0001 01bb bfff ffff	-	Bit set file ( set Bit b to 1)		->	'1 -> f
 BTFSC	-	0x1..f	-	0001 10bb bfff ffff	-	Bit Test, Skip if Clear				->	'if b = 1: PC += 1; else PC += 2'						|| . = 10bb bfff (b)
 BTFSS	-	0x1..f	-	0001 11bb bfff ffff	-	Bit Test f, Skip if set				->	'if b = 0: PC += 1; else PC += 2'						|| . = 11bb bfff (b)
 
-ADDLW	-	0x3.kk	-	0011 111x kkkk kkkk	-	Add literal and WDT					->	'w + k -> w; CheckZero; CheckCarry, CheckDC' 			||  . = 111x (b)
+ADDLW	-	0x3.kk	-	0011 111x kkkk kkkk	-	Add literal and W   				->	'w + k -> w; CheckZero; CheckCarry, CheckDC' 			||  . = 111x (b)
 ANDLW	-	0x39kk	-	0011 1001 kkkk kkkk	-	AND literal (k) with W				->	'w and k -> w; CheckZero'
 CALL	-	0x2.kk	-	0010 0kkk kkkk kkkk	-	Call subroutine						->	'PC + 1 -> TOS; k -> PC (Bits 0-10); PCLATH (Bits 3-4) -> PC (Bits 11-12)'	||	. = 0kkk (b)
 CLRWDT	-	0x0064	-	0000 0000 0110 0100	-	Clear Watchdog Timer				->	'0x00 -> WDT; 0 -> WDT prescaler; 1 -> TO; 1 -> PD'

@@ -27,6 +27,8 @@ public class CLRF extends Instruction{
         setZeroFlag();
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
     @Override

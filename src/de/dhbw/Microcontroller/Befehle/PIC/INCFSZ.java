@@ -4,8 +4,8 @@ import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
- * Increment f
- * TODO: Skip if 0	->	'f + 1 -> d (wenn result != 0)'
+ * Increment f, Skip if 0
+ * 'f + 1 -> d (wenn result != 0)'
  */
 
 @SuppressWarnings("Duplicates")
@@ -31,7 +31,6 @@ public class INCFSZ extends Instruction {
 
         if (fValue==0) {
             NOP nop = new NOP(0x0000, 0x0000);
-            // TODO: Prüfen wie der ProgramCounter verändert wird
             nop.execute();
         }
         else {
@@ -42,6 +41,8 @@ public class INCFSZ extends Instruction {
         }
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
     @Override

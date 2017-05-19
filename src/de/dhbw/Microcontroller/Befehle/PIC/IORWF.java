@@ -41,6 +41,8 @@ public class IORWF extends Instruction {
 
 
         incrementProgramCounter();
+        incrementRuntime();
+
 
     }
 

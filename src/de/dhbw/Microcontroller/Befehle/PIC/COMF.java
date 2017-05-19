@@ -42,6 +42,8 @@ public class COMF extends Instruction {
 
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
     @Override

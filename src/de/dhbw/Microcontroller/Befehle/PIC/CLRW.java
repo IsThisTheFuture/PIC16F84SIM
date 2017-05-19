@@ -20,6 +20,8 @@ public class CLRW extends Instruction {
         setZeroFlag();
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
     @Override

@@ -123,7 +123,7 @@
                                     <Label layoutX="12.0" layoutY="259.0" text="PC:" />
                                     <TextField fx:id="textFieldPC" editable="false" layoutX="70.0" layoutY="254.0" prefHeight="26.0" prefWidth="97.0" text="0000" />
                                     <Label layoutX="12.0" layoutY="288.0" text="Status:" />
-                                    <TextField fx:id="textFieldStatus" layoutX="71.0" layoutY="283.0" prefHeight="26.0" prefWidth="97.0" />
+                                    <TextField fx:id="textFieldStatus" layoutX="71.0" layoutY="283.0" prefHeight="26.0" prefWidth="97.0" text="18" />
                                     <Label layoutX="20.0" layoutY="323.0" text="IRP" />
                                     <Label layoutX="49.0" layoutY="323.0" text="RP1" />
                                     <Label layoutX="83.0" layoutY="323.0" text="RP0" />
@@ -143,7 +143,7 @@
                                     <TextField fx:id="textFieldSpeed" layoutX="9.0" layoutY="633.0" onAction="#setSpeed" onInputMethodTextChanged="#setSpeed" prefHeight="26.0" prefWidth="81.0" text="500" />
                                     <Label layoutX="9.0" layoutY="617.0" text="Speed in ms" />
                                     <Label layoutX="7.0" layoutY="385.0" text="OPTION_REG:" />
-                                    <TextField layoutX="112.0" layoutY="380.0" prefHeight="26.0" prefWidth="97.0" />
+                                    <TextField fx:id="textFieldOption" layoutX="112.0" layoutY="380.0" prefHeight="26.0" prefWidth="97.0" text="255" />
                                     <Label layoutX="12.0" layoutY="413.0" text="RBPU" />
                                     <Label layoutX="55.0" layoutY="413.0" text="INTEDG" />
                                     <Label layoutX="116.0" layoutY="413.0" text="T0CS" />

@@ -3,7 +3,7 @@ package de.dhbw.Microcontroller.Befehle.PIC;
 import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
-/*
+/**
  * Inclusive OR literal (k) with W
  * 'w or k -> w; CheckZero'
  */
@@ -17,8 +17,6 @@ public class IORLW extends Instruction {
     public void execute(){
         int k = argument;
 
-
-
         memory.setRegisterW(memory.getRegisterW() | k);
 
         // CheckZero
@@ -30,6 +28,8 @@ public class IORLW extends Instruction {
 
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
     @Override

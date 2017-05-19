@@ -40,6 +40,8 @@ public class DECF extends Instruction {
             clearZeroFlag();
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
     @Override

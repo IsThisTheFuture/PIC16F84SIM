@@ -27,6 +27,8 @@ public class MOVWF extends Instruction {
         memory.setAddress(f, memory.getRegisterW());
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
     @Override

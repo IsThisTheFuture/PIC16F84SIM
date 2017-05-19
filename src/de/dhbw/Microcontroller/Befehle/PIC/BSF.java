@@ -30,6 +30,8 @@ public class BSF extends Instruction {
         memory.setAddress(f,fValue);
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
     @Override

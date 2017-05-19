@@ -37,6 +37,8 @@ public class DECFSZ extends Instruction {
         }
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
     @Override

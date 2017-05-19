@@ -41,6 +41,7 @@ public class XORWF extends Instruction {
 
 
         incrementProgramCounter();
+        incrementRuntime();
     }
 
     @Override

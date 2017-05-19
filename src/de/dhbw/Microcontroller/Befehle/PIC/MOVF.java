@@ -37,6 +37,8 @@ public class MOVF extends Instruction {
             clearZeroFlag();
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
     @Override

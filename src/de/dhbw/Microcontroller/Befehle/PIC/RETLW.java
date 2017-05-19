@@ -3,7 +3,7 @@ package de.dhbw.Microcontroller.Befehle.PIC;
 import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
-/*
+/**
  * Return with literal (k) in W
  * TODO: 'k -> w; TOS -> PC'
  */
@@ -21,6 +21,8 @@ public class RETLW extends Instruction {
 
         memory.setPc(stack.pop());
         memory.setAddress(Const.PCL, memory.getPc()&255);
+        //TODO: PCLATH?
+        incrementRuntime();
     }
 
     @Override

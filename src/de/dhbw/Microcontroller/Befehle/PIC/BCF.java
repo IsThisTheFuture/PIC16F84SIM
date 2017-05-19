@@ -30,6 +30,8 @@ public class BCF extends Instruction {
 
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
     @Override

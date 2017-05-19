@@ -47,6 +47,8 @@ public class RLF extends Instruction {
             memory.setAddress(f, result);
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
 }

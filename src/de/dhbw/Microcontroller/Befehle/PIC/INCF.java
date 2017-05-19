@@ -5,7 +5,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Increment f
- * TODO: ->	'f + 1 -> d; CheckZero'
+ * 'f + 1 -> d; CheckZero'
  */
 
 public class INCF extends Instruction {
@@ -39,6 +39,8 @@ public class INCF extends Instruction {
 
 
         incrementProgramCounter();
+        incrementRuntime();
+
     }
 
     @Override

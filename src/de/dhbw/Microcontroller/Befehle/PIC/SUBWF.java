@@ -53,6 +53,7 @@ public class SUBWF extends Instruction {
 
 
         incrementProgramCounter();
+        incrementRuntime();
     }
 
 

@@ -3,7 +3,7 @@ package de.dhbw.Microcontroller.Befehle.PIC;
 import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
-/*
+/**
  * Move literal (k) to W
  * 'k -> w'
  */
@@ -21,6 +21,8 @@ public class MOVLW extends Instruction {
         memory.setRegisterW(k);
 
         incrementProgramCounter();
+        incrementRuntime();
+
 
     }
 

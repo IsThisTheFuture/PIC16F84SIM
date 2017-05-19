@@ -54,6 +54,7 @@ public class ADDWF extends Instruction {
             memory.setAddress(f, result);
 
         incrementProgramCounter();
+        incrementRuntime();
     }
 
     @Override
