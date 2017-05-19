@@ -88,13 +88,42 @@ public class Instruction {
         memory.setAddress(Const.STATUS, status);
     }
 
+    // TODO: getAbsoluteAdress() nutzen?
     protected int getBit(int address, int position)
     {
         return ((memory.getAddress(address) >> position) & 1);
     }
 
     public void incrementRuntime(){
+        int optionReg = memory.getAbsoluteAddress(Const.OPTION_REG);
+
+        int t0cs = ((optionReg >> 5) & 1);
+
+
+        int ps0 = ((optionReg >> 0) & 1);
+        int ps1 = ((optionReg >> 1) & 1);
+        int ps2 = ((optionReg >> 2) & 1);
+
+        int prescalerValue = ps2*4 + ps1*2 + ps0;
+
+        if(t0cs == 0){            // Clock Source ist die interne Frequenz
+            // PSA (Prescaler Assignment) Bit muss auf 0 sein, damit der Prescaler dem TMR0 zugeschalten wird
+            if(((optionReg >> 4) & 1) == 0){
+
+            } else {
+                // Ohne Prescaler wird nach jedem 4. Taktzyklus der TMR0 erhöht
+                memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
+
+            }
+
+        }
+
         Controller.runtime++;
-        System.out.println(Controller.runtime);
+
+        /*
+         One Instruction Cycle consists of 4 Oscillator Periods
+         Thus, for an oscillator frequency of 4 MHz the instruction execution time is 1 microsecond
+         */
+        Controller.runtimeCalculated = Controller.runtimeCalculated + (4000 / Controller.clockSpeed);
     }
 }
