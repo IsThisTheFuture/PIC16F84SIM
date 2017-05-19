@@ -160,6 +160,8 @@
                                     <Text fx:id="textOptionReg2PS2" layoutX="244.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                     <Text fx:id="textOptionReg1PS1" layoutX="271.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                     <Text fx:id="textOptionReg0PS0" layoutX="306.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Label layoutX="8.0" layoutY="582.0" text="Quarzfrequenz:" />
+                                    <Text fx:id="textClockSpeed" layoutX="120.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4.0 MHz" />
                                             </children>
                                         </AnchorPane>
                            </children></AnchorPane>

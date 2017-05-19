@@ -128,6 +128,8 @@ public class Controller {
     private Text textOptionReg1PS1;
     @FXML
     private Text textOptionReg0PS0;
+    @FXML
+    private Text textClockSpeed;
 
 
 
@@ -222,6 +224,8 @@ public class Controller {
         textOptionReg5T0CS.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 5)));
         textOptionReg6INTEDG.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 6)));
         textOptionReg7RBPU.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 7)));
+
+        textClockSpeed.setText(clockSpeed/1000 + " MHz");
     }
 
     public void openFile(ActionEvent actionEvent) {
