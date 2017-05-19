@@ -23,13 +23,11 @@ public class DECFSZ extends Instruction {
         if(f == Const.IND)
             f = memory.getAddress(Const.FSR);
 
-
         int fValue  = memory.getAddress(f);
         fValue--;
 
         if (fValue==0) {
             NOP nop = new NOP(0x0000, 0x0000);
-            // TODO: Prüfen wie der ProgramCounter verändert wird
             nop.execute();
         } else {
             if (d == 0)

@@ -27,8 +27,6 @@ public class XORLW extends Instruction {
             clearZeroFlag();
 
         incrementProgramCounter();
-
-        //TODO Prüfen ob das Ergebnis stimmt
     }
 
     @Override

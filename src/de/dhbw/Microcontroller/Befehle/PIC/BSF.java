@@ -26,7 +26,7 @@ public class BSF extends Instruction {
 
 
         int fValue = memory.getAddress(f);
-        fValue = (fValue |(1 << b)); //das bit b wird in f  auf 1 gesetzt
+        fValue = (fValue | (1 << b)); //das bit b wird in f  auf 1 gesetzt
         memory.setAddress(f,fValue);
 
         incrementProgramCounter();

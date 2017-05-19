@@ -34,8 +34,9 @@ public class RRF extends Instruction {
         else
             clearCarryFlag();
 
-        // Inhalt von Adresse f wird eine Stelle nach rechts geshiftet. Darf max. 255 sein
-        int result = (fValue / 2) & 255;
+        // Inhalt von Adresse f wird eine Stelle nach rechts geshiftet.
+        // Es wird mit 128 verundet, weil ich mir nicht sicher bin, was nach rechts geshiftet wird...
+        int result = (fValue / 2) & 128;
         //Jetzt das CarryBit hinzuaddieren (falls es gesetzt ist). Es muss noch geshiftet werden an Position 7
         result = result + (currentCarryBit * 128);
 

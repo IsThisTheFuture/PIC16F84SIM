@@ -9,6 +9,7 @@ import de.dhbw.Model.MemoryView;
 import de.dhbw.Services.FileInputService;
 
 
+import de.dhbw.Services.InterruptService;
 import de.dhbw.Services.MemoryViewService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 
 import java.util.List;
 
@@ -119,6 +121,7 @@ public class Controller {
     private InstructionDecoderService instructionDecoderService;
     private FileInputService fileInputService;
     private MemoryViewService memoryViewService;
+    private InterruptService interruptService;
     private Integer opcodeList[];
     private int currentRow = 0;
     private int speed = 500;
@@ -173,7 +176,7 @@ public class Controller {
 
     public void updateTextfieldRegisters(){
         textFieldRegisterW.setText(String.format("%02x",memory.getRegisterW()).toUpperCase());
-        textFieldPC.setText(String.format("%04x", memory.getRegisters()[Const.PCL]));
+        textFieldPC.setText(String.format("%04x", memory.getPc()));
         textFieldStatus.setText(String.format("%02x", memory.getAddress(Const.STATUS)).toUpperCase());
 
         textStatusReg0C.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 0)));
@@ -231,14 +234,16 @@ public class Controller {
 
                         if (i != currentRow) i = currentRow;
                         Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
+
+
+                        if (instructionList.get(i).isBreakPoint) break;
                         instructionList.get(i).execute();
-
-
 
                         Platform.runLater(() -> tableFileContent.refresh());
                         Platform.runLater(() -> updateUI());
                         Thread.sleep(speed);
                     }
+
                 }
             } catch (Exception e) {
                 System.err.println("Fehler in Methode run()");
@@ -272,6 +277,7 @@ public class Controller {
                         Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
                         instructionList.get(currentRow).execute();
 
+
                         Platform.runLater(() -> tableFileContent.refresh());
                         Platform.runLater(() -> updateUI());
 
@@ -285,7 +291,8 @@ public class Controller {
 
     }
 
-    public void openDocumentation(ActionEvent actionEvent) {
+    // TODO
+    public void setBreakPoint(ActionEvent actionEvent) {
     }
 
     public void close(ActionEvent actionEvent) {
@@ -312,7 +319,7 @@ public class Controller {
         memory.setAddress(address, b);
     }
 
-    public void toggleA0(Event clickEvent) {
+    public void toggleA0() {
         toggleBit(0, Const.PORTA);
 
         if (getBit(memory.getAddress(Const.PORTA), 0) == 0)
@@ -325,7 +332,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleA1(Event clickEvent) {
+    public void toggleA1() {
         toggleBit(1, Const.PORTA);
 
         if (getBit(memory.getAddress(Const.PORTA), 1) == 0)
@@ -338,7 +345,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleA2(Event clickEvent) {
+    public void toggleA2() {
         toggleBit(2, Const.PORTA);
 
         if (getBit(memory.getAddress(Const.PORTA), 2) == 0)
@@ -351,7 +358,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleA3(Event clickEvent) {
+    public void toggleA3() {
         toggleBit(3, Const.PORTA);
 
         if (getBit(memory.getAddress(Const.PORTA), 3) == 0)
@@ -364,7 +371,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleA4(Event clickEvent) {
+    public void toggleA4() {
         toggleBit(4, Const.PORTA);
 
         if (getBit(memory.getAddress(Const.PORTA), 4) == 0)
@@ -377,7 +384,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleA5(Event clickEvent) {
+    public void toggleA5() {
         toggleBit(5, Const.PORTA);
 
         if (getBit(memory.getAddress(Const.PORTA), 5) == 0)
@@ -390,7 +397,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleA6(Event clickEvent) {
+    public void toggleA6() {
         toggleBit(6, Const.PORTA);
 
         if (getBit(memory.getAddress(Const.PORTA), 6) == 0)
@@ -403,7 +410,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleA7(Event clickEvent) {
+    public void toggleA7() {
         toggleBit(7, Const.PORTA);
 
         if (getBit(memory.getAddress(Const.PORTA), 7) == 0)
@@ -416,7 +423,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleB0(Event clickEvent) {
+    public void toggleB0() {
         toggleBit(0, Const.PORTB);
 
         if (getBit(memory.getAddress(Const.PORTB), 0) == 0)
@@ -429,7 +436,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleB1(Event clickEvent) {
+    public void toggleB1() {
         toggleBit(1, Const.PORTB);
 
         if (getBit(memory.getAddress(Const.PORTB), 1) == 0)
@@ -442,7 +449,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleB2(Event clickEvent) {
+    public void toggleB2() {
         toggleBit(2, Const.PORTB);
 
         if (getBit(memory.getAddress(Const.PORTB), 2) == 0)
@@ -455,7 +462,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleB3(Event clickEvent) {
+    public void toggleB3() {
         toggleBit(3, Const.PORTB);
 
         if (getBit(memory.getAddress(Const.PORTB), 3) == 0)
@@ -468,7 +475,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleB4(Event clickEvent) {
+    public void toggleB4() {
         toggleBit(4, Const.PORTB);
 
         if (getBit(memory.getAddress(Const.PORTB), 4) == 0)
@@ -481,7 +488,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleB5(Event clickEvent) {
+    public void toggleB5() {
         toggleBit(5, Const.PORTB);
 
         if (getBit(memory.getAddress(Const.PORTB), 5) == 0)
@@ -494,7 +501,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleB6(Event clickEvent) {
+    public void toggleB6() {
         toggleBit(6, Const.PORTB);
 
         if (getBit(memory.getAddress(Const.PORTB), 6) == 0)
@@ -507,7 +514,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void toggleB7(Event clickEvent) {
+    public void toggleB7() {
         toggleBit(7, Const.PORTB);
 
         if (getBit(memory.getAddress(Const.PORTB), 7) == 0)
@@ -520,6 +527,8 @@ public class Controller {
         updateMemoryView();
     }
 
+    public void openDocumentation(ActionEvent actionEvent) {
+    }
 
     public void setSpeed(ActionEvent actionEvent){
         this.speed = Integer.parseInt(textFieldSpeed.getText());
@@ -545,4 +554,12 @@ public class Controller {
         }
         return fileInputService;
     }
+
+    private InterruptService getInterruptService() {
+        if (interruptService == null) {
+            interruptService = new InterruptService();
+        }
+        return interruptService;
+    }
+
 }

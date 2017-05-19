@@ -11,6 +11,8 @@ public class Instruction {
     public int argument1;
     public int argument2;
 
+    public boolean isBreakPoint;
+
     protected Memory memory = Memory.getInstance();
     protected Stack stack = Stack.getInstance();
 

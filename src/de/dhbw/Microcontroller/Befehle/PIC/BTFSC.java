@@ -25,7 +25,8 @@ public class BTFSC extends Instruction {
 
         int fValue = memory.getAddress(f);
 
-        int bitValue = (fValue &(1 << b)); //das bit b in f wird verundet um zu prüfen was für ein wert dort steht
+        int bitValue = getBit(f, b);
+//        int bitValue = (fValue &(1 << b)); //das bit b in f wird verundet um zu prüfen was für ein wert dort steht
         if (bitValue==1) {
             incrementProgramCounter();
         }
@@ -39,6 +40,11 @@ public class BTFSC extends Instruction {
     public void displayDebugInfo(){
 
         System.out.println(String.format("%04X", instruction) + ": BTFSC " + "  b: " + argument1 + "," + " f: " + argument2);
+    }
+
+    private int getBit(int address, int position)
+    {
+        return ((memory.getAddress(address) >> position) & 1);
     }
 
 
