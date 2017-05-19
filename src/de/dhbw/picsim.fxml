@@ -65,7 +65,7 @@
                                 </AnchorPane>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="269.0">
                            <children>
-                                        <AnchorPane layoutX="29.0" layoutY="7.0" maxWidth="1.7976931348623157E308" prefHeight="258.0" prefWidth="260.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="-54.0" AnchorPane.topAnchor="7.0">
+                                        <AnchorPane layoutX="29.0" layoutY="7.0" maxWidth="1.7976931348623157E308" prefHeight="677.0" prefWidth="906.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="7.0">
                                             <children>
                                                 <TextField alignment="TOP_LEFT" editable="false" layoutY="2.0" prefHeight="25.0" prefWidth="60.0" text="RA">
                                        <effect>
@@ -152,17 +152,16 @@
                                     <Label layoutX="235.0" layoutY="413.0" text="PS2" />
                                     <Label layoutX="266.0" layoutY="413.0" text="PS1" />
                                     <Label layoutX="300.0" layoutY="413.0" text="PS0" />
-                                    <Text layoutX="25.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text layoutX="71.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text layoutX="125.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text layoutX="168.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text layoutX="211.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text layoutX="244.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text layoutX="263.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text layoutX="298.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textOptionReg7RBPU" layoutX="25.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textOptionReg6INTEDG" layoutX="71.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textOptionReg5T0CS" layoutX="125.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textOptionReg4T0SE" layoutX="168.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textOptionReg3PSA" layoutX="211.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textOptionReg2PS2" layoutX="244.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textOptionReg1PS1" layoutX="271.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text fx:id="textOptionReg0PS0" layoutX="306.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                             </children>
                                         </AnchorPane>
-                                    <AnchorPane layoutX="293.0" layoutY="-133.0" prefHeight="260.0" prefWidth="243.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="-133.0" />
                            </children></AnchorPane>
                             </items>
                         </SplitPane>

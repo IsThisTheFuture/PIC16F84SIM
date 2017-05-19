@@ -23,13 +23,6 @@ public class MOVWF extends Instruction {
         // Indirekte Addressierung
         if(f == Const.IND)
             f = memory.getAddress(Const.FSR);
-        else {
-            // Welche Bank ist ausgewählt?
-            if (bankOneisSelected())
-                f = f + 0x80;
-        }
-
-
 
         memory.setAddress(f, memory.getRegisterW());
 

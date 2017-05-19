@@ -110,6 +110,24 @@ public class Controller {
     private Text textStatusReg0C;
     @FXML
     private TextField textFieldSpeed;
+    @FXML
+    private Text textOptionReg7RBPU;
+    @FXML
+    private Text textOptionReg6INTEDG;
+    @FXML
+    private Text textOptionReg5T0CS;
+    @FXML
+    private Text textOptionReg4T0SE;
+    @FXML
+    private Text textOptionReg3PSA;
+    @FXML
+    private Text textOptionReg2PS2;
+    @FXML
+    private Text textOptionReg1PS1;
+    @FXML
+    private Text textOptionReg0PS0;
+
+
 
 
 
@@ -177,18 +195,26 @@ public class Controller {
     public void updateTextfieldRegisters(){
         textFieldRegisterW.setText(String.format("%02x",memory.getRegisterW()).toUpperCase());
         textFieldPC.setText(String.format("%04x", memory.getPc()));
-        textFieldStatus.setText(String.format("%02x", memory.getAddress(Const.STATUS)).toUpperCase());
+        textFieldStatus.setText(String.format("%02x", memory.getAbsoluteAddress(Const.STATUS)).toUpperCase());
 
-        textStatusReg0C.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 0)));
-        textStatusReg1DC.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 1)));
-        textStatusReg2Z.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 2)));
-        textStatusReg3PD.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 3)));
-        textStatusReg4TO.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 4)));
-        textStatusReg5RP0.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 5)));
-        textStatusReg6RP1.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 6)));
-        textStatusReg7IRP.setText(String.format("%1x",getBit(memory.getAddress(Const.STATUS), 7)));
+        textStatusReg0C.setText(String.format("%1x",getBit(memory.getAbsoluteAddress(Const.STATUS), 0)));
+        textStatusReg1DC.setText(String.format("%1x",getBit(memory.getAbsoluteAddress(Const.STATUS), 1)));
+        textStatusReg2Z.setText(String.format("%1x",getBit(memory.getAbsoluteAddress(Const.STATUS), 2)));
+        textStatusReg3PD.setText(String.format("%1x",getBit(memory.getAbsoluteAddress(Const.STATUS), 3)));
+        textStatusReg4TO.setText(String.format("%1x",getBit(memory.getAbsoluteAddress(Const.STATUS), 4)));
+        textStatusReg5RP0.setText(String.format("%1x",getBit(memory.getAbsoluteAddress(Const.STATUS), 5)));
+        textStatusReg6RP1.setText(String.format("%1x",getBit(memory.getAbsoluteAddress(Const.STATUS), 6)));
+        textStatusReg7IRP.setText(String.format("%1x",getBit(memory.getAbsoluteAddress(Const.STATUS), 7)));
 
-        // TODO: update TextfieldRegisterAB
+
+        textOptionReg0PS0.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 0)));
+        textOptionReg1PS1.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 1)));
+        textOptionReg2PS2.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 2)));
+        textOptionReg3PSA.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 3)));
+        textOptionReg4T0SE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 4)));
+        textOptionReg5T0CS.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 5)));
+        textOptionReg6INTEDG.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 6)));
+        textOptionReg7RBPU.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 7)));
     }
 
     public void openFile(ActionEvent actionEvent) {
@@ -306,10 +332,10 @@ public class Controller {
     }
 
     public void toggleBit(int bitPosition, int address){
-        int byteValue = memory.getAddress(address);
+        int byteValue = memory.getAbsoluteAddress(address);
 
         // Wenn das Bit an der Stelle bitPosition 0 ist, dann... sonst...
-        if(getBit(memory.getAddress(address), bitPosition) == 0){
+        if(getBit(memory.getAbsoluteAddress(address), bitPosition) == 0){
             // Bit auf 1 setzen
             byteValue = (byteValue | (1 << (bitPosition)));
         } else {
@@ -322,7 +348,7 @@ public class Controller {
     public void toggleA0() {
         toggleBit(0, Const.PORTA);
 
-        if (getBit(memory.getAddress(Const.PORTA), 0) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTA), 0) == 0)
         {
             textFieldRegisterA0.setText("0");
         } else {
@@ -335,7 +361,7 @@ public class Controller {
     public void toggleA1() {
         toggleBit(1, Const.PORTA);
 
-        if (getBit(memory.getAddress(Const.PORTA), 1) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTA), 1) == 0)
         {
             textFieldRegisterA1.setText("0");
         } else {
@@ -348,7 +374,7 @@ public class Controller {
     public void toggleA2() {
         toggleBit(2, Const.PORTA);
 
-        if (getBit(memory.getAddress(Const.PORTA), 2) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTA), 2) == 0)
         {
             textFieldRegisterA2.setText("0");
         } else {
@@ -361,7 +387,7 @@ public class Controller {
     public void toggleA3() {
         toggleBit(3, Const.PORTA);
 
-        if (getBit(memory.getAddress(Const.PORTA), 3) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTA), 3) == 0)
         {
             textFieldRegisterA3.setText("0");
         } else {
@@ -374,7 +400,7 @@ public class Controller {
     public void toggleA4() {
         toggleBit(4, Const.PORTA);
 
-        if (getBit(memory.getAddress(Const.PORTA), 4) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTA), 4) == 0)
         {
             textFieldRegisterA4.setText("0");
         } else {
@@ -387,7 +413,7 @@ public class Controller {
     public void toggleA5() {
         toggleBit(5, Const.PORTA);
 
-        if (getBit(memory.getAddress(Const.PORTA), 5) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTA), 5) == 0)
         {
             textFieldRegisterA5.setText("0");
         } else {
@@ -400,7 +426,7 @@ public class Controller {
     public void toggleA6() {
         toggleBit(6, Const.PORTA);
 
-        if (getBit(memory.getAddress(Const.PORTA), 6) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTA), 6) == 0)
         {
             textFieldRegisterA6.setText("0");
         } else {
@@ -413,7 +439,7 @@ public class Controller {
     public void toggleA7() {
         toggleBit(7, Const.PORTA);
 
-        if (getBit(memory.getAddress(Const.PORTA), 7) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTA), 7) == 0)
         {
             textFieldRegisterA7.setText("0");
         } else {
@@ -426,7 +452,7 @@ public class Controller {
     public void toggleB0() {
         toggleBit(0, Const.PORTB);
 
-        if (getBit(memory.getAddress(Const.PORTB), 0) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTB), 0) == 0)
         {
             textFieldRegisterB0.setText("0");
         } else {
@@ -439,7 +465,7 @@ public class Controller {
     public void toggleB1() {
         toggleBit(1, Const.PORTB);
 
-        if (getBit(memory.getAddress(Const.PORTB), 1) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTB), 1) == 0)
         {
             textFieldRegisterB1.setText("0");
         } else {
@@ -452,7 +478,7 @@ public class Controller {
     public void toggleB2() {
         toggleBit(2, Const.PORTB);
 
-        if (getBit(memory.getAddress(Const.PORTB), 2) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTB), 2) == 0)
         {
             textFieldRegisterB2.setText("0");
         } else {
@@ -465,7 +491,7 @@ public class Controller {
     public void toggleB3() {
         toggleBit(3, Const.PORTB);
 
-        if (getBit(memory.getAddress(Const.PORTB), 3) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTB), 3) == 0)
         {
             textFieldRegisterB3.setText("0");
         } else {
@@ -478,7 +504,7 @@ public class Controller {
     public void toggleB4() {
         toggleBit(4, Const.PORTB);
 
-        if (getBit(memory.getAddress(Const.PORTB), 4) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTB), 4) == 0)
         {
             textFieldRegisterB4.setText("0");
         } else {
@@ -491,7 +517,7 @@ public class Controller {
     public void toggleB5() {
         toggleBit(5, Const.PORTB);
 
-        if (getBit(memory.getAddress(Const.PORTB), 5) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTB), 5) == 0)
         {
             textFieldRegisterB5.setText("0");
         } else {
@@ -504,7 +530,7 @@ public class Controller {
     public void toggleB6() {
         toggleBit(6, Const.PORTB);
 
-        if (getBit(memory.getAddress(Const.PORTB), 6) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTB), 6) == 0)
         {
             textFieldRegisterB6.setText("0");
         } else {
@@ -517,7 +543,7 @@ public class Controller {
     public void toggleB7() {
         toggleBit(7, Const.PORTB);
 
-        if (getBit(memory.getAddress(Const.PORTB), 7) == 0)
+        if (getBit(memory.getAbsoluteAddress(Const.PORTB), 7) == 0)
         {
             textFieldRegisterB7.setText("0");
         } else {

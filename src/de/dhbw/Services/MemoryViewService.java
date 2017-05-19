@@ -16,14 +16,15 @@ public class MemoryViewService {
             MemoryView memoryView = new MemoryView();
 
             memoryView.setMemoryRow(i);
-            memoryView.setColumn0(memory.getAddress(i));
-            memoryView.setColumn1(memory.getAddress(i+1));
-            memoryView.setColumn2(memory.getAddress(i+2));
-            memoryView.setColumn3(memory.getAddress(i+3));
-            memoryView.setColumn4(memory.getAddress(i+4));
-            memoryView.setColumn5(memory.getAddress(i+5));
-            memoryView.setColumn6(memory.getAddress(i+6));
-            memoryView.setColumn7(memory.getAddress(i+7));
+            memoryView.setColumn0(memory.getAbsoluteAddress(i));
+            memoryView.setColumn1(memory.getAbsoluteAddress(i+1));
+            memoryView.setColumn2(memory.getAbsoluteAddress(i+2));
+            memoryView.setColumn3(memory.getAbsoluteAddress(i+3));
+            memoryView.setColumn4(memory.getAbsoluteAddress(i+4));
+            memoryView.setColumn5(memory.getAbsoluteAddress(i+5));
+            memoryView.setColumn6(memory.getAbsoluteAddress(i+6));
+            memoryView.setColumn7(memory.getAbsoluteAddress(i+7));
+
             memoryViewList.add(memoryView);
         }
         return memoryViewList;

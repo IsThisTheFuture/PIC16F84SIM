@@ -50,7 +50,7 @@ public class Memory {
         registers[Const.EECON1]     = 0b00000000; // ---0 x000
         registers[Const.EECON2]     = 0b00000000; // ---- ----
 
-        // Bank 1
+        // Bank 1 mit Startwerten belegen
         registers[Const.PCL + 0x80]    = registers[Const.PCL];
         registers[Const.STATUS + 0x80] = registers[Const.STATUS];
         registers[Const.FSR + 0x80]    = registers[Const.FSR];
@@ -59,12 +59,39 @@ public class Memory {
     }
 
 
+    // Diese Methode ist für die GUI gedacht, da dort nur absolute Werte aus dem Speicher geholt werden
+    // (also unabhängig davon, ob Bank1 oder Bank2 aktiv ist)
+    public Integer getAbsoluteAddress(int address){
+            return registers[address];
+        }
+
     public void setAddress(int address, int value){
-        this.registers[address] = value;
+        // Das Statusregister soll auf beiden Bänken gleichen Inhalt haben
+        if(address == Const.STATUS || address == Const.STATUS+0x80){
+            this.registers[address] = value;
+            this.registers[address + 0x80] = value;
+        }
+
+
+
+        // Für alle anderen Adressen wird geprüft welche Bank beschrieben werden soll
+        if( ((registers[Const.STATUS] >> 5) & 1) == 0){
+            // Bank 0 ist ausgewählt
+            this.registers[address] = value;
+        } else {
+            // Bank 1 ist ausgewählt
+            this.registers[address + 0x80] = value;
+        }
     }
 
     public Integer getAddress(int address){
-        return registers[address];
+        if( ((registers[Const.STATUS] >> 5) & 1) == 0){
+            // Bank 0 ist ausgewählt
+            return registers[address];
+        } else {
+            // Bank 1 ist ausgewählt
+            return registers[address + 0x80];
+        }
     }
 
     public Integer[] getRegisters(){
