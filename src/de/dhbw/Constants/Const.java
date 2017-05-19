@@ -19,4 +19,6 @@ public class Const {
     public static final int EECON1     = 0x88;
     public static final int EECON2     = 0x89;
 
+    public static final String PATH_TO_DOCUMENTATION = "/home/tobi/Projects/PIC16F84SIM/src/de/dhbw/doku.pdf";
+
 }

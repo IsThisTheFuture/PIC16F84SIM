@@ -11,15 +11,21 @@ import de.dhbw.Services.FileInputService;
 
 import de.dhbw.Services.InterruptService;
 import de.dhbw.Services.MemoryViewService;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.util.List;
 
 public class Controller {
@@ -130,6 +136,8 @@ public class Controller {
     private Text textOptionReg0PS0;
     @FXML
     private Text textClockSpeed;
+    @FXML
+    private Text textRuntime;
 
 
 
@@ -144,6 +152,7 @@ public class Controller {
     private FileInputService fileInputService;
     private MemoryViewService memoryViewService;
     private InterruptService interruptService;
+    private HostServices hostServices;
     private Integer opcodeList[];
     private int currentRow = 0;
     private int speed = 500;
@@ -226,6 +235,7 @@ public class Controller {
         textOptionReg7RBPU.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 7)));
 
         textClockSpeed.setText(clockSpeed/1000 + " MHz");
+        textRuntime.setText(runtime + " µs");
     }
 
     public void openFile(ActionEvent actionEvent) {
@@ -294,6 +304,7 @@ public class Controller {
     public void reset(ActionEvent actionEvent) {
         isRunning = false;
         currentRow = 0;
+        runtime = 0;
         Platform.runLater(() -> tableFileContent.refresh());
         memory.initializeMemory();
         updateTextfieldRegisters();
@@ -301,8 +312,11 @@ public class Controller {
     }
 
     public void clear(ActionEvent actionEvent) {
-            currentRow = 0;
-            tableFileContent.getItems().clear();
+        currentRow = 0;
+        isRunning = false;
+        runtime = 0;
+        memory.initializeMemory();
+        tableFileContent.getItems().clear();
     }
 
     public void next(ActionEvent actionEvent) {
@@ -565,6 +579,13 @@ public class Controller {
     }
 
     public void openDocumentation(ActionEvent actionEvent) {
+        //TODO: Funktioniert nicht
+        try {
+            File file = new File(Const.PATH_TO_DOCUMENTATION);
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setSpeed(ActionEvent actionEvent){
@@ -598,5 +619,4 @@ public class Controller {
         }
         return interruptService;
     }
-
 }
