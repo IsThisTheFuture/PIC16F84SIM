@@ -39,10 +39,6 @@ public class BTFSS extends Instruction {
         System.out.println(String.format("%04X", instruction) + ": BTFSS " + "  b: " + argument1 + "," + " f: " + argument2);
     }
 
-    private int getBit(int address, int position)
-    {
-        return ((memory.getAddress(address) >> position) & 1);
-    }
 
 
 

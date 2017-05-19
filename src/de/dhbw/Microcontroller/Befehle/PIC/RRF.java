@@ -50,9 +50,4 @@ public class RRF extends Instruction {
 
     }
 
-    private int getBit(int address, int position)
-    {
-        return ((memory.getAddress(address) >> position) & 1);
-    }
-
 }

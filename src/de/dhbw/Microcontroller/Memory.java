@@ -33,6 +33,7 @@ public class Memory {
          */
 
                                                          // Start- bzw. Reset-Wert
+        registers[Const.IND]        = 0b00000000;
         registers[Const.TMR0]       = 0b00000000; // xxxx xxxx
         registers[Const.PCL]        = 0b00000000; // 0000 0000
         registers[Const.STATUS]     = 0b00011000; // 0001 1xxx
@@ -49,16 +50,12 @@ public class Memory {
         registers[Const.EECON1]     = 0b00000000; // ---0 x000
         registers[Const.EECON2]     = 0b00000000; // ---- ----
 
-
-        //registers[0]                = (byte) 0b11111111;
-
-        //System.out.println(registers[0] & 0xFF);
-
-        /*for (int i = 0; i < registers.length; i++)
-        {
-            System.out.println("Adresse " + i + ": " + (registers[i] & 0xFF));
-        }
-        */
+        // Bank 1
+        registers[Const.PCL + 0x80]    = registers[Const.PCL];
+        registers[Const.STATUS + 0x80] = registers[Const.STATUS];
+        registers[Const.FSR + 0x80]    = registers[Const.FSR];
+        registers[Const.PCLATH + 0x80] = registers[Const.PCLATH];
+        registers[Const.INTCON + 0x80] = registers[Const.INTCON];
     }
 
 

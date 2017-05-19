@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="700.0" scaleX="1" scaleY="1" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.Controller">
+<AnchorPane prefHeight="1000.0" prefWidth="1208.0" scaleX="1" scaleY="1" styleClass="root" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.Controller">
     <children>
         <MenuBar prefHeight="17.0" prefWidth="700.0" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
@@ -41,7 +41,7 @@
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="200.0">
                     <children>
-                        <SplitPane dividerPositions="0.5" prefHeight="260.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane dividerPositions="0.22093023255813954" prefHeight="260.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <items>
                                 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="302.0" SplitPane.resizableWithParent="false">
                                     <children>
@@ -67,7 +67,7 @@
                            <children>
                                         <AnchorPane layoutX="29.0" layoutY="7.0" maxWidth="1.7976931348623157E308" prefHeight="258.0" prefWidth="260.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="-54.0" AnchorPane.topAnchor="7.0">
                                             <children>
-                                                <TextField alignment="TOP_LEFT" editable="false" layoutY="2.0" prefHeight="25.0" prefWidth="60.0" text="RegA">
+                                                <TextField alignment="TOP_LEFT" editable="false" layoutY="2.0" prefHeight="25.0" prefWidth="60.0" text="RA">
                                        <effect>
                                           <InnerShadow height="0.0" radius="3.2075" width="14.83" />
                                        </effect>
@@ -80,7 +80,7 @@
                                                 <TextField editable="false" layoutX="144.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="4" />
                                                 <TextField editable="false" layoutX="122.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="5" />
                                                 <TextField editable="false" layoutX="100.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="6" />
-                                                <TextField editable="false" layoutY="65.0" prefHeight="25.0" prefWidth="60.0" text="RegB">
+                                                <TextField editable="false" layoutY="65.0" prefHeight="25.0" prefWidth="60.0" text="RB">
                                        <effect>
                                           <InnerShadow height="0.0" radius="3.2075" width="14.83" />
                                        </effect>
@@ -124,6 +124,7 @@
                                     <TextField fx:id="textFieldPC" editable="false" layoutX="70.0" layoutY="254.0" prefHeight="26.0" prefWidth="97.0" text="0000" />
                                     <Label layoutX="12.0" layoutY="288.0" text="Status:" />
                                     <TextField fx:id="textFieldStatus" layoutX="71.0" layoutY="283.0" prefHeight="26.0" prefWidth="97.0" />
+                                    <Label layoutX="20.0" layoutY="323.0" text="IRP" />
                                     <Label layoutX="49.0" layoutY="323.0" text="RP1" />
                                     <Label layoutX="83.0" layoutY="323.0" text="RP0" />
                                     <Label layoutX="117.0" layoutY="323.0" text="TO" />
@@ -139,12 +140,29 @@
                                     <Text fx:id="textStatusReg2Z" layoutX="171.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                     <Text fx:id="textStatusReg1DC" layoutX="196.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                     <Text fx:id="textStatusReg0C" layoutX="220.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <TextField fx:id="textFieldSpeed" layoutX="9.0" layoutY="423.0" onAction="#setSpeed" onInputMethodTextChanged="#setSpeed" prefHeight="26.0" prefWidth="81.0" text="500" />
-                                    <Label layoutX="9.0" layoutY="407.0" text="Speed in ms" />
+                                    <TextField fx:id="textFieldSpeed" layoutX="9.0" layoutY="633.0" onAction="#setSpeed" onInputMethodTextChanged="#setSpeed" prefHeight="26.0" prefWidth="81.0" text="500" />
+                                    <Label layoutX="9.0" layoutY="617.0" text="Speed in ms" />
+                                    <Label layoutX="7.0" layoutY="385.0" text="OPTION_REG:" />
+                                    <TextField layoutX="112.0" layoutY="380.0" prefHeight="26.0" prefWidth="97.0" />
+                                    <Label layoutX="12.0" layoutY="413.0" text="RBPU" />
+                                    <Label layoutX="55.0" layoutY="413.0" text="INTEDG" />
+                                    <Label layoutX="116.0" layoutY="413.0" text="T0CS" />
+                                    <Label layoutX="160.0" layoutY="413.0" text="T0SE" />
+                                    <Label layoutX="204.0" layoutY="413.0" text="PSA" />
+                                    <Label layoutX="235.0" layoutY="413.0" text="PS2" />
+                                    <Label layoutX="266.0" layoutY="413.0" text="PS1" />
+                                    <Label layoutX="300.0" layoutY="413.0" text="PS0" />
+                                    <Text layoutX="25.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text layoutX="71.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text layoutX="125.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text layoutX="168.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text layoutX="211.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text layoutX="244.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text layoutX="263.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <Text layoutX="298.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                             </children>
                                         </AnchorPane>
-                                    <AnchorPane layoutX="280.0" layoutY="-133.0" prefHeight="260.0" prefWidth="243.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="-133.0" />
-                              <Label layoutX="50.0" layoutY="330.0" text="IRP" />
+                                    <AnchorPane layoutX="293.0" layoutY="-133.0" prefHeight="260.0" prefWidth="243.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="-133.0" />
                            </children></AnchorPane>
                             </items>
                         </SplitPane>

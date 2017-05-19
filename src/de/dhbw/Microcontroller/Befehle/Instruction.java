@@ -39,8 +39,6 @@ public class Instruction {
     }
 
     public void incrementProgramCounter(){
-        // TODO: Richtig behandeln. Unterschied PC, PCL, PLATH?
-        //memory.setAddress(Const.PCL, (memory.getAddress(Const.PCL) + 1));
         memory.setPc(memory.getPc() + 1);
 
         // In PCL stehen nur die unteren 8 Bit von PC
@@ -88,4 +86,33 @@ public class Instruction {
         status = (status & ~(1 << 1));
         memory.setAddress(Const.STATUS, status);
     }
+
+    public boolean bankOneisSelected(){
+        if (getBit(Const.STATUS, 5) == 1)
+            return true;
+        else
+            return false;
+    }
+
+    public void setFSRs(){
+        if (bankOneisSelected()){
+            // Bank 1 ist aktiv
+            // Alle Änderungen in den gemapten SFR Registern müssen also auch in Bank 0 geschrieben werden!
+
+        } else {
+            // Bank 0 ist aktiv
+            memory.setAddress(Const.PCL + 0x80, memory.getAddress(Const.PCL));
+         /*   registers[Const.STATUS + 0x80] = registers[Const.STATUS];
+            registers[Const.FSR + 0x80]    = registers[Const.FSR];
+            registers[Const.PCLATH + 0x80] = registers[Const.PCLATH];
+            registers[Const.INTCON + 0x80] = registers[Const.INTCON];
+            */
+        }
+    }
+
+    protected int getBit(int address, int position)
+    {
+        return ((memory.getAddress(address) >> position) & 1);
+    }
+
 }

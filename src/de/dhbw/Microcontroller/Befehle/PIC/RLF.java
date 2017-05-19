@@ -49,8 +49,4 @@ public class RLF extends Instruction {
         incrementProgramCounter();
     }
 
-    private int getBit(int address, int position)
-    {
-        return ((memory.getAddress(address) >> position) & 1);
-    }
 }
