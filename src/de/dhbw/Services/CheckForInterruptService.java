@@ -83,7 +83,6 @@ public class CheckForInterruptService {
         else if (portA4New == 0 && portA4Old == 1)
             System.out.println("Flanke an PIN RA4 erkannt! Bit von 0 auf 1");
 
-        //TODO: Sollte in Programm 7 getriggert werden, wurde es aber nicht!!
         if(tmr0Old == 255 && tmr0New == 0){
             System.out.println("Timer0 overflow!");
             getInterruptService().triggerTimer0Interrupt();
@@ -104,6 +103,8 @@ public class CheckForInterruptService {
         else
             return false;
     }
+
+
 
     /**
      * Es wird der InterruptService benötigt, um Interrupts auszulösen
