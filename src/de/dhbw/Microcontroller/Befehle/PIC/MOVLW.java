@@ -24,7 +24,7 @@ public class MOVLW extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
-
+        incrementTimer0();
 
         copyCurrentValues();
         compareValues();

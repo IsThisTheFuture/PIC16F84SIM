@@ -25,7 +25,7 @@ public class RETLW extends Instruction {
         memory.setAddress(Const.PCL, memory.getPc()&255);
         //TODO: PCLATH?
         incrementRuntime();
-
+        incrementTimer0();
 
         copyCurrentValues();
         compareValues();

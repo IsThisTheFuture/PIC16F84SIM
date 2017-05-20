@@ -6,6 +6,7 @@ import de.dhbw.Microcontroller.Memory;
 import de.dhbw.Microcontroller.Stack;
 import de.dhbw.Services.CheckForInterruptService;
 import de.dhbw.Services.InterruptService;
+import de.dhbw.Services.Timer0Service;
 
 /**
  * Alle Befehle erben von dieser Klasse und können somit deren Methoden nutzen (sofern diese protected / public sind)
@@ -18,12 +19,12 @@ public class Instruction {
     public int argument2;
 
     public boolean isBreakPoint;
-    public static int tmrCounter;
 
     protected Memory memory = Memory.getInstance();
     protected Stack stack = Stack.getInstance();
 
     public CheckForInterruptService checkForInterruptService = new CheckForInterruptService();
+    protected Timer0Service timer0Service = new Timer0Service();
 
     public Instruction(int instruction, int opcode){
         this.instruction = instruction;
@@ -118,128 +119,18 @@ public class Instruction {
         checkForInterruptService.compareStates();
     }
 
+
+    public void incrementTimer0(){
+        timer0Service.incrementTimer();
+    }
+
     /**
-     * Hier wird die Laufzeit und das TMR0 Register gesetzt.
-     * Ist der Timer im Sync-Modus (dann, wenn das Register z. B. mit movwf 1 beschrieben wurde),
-     * ist der Timer für die nachfolgenden 2 Takte gesperrt.
-     *
-     * Ist der Timer nicht im Sync, wird tmrCounter erhöht. Erreicht tmrCounter einen durch das Vorteilerverhältnis
-     * teilbaren Wert, erhöht sich das TMR0 Register
-     *
-     * Wird nach jedem Befehl ausgeführt
+     * Hier wird die Laufzeit gesetzt.
+     * One Instruction Cycle consists of 4 Oscillator Periods
+     * Thus, for an oscillator frequency of 4 MHz the instruction execution time is 1 microsecond
      */
-    @SuppressWarnings("Duplicates")
     public void incrementRuntime(){
-        int optionReg = memory.getAbsoluteAddress(Const.OPTION_REG);
-        int t0cs = ((optionReg >> 5) & 1);  // Clock Source Select. 0 = Timer Mode,  1 = Counter Mode
-
-        if(Controller.inhibitTimer0 <= 0 && t0cs == 0) // TmrCounter wird nur erhöht wenn TimerMode enabled
-            this.tmrCounter++;
-
-
-        //System.out.println("inhibitTimer: " + Controller.inhibitTimer0 + "tmrCounter: " + tmrCounter);
-
-
-        /*
-         * Das Vorteilerverhältnis wird hier berechnet
-         */
-        int psa = ((optionReg >> 3) & 1);
-        int ps0 = ((optionReg >> 0) & 1);
-        int ps1 = ((optionReg >> 1) & 1);
-        int ps2 = ((optionReg >> 2) & 1);
-        int prescalerValue = (ps2*4 + ps1*2 + ps0) ;
-        int VorteilerVerh = 2;
-        if (prescalerValue == 0b000) VorteilerVerh = 2;
-        else if (prescalerValue == 0b001) VorteilerVerh = 4;
-        else if (prescalerValue == 0b010) VorteilerVerh = 8;
-        else if (prescalerValue == 0b011) VorteilerVerh = 16;
-        else if (prescalerValue == 0b100) VorteilerVerh = 32;
-        else if (prescalerValue == 0b101) VorteilerVerh = 64;
-        else if (prescalerValue == 0b110) VorteilerVerh = 128;
-        else if (prescalerValue == 0b111) VorteilerVerh = 256;
-
-        //if(t0cs == 0 && Controller.inhibitTimer0 <= 0){            // Clock Source ist die interne Frequenz
-        if(t0cs == 0){ // Clock Source ist die interne Frequenz
-            /*
-            * Das PSA (Prescaler Assignment) Bit muss auf 0 sein,
-            * damit der Prescaler dem TMR0 zugeteilt wird
-            */
-            if(psa == 0 && Controller.inhibitTimer0 <= 0){
-                /*
-                 * Abhängig vom Vorteilerverhältnis wird bei jedem xten Befehl das TMR0 Register erhöht
-                 * Für PS2 = 0, PS1 = 0, PS0 = 1 wäre das z. B. jeder 4. Befehl
-                 */
-                if(tmrCounter%VorteilerVerh==0){
-                    memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
-                    tmrCounter = 0;
-                }
-            } else {
-                /*
-                 * Ohne Prescaler wird nach jedem Taktzyklus der TMR0 erhöht
-                 */
-                memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
-            }
-
-        }
-
-        // Falls der Timer gesperrt ist
-        Controller.inhibitTimer0--;
-
-
-        /**
-         * Timer0 Counter Mode
-         * Enabled, wenn T0CS = 1 in OPTION_REG
-         * Erkennt Flanken an RA4
-         */
-
-        /*
-        int tose = ((optionReg >> 4) & 1);
-        if(t0cs == 1) {
-            if(tose == 0) {
-                //System.out.println("Steigende Flanken werden gezählt...");
-                if(checkForInterruptService.isRA4HighTriggered()) {
-                    tmrCounter++;
-
-                    // Vorteiler aktiv, wenn psa = 0
-                    if (psa == 0){
-                        // Nur bei jeder xten Flanke wird der Timer erhöht
-                        if (tmrCounter % VorteilerVerh == 0) {
-                            memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
-                            tmrCounter = 0;
-                        } else {
-                            // Der Vorteiler ist nicht aktiv. TMR0 wird um 1 erhöht
-                            memory.setAbsoluteAddress(Const.TMR0, memory.getAbsoluteAddress(Const.TMR0) + 1);
-                        }
-                    }
-                }
-            } else {
-                //System.out.println("Fallende Flanken werden gezählt..");
-                if(!checkForInterruptService.isRA4HighTriggered()){
-                    tmrCounter++; //TODO: Der Code hier ist falsch
-
-                    //Prüfen, ob Vorteiler aktiv
-                    if (psa == 1){
-                        // Nur bei jeder xten Flanke wird der Timer erhöht
-                        if (tmrCounter % VorteilerVerh == 0) {
-                            memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
-                            tmrCounter = 0;
-                        } else {
-                            // Der Vorteiler ist nicht aktiv. TMR0 wird um 1 erhöht
-                            memory.setAbsoluteAddress(Const.TMR0, memory.getAbsoluteAddress(Const.TMR0) + 1);
-                        }
-                    }
-
-                }
-            }
-        }
-
-*/
-
         Controller.runtime++;
-        /*
-         One Instruction Cycle consists of 4 Oscillator Periods
-         Thus, for an oscillator frequency of 4 MHz the instruction execution time is 1 microsecond
-         */
         Controller.runtimeCalculated = Controller.runtimeCalculated + (4000 / Controller.clockSpeed);
     }
 }

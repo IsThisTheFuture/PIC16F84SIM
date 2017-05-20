@@ -30,7 +30,7 @@ public class XORLW extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
-
+        incrementTimer0();
 
         copyCurrentValues();
         compareValues();

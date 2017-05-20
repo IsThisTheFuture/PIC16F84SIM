@@ -24,5 +24,7 @@ public class RETFIE extends Instruction {
         byteValue = (byteValue | (1 << (7)));
         memory.setAbsoluteAddress(Const.INTCON, byteValue);
 
+        incrementRuntime();
+        incrementTimer0();
     }
 }

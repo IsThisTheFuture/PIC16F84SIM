@@ -40,6 +40,7 @@ public class MOVF extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
+        incrementTimer0();
 
 
         copyCurrentValues();

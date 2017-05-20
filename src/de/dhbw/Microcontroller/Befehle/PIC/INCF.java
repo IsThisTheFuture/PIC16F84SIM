@@ -43,6 +43,7 @@ public class INCF extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
+        incrementTimer0();
 
 
 

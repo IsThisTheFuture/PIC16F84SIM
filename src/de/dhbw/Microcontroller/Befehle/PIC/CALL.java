@@ -46,6 +46,8 @@ public class CALL extends Instruction {
         incrementRuntime();
         //TODO NOP?
 
+        incrementTimer0();
+        incrementTimer0();
 
         copyCurrentValues();
         compareValues();

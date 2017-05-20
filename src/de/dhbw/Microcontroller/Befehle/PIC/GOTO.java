@@ -44,6 +44,8 @@ public class GOTO extends Instruction {
 
         incrementRuntime();
         incrementRuntime();
+        incrementTimer0();
+        incrementTimer0();
 
         copyCurrentValues();
         compareValues();

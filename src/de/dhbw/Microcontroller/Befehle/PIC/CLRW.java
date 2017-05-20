@@ -23,7 +23,7 @@ public class CLRW extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
-
+        incrementTimer0();
 
         copyCurrentValues();
         compareValues();

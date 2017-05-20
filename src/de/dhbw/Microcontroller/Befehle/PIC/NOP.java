@@ -18,7 +18,7 @@ public class NOP extends Instruction {
 
             incrementProgramCounter();
             incrementRuntime();
-
+            incrementTimer0();
 
             copyCurrentValues();
             compareValues();

@@ -31,6 +31,9 @@ public class MOVWF extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
+        incrementTimer0();
+
+
         // Wenn der Timer beschrieben wird ist er für die nächsten 2 Zyklen gesperrt
         if (f == 1 && ((memory.getAbsoluteAddress(Const.STATUS) >> 5) & 1) == 0){
             Controller.inhibitTimer0 = 2;

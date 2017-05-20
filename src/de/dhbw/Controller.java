@@ -16,16 +16,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
-import sun.security.krb5.internal.crypto.Des;
 
-import javax.accessibility.AccessibleHyperlink;
-import javax.swing.*;
-import java.awt.*;
 import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
 import java.util.List;
 import java.awt.Desktop;
 
@@ -153,6 +145,7 @@ public class Controller {
     private MemoryViewService memoryViewService;
     private InterruptService interruptService;
     private CheckForInterruptService checkForInterruptService;
+    private Timer0Service timer0Service;
     private HostServices hostServices;
     private Integer opcodeList[];
     private int currentRow = 0;
@@ -436,9 +429,13 @@ public class Controller {
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTA), 4) == 0)
         {
+            getTimer0Service().counterModeNumberOfFallingFlanks++;
+            getTimer0Service().incrementCounter();
             textFieldRegisterA4.setText("0");
             //TODO: Trigger TMR0 Counter hier? Was ist mit TRISA?
         } else {
+            getTimer0Service().counterModeNumberOfRisingFlanks++;
+            getTimer0Service().incrementCounter();
             textFieldRegisterA4.setText("1");
         }
 
@@ -646,5 +643,12 @@ public class Controller {
             checkForInterruptService = new CheckForInterruptService();
         }
         return checkForInterruptService;
+    }
+
+    private Timer0Service getTimer0Service() {
+        if(timer0Service == null) {
+            timer0Service = new Timer0Service();
+        }
+        return timer0Service;
     }
 }

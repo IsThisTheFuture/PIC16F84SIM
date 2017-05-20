@@ -51,7 +51,7 @@ public class SUBLW extends Instruction {
 
             incrementProgramCounter();
             incrementRuntime();
-
+            incrementTimer0();
 
 
             copyCurrentValues();

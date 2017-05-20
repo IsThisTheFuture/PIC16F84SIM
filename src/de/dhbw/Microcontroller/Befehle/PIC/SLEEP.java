@@ -15,6 +15,5 @@ public class SLEEP extends Instruction {
     @Override
     public void execute(){
 
-        incrementRuntime();
     }
 }

@@ -34,8 +34,9 @@ public class BTFSS extends Instruction {
             NOP NOP = new NOP(0x0000, 0x0000);
             NOP.execute();
         }
-        incrementRuntime();
 
+        incrementRuntime();
+        incrementTimer0();
 
         copyCurrentValues();
         compareValues();

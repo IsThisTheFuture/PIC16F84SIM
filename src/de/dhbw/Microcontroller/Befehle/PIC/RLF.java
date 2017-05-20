@@ -51,6 +51,7 @@ public class RLF extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
+        incrementTimer0();
 
         // Wenn der Timer beschrieben wird ist er für die nächsten 2 Zyklen gesperrt
         if (f == 0x01 && ((memory.getAbsoluteAddress(Const.STATUS) >> 5) & 1) == 0)

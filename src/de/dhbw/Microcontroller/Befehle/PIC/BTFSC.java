@@ -35,7 +35,9 @@ public class BTFSC extends Instruction {
             NOP NOP = new NOP(0x000, 0x0000);
             NOP.execute();
         }
+
         incrementRuntime();
+        incrementTimer0();
 
         copyCurrentValues();
         compareValues();

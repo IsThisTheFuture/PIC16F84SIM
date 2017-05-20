@@ -31,6 +31,7 @@ public class IORLW extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
+        incrementTimer0();
 
         copyCurrentValues();
         compareValues();

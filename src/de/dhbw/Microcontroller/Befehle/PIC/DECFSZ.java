@@ -41,6 +41,8 @@ public class DECFSZ extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
+        incrementTimer0();
+
 
 
         // Wenn der Timer beschrieben wird ist er für die nächsten 2 Zyklen gesperrt

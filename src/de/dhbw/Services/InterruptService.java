@@ -23,15 +23,15 @@ public class InterruptService {
      *
      * Der Interrupt kann enabled/disabled werden durch setzen/löschen des Bits T0IE in INTCON<5>
      */
-    public void triggerTimer0Interrupt(){
-        if(globalInterruptisEnabled())
+    public void triggerTimer0Interrupt() {
+        if (globalInterruptisEnabled()) {
             setBit(Const.INTCON, 2);
 
-        disableGlobalInterruptEnableBit();
-        stack.push(memory.getPc() + 1); //TODO: PC oder PC + 1 ?
-        memory.setPc(0x0004);
+            disableGlobalInterruptEnableBit();
+            stack.push(memory.getPc() + 1); //TODO: PC oder PC + 1 ?
+            memory.setPc(0x0004);
+        }
     }
-
     /**
      * Der Flankensensitive Pin RB0/INT kann auf 2 Arten getriggert werden. Entweder:
      * Low-High: INTEDG = 1 in OPTION_REG, oder
@@ -93,5 +93,7 @@ public class InterruptService {
         byteValue = (byteValue | (1 << (bitPosition)));
         memory.setAbsoluteAddress(address, byteValue);
     }
+
+
 
 }
