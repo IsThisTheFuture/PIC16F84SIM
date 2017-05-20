@@ -1,7 +1,8 @@
 package de.dhbw.Services;
 
 /**
- * Created by tobi on 18.05.17.
+ * Prüft ob ein Interrupt durch TMR0 ausgelöst wird
  */
 public class InterruptService {
+
 }

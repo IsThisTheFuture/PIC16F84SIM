@@ -4,7 +4,12 @@ import de.dhbw.Constants.Const;
 import de.dhbw.Controller;
 import de.dhbw.Microcontroller.Memory;
 import de.dhbw.Microcontroller.Stack;
+import de.dhbw.Services.CheckForInterruptService;
+import de.dhbw.Services.InterruptService;
 
+/**
+ * Alle Befehle erben von dieser Klasse und können somit deren Methoden nutzen (sofern diese protected / public sind)
+ */
 public class Instruction {
     public int instruction; // HEX-Code für Opcode + Argumente
     public int opcode;
@@ -17,6 +22,8 @@ public class Instruction {
 
     protected Memory memory = Memory.getInstance();
     protected Stack stack = Stack.getInstance();
+
+    public CheckForInterruptService checkForInterruptService = new CheckForInterruptService();
 
     public Instruction(int instruction, int opcode){
         this.instruction = instruction;
@@ -96,6 +103,20 @@ public class Instruction {
     }
 
 
+    /**
+     * Für CheckInterruptService
+     */
+    public void copyFormerValues(){
+        checkForInterruptService.copyFormerState();
+    }
+
+    public void copyCurrentValues(){
+        checkForInterruptService.copyCurrentState();
+    }
+
+    public void compareValues(){
+        checkForInterruptService.compareStates();
+    }
 
     /**
      * Hier wird die Laufzeit und das TMR0 Register gesetzt.
@@ -115,7 +136,7 @@ public class Instruction {
             this.tmrCounter++;
 
 
-        System.out.println("inhibitTimer: " + Controller.inhibitTimer0 + "tmrCounter: " + tmrCounter);
+        //System.out.println("inhibitTimer: " + Controller.inhibitTimer0 + "tmrCounter: " + tmrCounter);
 
         //if(t0cs == 0 && Controller.inhibitTimer0 <= 0){            // Clock Source ist die interne Frequenz
         if(t0cs == 0){            // Clock Source ist die interne Frequenz
@@ -157,8 +178,23 @@ public class Instruction {
 
         // Falls der Timer gesperrt ist
         Controller.inhibitTimer0--;
-        Controller.runtime++;
 
+
+        /**
+         * Timer0 Counter Mode
+         * Enabled, wenn T0CS = 1 in OPTION_REG
+         * Erkennt Flanken an RA4
+         */
+        int tose = ((optionReg >> 4) & 1);
+        if(t0cs == 1) {
+            if(tose == 0) // Es werden steigende Flanken gezählt
+                System.out.println("Steigende Flanken werden gezählt...");
+            else
+                System.out.println("Fallende Flanken werden gezählt..");
+        }
+
+
+        Controller.runtime++;
         /*
          One Instruction Cycle consists of 4 Oscillator Periods
          Thus, for an oscillator frequency of 4 MHz the instruction execution time is 1 microsecond
