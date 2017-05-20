@@ -14,6 +14,8 @@ public class CALL extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
+
         int k = argument;
         int pclath = memory.getAddress(Const.PCLATH);
 
@@ -42,6 +44,11 @@ public class CALL extends Instruction {
 
         incrementRuntime();
         incrementRuntime();
+        //TODO NOP?
+
+
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override

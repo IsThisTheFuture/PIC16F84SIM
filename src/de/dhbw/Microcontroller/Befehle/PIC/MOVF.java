@@ -15,6 +15,8 @@ public class MOVF extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
+
         int d = argument1;
         int f = argument2;
 
@@ -39,6 +41,9 @@ public class MOVF extends Instruction {
         incrementProgramCounter();
         incrementRuntime();
 
+
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override

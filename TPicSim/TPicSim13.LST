@@ -30,4 +30,4 @@
 0004 0181           00063           clrf 1              ;Timer löschen
                     00064  loop3
 0005 1E01           00065           btfss 1,4           ;bis im Timer0 der Wert 16 erreicht wird
-0006 281E           00066           goto loop3
+0006 2805           00066           goto loop3

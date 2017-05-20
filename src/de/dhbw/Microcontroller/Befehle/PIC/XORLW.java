@@ -17,6 +17,8 @@ public class XORLW extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
+
         int k = argument;
 
         memory.setRegisterW(memory.getRegisterW() ^ k);
@@ -28,6 +30,10 @@ public class XORLW extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
+
+
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override

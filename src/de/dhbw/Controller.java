@@ -3,14 +3,11 @@ package de.dhbw;
 import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 import de.dhbw.Model.InstructionView;
-import de.dhbw.Services.InstructionDecoderService;
+import de.dhbw.Services.*;
 import de.dhbw.Microcontroller.Memory;
 import de.dhbw.Model.MemoryView;
-import de.dhbw.Services.FileInputService;
 
 
-import de.dhbw.Services.InterruptService;
-import de.dhbw.Services.MemoryViewService;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -155,6 +152,7 @@ public class Controller {
     private FileInputService fileInputService;
     private MemoryViewService memoryViewService;
     private InterruptService interruptService;
+    private CheckForInterruptService checkForInterruptService;
     private HostServices hostServices;
     private Integer opcodeList[];
     private int currentRow = 0;
@@ -439,6 +437,7 @@ public class Controller {
         if (getBit(memory.getAbsoluteAddress(Const.PORTA), 4) == 0)
         {
             textFieldRegisterA4.setText("0");
+            //TODO: Trigger TMR0 Counter hier? Was ist mit TRISA?
         } else {
             textFieldRegisterA4.setText("1");
         }
@@ -640,5 +639,12 @@ public class Controller {
             interruptService = new InterruptService();
         }
         return interruptService;
+    }
+
+    private CheckForInterruptService getCheckForInterruptService() {
+        if (checkForInterruptService == null) {
+            checkForInterruptService = new CheckForInterruptService();
+        }
+        return checkForInterruptService;
     }
 }

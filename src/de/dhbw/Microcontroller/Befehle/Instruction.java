@@ -128,6 +128,7 @@ public class Instruction {
      *
      * Wird nach jedem Befehl ausgeführt
      */
+    @SuppressWarnings("Duplicates")
     public void incrementRuntime(){
         int optionReg = memory.getAbsoluteAddress(Const.OPTION_REG);
         int t0cs = ((optionReg >> 5) & 1);  // Clock Source Select. 0 = Timer Mode,  1 = Counter Mode
@@ -138,27 +139,32 @@ public class Instruction {
 
         //System.out.println("inhibitTimer: " + Controller.inhibitTimer0 + "tmrCounter: " + tmrCounter);
 
-        //if(t0cs == 0 && Controller.inhibitTimer0 <= 0){            // Clock Source ist die interne Frequenz
-        if(t0cs == 0){            // Clock Source ist die interne Frequenz
-            if(((optionReg >> 4) & 1) == 0 && Controller.inhibitTimer0 <= 0){
-                /*
-                 * Das PSA (Prescaler Assignment) Bit muss auf 0 sein,
-                 * damit der Prescaler dem TMR0 zugeteilt wird
-                 */
-                int ps0 = ((optionReg >> 0) & 1);
-                int ps1 = ((optionReg >> 1) & 1);
-                int ps2 = ((optionReg >> 2) & 1);
-                int prescalerValue = (ps2*4 + ps1*2 + ps0) ;
-                int VorteilerVerh = 2;
-                if (prescalerValue == 0b000) VorteilerVerh = 2;
-                else if (prescalerValue == 0b001) VorteilerVerh = 4;
-                else if (prescalerValue == 0b010) VorteilerVerh = 8;
-                else if (prescalerValue == 0b011) VorteilerVerh = 16;
-                else if (prescalerValue == 0b100) VorteilerVerh = 32;
-                else if (prescalerValue == 0b101) VorteilerVerh = 64;
-                else if (prescalerValue == 0b110) VorteilerVerh = 128;
-                else if (prescalerValue == 0b111) VorteilerVerh = 256;
 
+        /*
+         * Das Vorteilerverhältnis wird hier berechnet
+         */
+        int psa = ((optionReg >> 3) & 1);
+        int ps0 = ((optionReg >> 0) & 1);
+        int ps1 = ((optionReg >> 1) & 1);
+        int ps2 = ((optionReg >> 2) & 1);
+        int prescalerValue = (ps2*4 + ps1*2 + ps0) ;
+        int VorteilerVerh = 2;
+        if (prescalerValue == 0b000) VorteilerVerh = 2;
+        else if (prescalerValue == 0b001) VorteilerVerh = 4;
+        else if (prescalerValue == 0b010) VorteilerVerh = 8;
+        else if (prescalerValue == 0b011) VorteilerVerh = 16;
+        else if (prescalerValue == 0b100) VorteilerVerh = 32;
+        else if (prescalerValue == 0b101) VorteilerVerh = 64;
+        else if (prescalerValue == 0b110) VorteilerVerh = 128;
+        else if (prescalerValue == 0b111) VorteilerVerh = 256;
+
+        //if(t0cs == 0 && Controller.inhibitTimer0 <= 0){            // Clock Source ist die interne Frequenz
+        if(t0cs == 0){ // Clock Source ist die interne Frequenz
+            /*
+            * Das PSA (Prescaler Assignment) Bit muss auf 0 sein,
+            * damit der Prescaler dem TMR0 zugeteilt wird
+            */
+            if(psa == 0 && Controller.inhibitTimer0 <= 0){
                 /*
                  * Abhängig vom Vorteilerverhältnis wird bei jedem xten Befehl das TMR0 Register erhöht
                  * Für PS2 = 0, PS1 = 0, PS0 = 1 wäre das z. B. jeder 4. Befehl
@@ -185,14 +191,49 @@ public class Instruction {
          * Enabled, wenn T0CS = 1 in OPTION_REG
          * Erkennt Flanken an RA4
          */
+
+        /*
         int tose = ((optionReg >> 4) & 1);
         if(t0cs == 1) {
-            if(tose == 0) // Es werden steigende Flanken gezählt
-                System.out.println("Steigende Flanken werden gezählt...");
-            else
-                System.out.println("Fallende Flanken werden gezählt..");
+            if(tose == 0) {
+                //System.out.println("Steigende Flanken werden gezählt...");
+                if(checkForInterruptService.isRA4HighTriggered()) {
+                    tmrCounter++;
+
+                    // Vorteiler aktiv, wenn psa = 0
+                    if (psa == 0){
+                        // Nur bei jeder xten Flanke wird der Timer erhöht
+                        if (tmrCounter % VorteilerVerh == 0) {
+                            memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
+                            tmrCounter = 0;
+                        } else {
+                            // Der Vorteiler ist nicht aktiv. TMR0 wird um 1 erhöht
+                            memory.setAbsoluteAddress(Const.TMR0, memory.getAbsoluteAddress(Const.TMR0) + 1);
+                        }
+                    }
+                }
+            } else {
+                //System.out.println("Fallende Flanken werden gezählt..");
+                if(!checkForInterruptService.isRA4HighTriggered()){
+                    tmrCounter++; //TODO: Der Code hier ist falsch
+
+                    //Prüfen, ob Vorteiler aktiv
+                    if (psa == 1){
+                        // Nur bei jeder xten Flanke wird der Timer erhöht
+                        if (tmrCounter % VorteilerVerh == 0) {
+                            memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
+                            tmrCounter = 0;
+                        } else {
+                            // Der Vorteiler ist nicht aktiv. TMR0 wird um 1 erhöht
+                            memory.setAbsoluteAddress(Const.TMR0, memory.getAbsoluteAddress(Const.TMR0) + 1);
+                        }
+                    }
+
+                }
+            }
         }
 
+*/
 
         Controller.runtime++;
         /*

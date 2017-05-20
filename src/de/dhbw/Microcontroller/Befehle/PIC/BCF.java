@@ -4,9 +4,9 @@ import de.dhbw.Constants.Const;
 import de.dhbw.Controller;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
-/*
+/**
  * Bit clear file (set Bit b to 0)
- * TODO:  '0 -> f (Bit b)'
+ * '0 -> f (Bit b)'
  */
 
 public class BCF extends Instruction {
@@ -17,6 +17,8 @@ public class BCF extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
+
         int b = argument1;
         int f = argument2;
 
@@ -36,6 +38,9 @@ public class BCF extends Instruction {
         // Wenn der Timer beschrieben wird ist er für die nächsten 2 Zyklen gesperrt
         if (f == 0x01 && ((memory.getAbsoluteAddress(Const.STATUS) >> 5) & 1) == 0)
             Controller.inhibitTimer0 = 2;
+
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override

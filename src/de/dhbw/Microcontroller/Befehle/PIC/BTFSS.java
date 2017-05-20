@@ -5,7 +5,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Bit Test f, Skip if set
- * TODO: ->	'if b = 0: PC += 1; else PC += 2'
+ * 'if b = 0: PC += 1; else PC += 2'
  */
 public class BTFSS extends Instruction {
 
@@ -15,6 +15,8 @@ public class BTFSS extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
+
         int b = argument1;
         int f = argument2;
 
@@ -33,6 +35,10 @@ public class BTFSS extends Instruction {
             NOP.execute();
         }
         incrementRuntime();
+
+
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override

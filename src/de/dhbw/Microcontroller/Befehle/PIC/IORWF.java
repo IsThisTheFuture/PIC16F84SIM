@@ -16,6 +16,8 @@ public class IORWF extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
+
         int d = argument1;
         int f = argument2;
 
@@ -48,6 +50,8 @@ public class IORWF extends Instruction {
         if (f == 0x01 && ((memory.getAbsoluteAddress(Const.STATUS) >> 5) & 1) == 0)
             Controller.inhibitTimer0 = 2;
 
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override

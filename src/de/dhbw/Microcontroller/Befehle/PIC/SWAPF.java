@@ -17,6 +17,7 @@ public class SWAPF extends Instruction {
 
     @Override
     public void execute() {
+        copyFormerValues();
         int d = argument1;
         int f = argument2;
 
@@ -42,6 +43,11 @@ public class SWAPF extends Instruction {
         // Wenn der Timer beschrieben wird ist er für die nächsten 2 Zyklen gesperrt
         if (f == 0x01 && ((memory.getAbsoluteAddress(Const.STATUS) >> 5) & 1) == 0)
             Controller.inhibitTimer0 = 2;
+
+
+
+        copyCurrentValues();
+        compareValues();
     }
 
 

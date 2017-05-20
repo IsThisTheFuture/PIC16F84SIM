@@ -4,7 +4,7 @@ import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 
-/*
+/**
  * AND literal (k) with W
  * 'w and k -> w; CheckZero'
  */
@@ -17,6 +17,7 @@ public class ANDLW extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
         int k = argument;
         int w = memory.getRegisterW();
 
@@ -31,6 +32,9 @@ public class ANDLW extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
+
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override

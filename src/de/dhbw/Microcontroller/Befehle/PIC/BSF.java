@@ -6,7 +6,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Bit set file ( set Bit b to 1)
- * TODO: '1 -> f (Bit b)'
+ * '1 -> f (Bit b)'
  */
 
 public class BSF extends Instruction {
@@ -17,6 +17,8 @@ public class BSF extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
+
         int b = argument1;
         int f = argument2;
 
@@ -37,6 +39,9 @@ public class BSF extends Instruction {
         // Wenn der Timer beschrieben wird ist er für die nächsten 2 Zyklen gesperrt
         if (f == 0x01 && ((memory.getAbsoluteAddress(Const.STATUS) >> 5) & 1) == 0)
             Controller.inhibitTimer0 = 2;
+
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override

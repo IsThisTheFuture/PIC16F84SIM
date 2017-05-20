@@ -15,6 +15,8 @@ public class CLRW extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
+
         memory.setRegisterW(0);
 
         setZeroFlag();
@@ -22,6 +24,9 @@ public class CLRW extends Instruction {
         incrementProgramCounter();
         incrementRuntime();
 
+
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override

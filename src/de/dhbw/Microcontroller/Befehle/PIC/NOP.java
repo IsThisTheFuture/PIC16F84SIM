@@ -14,8 +14,14 @@ public class NOP extends Instruction {
 
         @Override
         public void execute(){
-        incrementProgramCounter();
-        incrementRuntime();
+            copyFormerValues();
+
+            incrementProgramCounter();
+            incrementRuntime();
+
+
+            copyCurrentValues();
+            compareValues();
         }
 
         @Override

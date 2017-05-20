@@ -12,14 +12,13 @@ import de.dhbw.Microcontroller.Memory;
 public class CheckForInterruptService {
 
     // Instanz des Speichers
-    // TODO: Prüfen, welche Auswirkungen das static hier hat....
     private Memory memory = Memory.getInstance();
 
-    private static Memory memCopy;
+    private static Integer[] memCopy;
 
     // PortA
-    private int portA4Old = 0;
-    private int portA4New = 0;
+    private static int portA4Old = 0;
+    private static int portA4New = 0;
 
     //PortB
     private static int portB4Old = 0;
@@ -36,24 +35,41 @@ public class CheckForInterruptService {
     private static int rb0intOld = 0;
     private static int rb0intNew = 0;
 
+    //TMR0
+    private static int tmr0Old = 0;
+    private static int tmr0New = 0;
+
     /**
      * Kopieren der alten Werte, um sie später hiergegen vergleichen zu können
      */
+    @SuppressWarnings("Duplicates")
     public void copyFormerState(){
-        int registerA = memory.getAbsoluteAddress(Const.PORTA);
-        int registerB = memory.getAbsoluteAddress(Const.PORTB);
+        //int registerA = memory.getAbsoluteAddress(Const.PORTA);
+        //int registerB = memory.getAbsoluteAddress(Const.PORTB);
 
+        memCopy = memory.getRegisters();
+        Integer registerA = memCopy[Const.PORTA];
+        Integer registerB = memCopy[Const.PORTB];
+
+
+        tmr0Old = memCopy[Const.TMR0];
         portA4Old = getBit(registerA, 4);
+        //System.out.println("PortA4 Alter Wert: " + portA4Old);
     }
 
     /**
      * Kopieren der aktuellen Werte, um sie gegen die Werte aus copyFormerState zu vergleichen
      */
+    @SuppressWarnings("Duplicates")
     public void copyCurrentState(){
-        Integer registerA = memory.getAbsoluteAddress(Const.PORTA);
-        Integer registerB = memory.getAbsoluteAddress(Const.PORTB);
+        memCopy = memory.getRegisters();
 
+        Integer registerA = memCopy[Const.PORTA];
+        Integer registerB = memCopy[Const.PORTB];
+
+        tmr0New = memCopy[Const.TMR0];
         portA4New = getBit(registerA, 4);
+        //System.out.println("Port A4 neuer Wert: " + portA4New + "\n");
     }
 
 
@@ -62,8 +78,31 @@ public class CheckForInterruptService {
      * Bei unterschieden wird ein entsprechender Interrupt getriggert
      */
     public void compareStates(){
-        if (this.portA4New > portA4Old) //
-            System.out.println("Flanke an PIN RA4 erkannt!");
+        if (portA4New == 1 && portA4Old == 0)
+            System.out.println("Flanke an PIN RA4 erkannt! Bit von 1 auf 0");
+        else if (portA4New == 0 && portA4Old == 1)
+            System.out.println("Flanke an PIN RA4 erkannt! Bit von 0 auf 1");
+
+        //TODO: Sollte in Programm 7 getriggert werden, wurde es aber nicht!!
+        if(tmr0Old == 255 && tmr0New == 0){
+            System.out.println("Timer0 overflow!");
+            getInterruptService().triggerTimer0Interrupt();
+        }
+    }
+
+    /**
+     * Wenn von Null auf 1 getriggert wird
+     * @return true
+     * else false
+     *
+     * Für TMR0 Counter Mode in Klasse Instruction
+     */
+    public boolean isRA4HighTriggered(){
+        portA4New = getBit(memCopy[Const.PORTA], 4);
+        if (portA4Old < portA4New)
+            return true;
+        else
+            return false;
     }
 
     /**

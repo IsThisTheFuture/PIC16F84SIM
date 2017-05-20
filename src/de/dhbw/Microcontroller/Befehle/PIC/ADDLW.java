@@ -16,6 +16,7 @@ public class ADDLW extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
         int k = argument;
         int w = memory.getRegisterW();
 
@@ -47,6 +48,9 @@ public class ADDLW extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
+
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override

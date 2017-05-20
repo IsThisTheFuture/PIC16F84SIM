@@ -19,6 +19,8 @@ public class MOVWF extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
+
         int f = argument;
 
         // Indirekte Addressierung
@@ -36,7 +38,8 @@ public class MOVWF extends Instruction {
         }
 
 
-
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override

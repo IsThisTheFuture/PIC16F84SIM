@@ -16,6 +16,8 @@ public class BTFSC extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
+
         int b = argument1;
         int f = argument2;
 
@@ -34,6 +36,9 @@ public class BTFSC extends Instruction {
             NOP.execute();
         }
         incrementRuntime();
+
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override

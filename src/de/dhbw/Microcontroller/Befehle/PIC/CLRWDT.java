@@ -13,6 +13,11 @@ public class CLRWDT extends Instruction{
 
     @Override
     public void execute(){
+        copyFormerValues();
+
+
+        copyCurrentValues();
+        compareValues();
 
     }
 }

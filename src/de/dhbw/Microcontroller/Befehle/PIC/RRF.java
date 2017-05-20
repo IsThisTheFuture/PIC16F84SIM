@@ -6,7 +6,7 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Rotate Right f through Carry
- * TODO: 'Bits von f nach r. rot.; 1 -> C (wenn Bit 0 = 1 war)'
+ * 'Bits von f nach r. rot.; 1 -> C (wenn Bit 0 = 1 war)'
  */
 @SuppressWarnings("ALL")
 public class RRF extends Instruction {
@@ -16,6 +16,8 @@ public class RRF extends Instruction {
 
     @Override
     public void execute() {
+        copyFormerValues();
+
         int d = argument1;
         int f = argument2;
 
@@ -53,6 +55,11 @@ public class RRF extends Instruction {
         // Wenn der Timer beschrieben wird ist er für die nächsten 2 Zyklen gesperrt
         if (f == 0x01 && ((memory.getAbsoluteAddress(Const.STATUS) >> 5) & 1) == 0)
             Controller.inhibitTimer0 = 2;
+
+
+
+        copyCurrentValues();
+        compareValues();
     }
 
 }

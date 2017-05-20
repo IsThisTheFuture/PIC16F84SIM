@@ -14,6 +14,8 @@ public class SUBLW extends Instruction {
 
         @Override
         public void execute(){
+            copyFormerValues();
+
             int k = argument;
             int w = memory.getRegisterW();
 
@@ -49,6 +51,11 @@ public class SUBLW extends Instruction {
 
             incrementProgramCounter();
             incrementRuntime();
+
+
+
+            copyCurrentValues();
+            compareValues();
         }
 
     @Override

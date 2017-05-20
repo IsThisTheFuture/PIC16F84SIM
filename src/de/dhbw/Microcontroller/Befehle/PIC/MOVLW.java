@@ -16,6 +16,8 @@ public class MOVLW extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
+
         int k = argument;
 
         memory.setRegisterW(k);
@@ -23,6 +25,9 @@ public class MOVLW extends Instruction {
         incrementProgramCounter();
         incrementRuntime();
 
+
+        copyCurrentValues();
+        compareValues();
 
     }
 

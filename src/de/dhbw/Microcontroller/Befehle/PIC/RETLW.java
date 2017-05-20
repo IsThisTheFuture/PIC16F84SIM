@@ -15,6 +15,8 @@ public class RETLW extends Instruction {
 
     @Override
     public void execute(){
+        copyFormerValues();
+
         int k = argument;
 
         memory.setRegisterW(k);
@@ -23,6 +25,10 @@ public class RETLW extends Instruction {
         memory.setAddress(Const.PCL, memory.getPc()&255);
         //TODO: PCLATH?
         incrementRuntime();
+
+
+        copyCurrentValues();
+        compareValues();
     }
 
     @Override
