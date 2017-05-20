@@ -19,7 +19,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import sun.security.krb5.internal.crypto.Des;
 
+import javax.accessibility.AccessibleHyperlink;
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +30,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.List;
+import java.awt.Desktop;
 
 public class Controller {
     @FXML
@@ -65,7 +69,6 @@ public class Controller {
     private TextField textFieldPC;
     @FXML
     private TextField textFieldStatus;
-
     @FXML
     private TextField textFieldRegisterA7;
     @FXML
@@ -161,6 +164,7 @@ public class Controller {
     public static int runtime = 0;
     public static double runtimeCalculated = 0;
     public static double clockSpeed = 4000; // PIC16F84 läuft mit 4MHz
+    public static int inhibitTimer0 = 0;
 
 
     public void initialize(){
@@ -317,6 +321,13 @@ public class Controller {
         runtime = 0;
         memory.initializeMemory();
         tableFileContent.getItems().clear();
+    }
+
+    public void pause(ActionEvent actionEvent) {
+        if(isRunning == true)
+            isRunning=false;
+        else
+            isRunning = true;
     }
 
     public void next(ActionEvent actionEvent) {
@@ -579,12 +590,23 @@ public class Controller {
     }
 
     public void openDocumentation(ActionEvent actionEvent) {
-        //TODO: Funktioniert nicht
+        //first check if Desktop is supported by Platform or not
+        if(!Desktop.isDesktopSupported()){
+            System.out.println("Desktop is not supported");
+            return;
+        }
+
         try {
-            File file = new File(Const.PATH_TO_DOCUMENTATION);
-            Desktop.getDesktop().open(file);
-        } catch (IOException e) {
-            e.printStackTrace();
+            File file = new File("/tmp/test.txt");
+            Desktop desktop = Desktop.getDesktop();
+
+            if(file.exists()) System.out.println("File exists");
+            //if(file.exists()) desktop.open(file);
+
+
+            Desktop.getDesktop().open(new File("///tmp/test.txt"));
+        } catch (Exception e) {
+
         }
     }
 

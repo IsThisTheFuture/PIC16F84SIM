@@ -10,6 +10,7 @@
       <element id="archive" name="JavaFXApp.jar">
         <element id="module-output" name="PIC16F84SIM" />
       </element>
+      <element id="module-output" name="PIC16F84SIM" />
     </root>
   </artifact>
 </component>

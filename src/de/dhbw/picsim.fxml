@@ -41,11 +41,11 @@
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="200.0">
                     <children>
-                        <SplitPane dividerPositions="0.22093023255813954" prefHeight="260.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane dividerPositions="0.25830564784053156" prefHeight="260.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <items>
                                 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="302.0" SplitPane.resizableWithParent="false">
                                     <children>
-                                        <TableView fx:id="tableMemory" maxHeight="500.0" minHeight="200.0" minWidth="220.0" prefHeight="225.0" prefWidth="295.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <TableView fx:id="tableMemory" maxHeight="644.0" minHeight="200.0" minWidth="220.0" prefHeight="644.0" prefWidth="291.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
                                                 <TableColumn fx:id="tableColumnMemoryRow" prefWidth="75.0" />
                                                 <TableColumn fx:id="tableColumnMemory00" prefWidth="75.0" text="00" />
@@ -63,7 +63,7 @@
                                         </TableView>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="269.0">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="677.0" prefWidth="875.0">
                            <children>
                                         <AnchorPane layoutX="29.0" layoutY="7.0" maxWidth="1.7976931348623157E308" prefHeight="677.0" prefWidth="906.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="7.0">
                                             <children>
@@ -172,9 +172,9 @@
                         <AnchorPane layoutY="174.0" prefHeight="33.0" prefWidth="128.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0">
                             <children>
                                 <Button fx:id="BtnStart" layoutY="8.0" mnemonicParsing="false" onAction="#run" text="Start" />
-                                <Button fx:id="BtnNext" layoutX="58.0" layoutY="8.0" mnemonicParsing="false" onAction="#next" text="Next" />
-                                <Button fx:id="BtnReset" layoutX="114.0" layoutY="8.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
-                                <Button fx:id="BtnClear" layoutX="175.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear">
+                                <Button fx:id="BtnNext" layoutX="124.0" layoutY="8.0" mnemonicParsing="false" onAction="#next" text="Next" />
+                                <Button fx:id="BtnReset" layoutX="180.0" layoutY="8.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
+                                <Button fx:id="BtnClear" layoutX="241.0" layoutY="8.0" mnemonicParsing="false" onAction="#clear" text="Clear">
                                   <!-- <graphic>
                                        <ImageView>
                                            <image>
@@ -184,6 +184,7 @@
                                        </ImageView>
                                     </graphic> */ -->
                                 </Button>
+                        <Button fx:id="BtnPause" layoutX="55.0" layoutY="8.0" mnemonicParsing="false" onAction="#pause" text="Pause" />
 
                             </children>
                         </AnchorPane>

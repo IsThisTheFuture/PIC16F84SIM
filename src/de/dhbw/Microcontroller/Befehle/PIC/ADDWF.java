@@ -1,6 +1,7 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
 import de.dhbw.Constants.Const;
+import de.dhbw.Controller;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
@@ -55,6 +56,10 @@ public class ADDWF extends Instruction {
 
         incrementProgramCounter();
         incrementRuntime();
+
+        // Wenn der Timer beschrieben wird ist er für die nächsten 2 Zyklen gesperrt
+        if (f == 0x01 && ((memory.getAbsoluteAddress(Const.STATUS) >> 5) & 1) == 0)
+            Controller.inhibitTimer0 = 2;
     }
 
     @Override
