@@ -24,7 +24,7 @@ public class Timer0Service {
     private int vorteilerVerhaeltnis;
 
     private static int cycleCounter = 0;
-    public static int counterModeNumberOfFallingFlanks = 0;
+    private static int counterModeNumberOfFallingFlanks = 0;
     public static int counterModeNumberOfRisingFlanks = 0;
     private boolean isInSyncMode;
 
@@ -62,29 +62,39 @@ public class Timer0Service {
      * Abhängig vom Vorteilerverhältnis und ob dieser überhaupt aktiviert ist, wird der Counter erhöht
      * Ist kein Vorteiler aktiv, so wird nach jedem Befehl der Counter erhöht.
      * Bei Verhältnis 2:1 z. B. wird nach jedem 2. Befehl der Counter erhöht.
+     *
+     * Fallende Flanke = 0, Steigende Flanke = 1
      */
-    public void incrementCounter(){
+    public void incrementCounter(boolean flank){
         // Wenn nicht im TimerMode, dann muss TMR0 im CounterMode sein
+        //TODO: Programm 7 zählt sowohl fallende als auch steigende Flanken!!
         if(!isInTimerMode()){
+
+            if(flank == false) counterModeNumberOfFallingFlanks++;
+            else counterModeNumberOfRisingFlanks++;
+
             if(prescalerIsActive()){
-                if(isListeningForRisingFlanks()){
+                if(isListeningForRisingFlanks()  && counterModeNumberOfRisingFlanks > 0){
                     if(counterModeNumberOfRisingFlanks == getVorteilerVerhaeltnis()){
                         memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
                         counterModeNumberOfRisingFlanks = 0;
                     }
-                } else if(isListeningForFallingFlanks()) {
+                } else if(isListeningForFallingFlanks()  && counterModeNumberOfFallingFlanks > 0) {
                     if(counterModeNumberOfFallingFlanks == getVorteilerVerhaeltnis()) {
                         memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
                         counterModeNumberOfFallingFlanks = 0;
                     }
                 }
             } else if (!prescalerIsActive()) {
-                if(isListeningForRisingFlanks()){
+                if(isListeningForRisingFlanks() && counterModeNumberOfRisingFlanks > 0){
                     memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
                     counterModeNumberOfRisingFlanks = 0;
-                } else if(isListeningForFallingFlanks()) {
+                    System.out.println("Rising Flank");
+                } else if(isListeningForFallingFlanks() && counterModeNumberOfFallingFlanks > 0) {
                     memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
                     counterModeNumberOfFallingFlanks = 0;
+                    System.out.println("Falling Flank");
+
                 }
             }
         }

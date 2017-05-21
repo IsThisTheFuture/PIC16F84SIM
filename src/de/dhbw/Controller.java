@@ -464,16 +464,19 @@ public class Controller {
     public void toggleA4() {
         toggleBit(4, Const.PORTA);
 
-        if (getBit(memory.getAbsoluteAddress(Const.PORTA), 4) == 0)
-        {
-            getTimer0Service().counterModeNumberOfFallingFlanks++;
-            getTimer0Service().incrementCounter();
+        //TODO: Was ist mit TRISA? -> Prüfen ob RB4 In-/ oder Output ist
+
+
+        if (getBit(memory.getAbsoluteAddress(Const.PORTA), 4) == 0) {
+            //getTimer0Service().counterModeNumberOfFallingFlanks++;
+            getTimer0Service().incrementCounter(false);
             textFieldRegisterA4.setText("0");
-            //TODO: Trigger TMR0 Counter hier? Was ist mit TRISA?
         } else {
-            getTimer0Service().counterModeNumberOfRisingFlanks++;
-            getTimer0Service().incrementCounter();
+            //getTimer0Service().counterModeNumberOfRisingFlanks++;
+            getTimer0Service().incrementCounter(true);
             textFieldRegisterA4.setText("1");
+            //System.out.println("this is a Rising Flank");
+
         }
 
         updateMemoryView();

@@ -38,7 +38,7 @@
 000D 2807           00038           goto loop1
                     00039           ;num muss 80H in 10h stehen
                     00040           
-                    00041           ;nun mit einem VT = 1:16         
+                    00041           ;nun mit einem VT =
                     00042           ;somit wird nach jedem 16. Befehlstakt (Achtung GOTO etc) TMR0 erhöht
 000E 3003           00043           movlw 00000011B     ;Option-Register entsp. initialisieren
 000F 1683           00044           bsf status,5        ;Bank umschalten
