@@ -468,15 +468,11 @@ public class Controller {
 
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTA), 4) == 0) {
-            //getTimer0Service().counterModeNumberOfFallingFlanks++;
             getTimer0Service().incrementCounter(false);
             textFieldRegisterA4.setText("0");
         } else {
-            //getTimer0Service().counterModeNumberOfRisingFlanks++;
             getTimer0Service().incrementCounter(true);
             textFieldRegisterA4.setText("1");
-            //System.out.println("this is a Rising Flank");
-
         }
 
         updateMemoryView();

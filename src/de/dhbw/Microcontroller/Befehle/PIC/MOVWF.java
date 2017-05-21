@@ -37,6 +37,7 @@ public class MOVWF extends Instruction {
         // Wenn der Timer beschrieben wird ist er für die nächsten 2 Zyklen gesperrt
         if (f == 1 && ((memory.getAbsoluteAddress(Const.STATUS) >> 5) & 1) == 0){
             Controller.inhibitTimer0 = 2;
+            timer0Service.inhibitTimer = 2;
             System.out.println("Inhibiting Timer....");
         }
 

@@ -10,22 +10,18 @@ import de.dhbw.Microcontroller.Memory;
 public class Timer0Service {
     private Memory memory = Memory.getInstance();
 
-    private int optionReg;
     private int optionRegPs0;
     private int optionRegPs1;
     private int optionRegPs2;
-    private int optionRegPsa;
-    private int optionRegT0se;
-    private int optionRegT0cs;
-    private int optionRegIntEdg;
-    private int optionRegRbpu;
+
 
     private int prescalerValue;
     private int vorteilerVerhaeltnis;
 
     private static int cycleCounter = 0;
     private static int counterModeNumberOfFallingFlanks = 0;
-    public static int counterModeNumberOfRisingFlanks = 0;
+    private static int counterModeNumberOfRisingFlanks = 0;
+    public static int inhibitTimer = 0;
     private boolean isInSyncMode;
 
 
@@ -38,15 +34,17 @@ public class Timer0Service {
      */
     public void incrementTimer(){
         cycleCounter++;
-
+        if (cycleCounter>getVorteilerVerhaeltnis()) cycleCounter = 0;
         // Es wird nur der TimerMode behandelt
         if(isInTimerMode()){
-            if(prescalerIsActive()){
+            if (inhibitTimer>0) inhibitTimer--;
+            if (inhibitTimer==0) isInSyncMode = false;
+            if(prescalerIsActive() && !isInSyncMode){
                 if(cycleCounter == getVorteilerVerhaeltnis()){
                     memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
                     cycleCounter = 0;
                 }
-            } else {
+            } else if (!isInSyncMode){
                 // Prescaler ist nicht aktiv. Nach jedem Takt den TMR erhöhen
                 memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
                 cycleCounter = 0;
@@ -67,7 +65,6 @@ public class Timer0Service {
      */
     public void incrementCounter(boolean flank){
         // Wenn nicht im TimerMode, dann muss TMR0 im CounterMode sein
-        //TODO: Programm 7 zählt sowohl fallende als auch steigende Flanken!!
         if(!isInTimerMode()){
 
             if(flank == false) counterModeNumberOfFallingFlanks++;
@@ -89,12 +86,9 @@ public class Timer0Service {
                 if(isListeningForRisingFlanks() && counterModeNumberOfRisingFlanks > 0){
                     memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
                     counterModeNumberOfRisingFlanks = 0;
-                    System.out.println("Rising Flank");
                 } else if(isListeningForFallingFlanks() && counterModeNumberOfFallingFlanks > 0) {
                     memory.setAbsoluteAddress(Const.TMR0, (memory.getAbsoluteAddress(Const.TMR0) + 1) & 255);
                     counterModeNumberOfFallingFlanks = 0;
-                    System.out.println("Falling Flank");
-
                 }
             }
         }
