@@ -25,6 +25,8 @@ public class Controller {
     @FXML
     private TableView<InstructionView> tableFileContent;
     @FXML
+    private TableColumn<InstructionView, Boolean> tableColumnBreakpoint;
+    @FXML
     private TableColumn<InstructionView, Integer> tableColumnZeilennummer;
     @FXML
     private TableColumn<InstructionView, String> tableColumnBefehlscode;
@@ -183,6 +185,7 @@ public class Controller {
     }
 
     public void initializeFileContentView(){
+        tableColumnBreakpoint.setCellValueFactory(new PropertyValueFactory<>("breakpoint"));
         tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("zeilennummer"));
         tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("opcode"));
         tableColumnBefehl.setCellValueFactory(new PropertyValueFactory<>("befehl"));
@@ -238,20 +241,52 @@ public class Controller {
         instructionViewList = getFileInputService().importLstFile();
 
         tableFileContent.getItems().addAll(instructionViewList);
-        tableFileContent.setRowFactory(tv -> new TableRow<InstructionView>() {
+
+
+                    tableFileContent.setRowFactory(tv -> new TableRow<InstructionView>() {
+                        @Override
+                        public void updateItem(InstructionView item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item == null) {
+                                setStyle("");
+                            } else if (item.getZeilennummer() == currentRow) {
+                                setStyle("-fx-background-color: #5cadff;");
+                            }
+                            else {
+                                setStyle("");
+                            }
+
+
+                            setOnMouseClicked(event -> {
+                                if (event.getClickCount() == 2 && (!isEmpty())) {
+                                    if(!item.isBreakpoint()) {
+                                        System.out.println("Setting Breakpoint");
+                                        item.setBreakPoint(true);
+                                        tableFileContent.refresh();
+                                    }
+                                    else {
+                                        System.out.println("Unsetting Breakpoint");
+                                        item.setBreakPoint(false);
+                                        tableFileContent.refresh();
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+                    /*
+        tableFileContent.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
-            public void updateItem(InstructionView item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item == null) {
-                    setStyle("");
-                } else if (item.getZeilennummer() == currentRow) {
-                   setStyle("-fx-background-color: #5cadff;");
-                }
-                else {
-                    setStyle("");
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    tableFileContent.getSelectionModel().getSelectedItem().setBreakPoint(true);
+                    tableFileContent.getSelectionModel().getSelectedItem().setBreakPoint("B");
+                    System.out.println(tableFileContent.getSelectionModel().getSelectedItem());
+                    tableFileContent.refresh();
                 }
             }
         });
+        */
 
         opcodeList = new Integer[instructionViewList.size()];
         for (int i = 0; i < instructionViewList.size(); i++)
@@ -278,7 +313,8 @@ public class Controller {
                         Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
 
 
-                        if (instructionList.get(i).isBreakPoint) break;
+                        //if (instructionList.get(i).isBreakPoint) break;
+                        if(instructionViewList.get(i).isBreakpoint()) isRunning = false;
                         instructionList.get(i).execute();
 
                         Platform.runLater(() -> tableFileContent.refresh());
@@ -345,7 +381,8 @@ public class Controller {
     }
 
     // TODO
-    public void setBreakPoint(ActionEvent actionEvent) {
+    public void setBreakPoint() {
+        System.out.println("TEST");
     }
 
     public void close(ActionEvent actionEvent) {

@@ -5,6 +5,7 @@ package de.dhbw.Model;
  */
 public class InstructionView {
     private boolean isExecutable;
+    private boolean isBreakpoint;
     private int zeilennummer;
     private String opcode;
     private String befehl;
@@ -55,4 +56,13 @@ public class InstructionView {
     public void setExecutable(boolean executable) {
         isExecutable = executable;
     }
+
+    public boolean isBreakpoint() {
+        return isBreakpoint;
+    }
+
+    public void setBreakPoint(boolean breakpoint) {
+        isBreakpoint = breakpoint;
+    }
+
 }

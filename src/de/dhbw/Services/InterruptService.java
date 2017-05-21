@@ -69,7 +69,7 @@ public class InterruptService {
 
     /**
      * Wird ein Interrupt ausgelöst, wird das GIE auf 0 gesetzt, um weitere Interrupts zu verhindern
-     * TODO: Das GIE Bit wird von RETFIE wieder gesetzt
+     * Das GIE Bit wird von RETFIE wieder gesetzt
      */
     private void disableGlobalInterruptEnableBit(){
         int byteValue = memory.getAbsoluteAddress(Const.INTCON);

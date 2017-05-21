@@ -142,7 +142,7 @@
                                     <Text fx:id="textStatusReg0C" layoutX="220.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                     <TextField fx:id="textFieldSpeed" layoutX="9.0" layoutY="633.0" onAction="#setSpeed" onInputMethodTextChanged="#setSpeed" prefHeight="26.0" prefWidth="81.0" text="500" />
                                     <Label layoutX="9.0" layoutY="617.0" text="Speed in ms" />
-                                    <Label layoutX="7.0" layoutY="385.0" text="OPTION_REG:" />
+                                    <Label layoutX="9.0" layoutY="385.0" text="OPTION_REG:" />
                                     <TextField fx:id="textFieldOption" layoutX="112.0" layoutY="380.0" prefHeight="26.0" prefWidth="97.0" text="255" />
                                     <Label layoutX="12.0" layoutY="413.0" text="RBPU" />
                                     <Label layoutX="55.0" layoutY="413.0" text="INTEDG" />
@@ -194,7 +194,7 @@
                     <children>
                         <TableView fx:id="tableFileContent" minHeight="109.0" prefHeight="109.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
-                                <TableColumn maxWidth="90" minWidth="90" sortable="false" text="Breakpoint" />
+                                <TableColumn fx:id="tableColumnBreakpoint" maxWidth="90" minWidth="90" sortable="false" text="Breakpoint" />
                                 <TableColumn fx:id="tableColumnZeilennummer" maxWidth="50" minWidth="50" sortable="false" text="Zeile" />
                                 <TableColumn fx:id="tableColumnBefehlscode" maxWidth="125" minWidth="125" sortable="false" text="Befehlscode" />
                                 <TableColumn fx:id="tableColumnBefehl" sortable="false" text="Befehl" />
