@@ -3,6 +3,7 @@ package de.dhbw;
 import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 import de.dhbw.Model.InstructionView;
+import de.dhbw.Model.StackView;
 import de.dhbw.Services.*;
 import de.dhbw.Microcontroller.Memory;
 import de.dhbw.Model.MemoryView;
@@ -34,6 +35,10 @@ public class Controller {
     private TableColumn<InstructionView, String> tableColumnBefehl;
     @FXML
     private TableColumn<InstructionView, String> tableColumnKommentar;
+    @FXML
+    private TableView<StackView> tableStack;
+    @FXML
+    private TableColumn<StackView, String> tableColumnStack;
     @FXML
     private TableView<MemoryView> tableMemory;
     @FXML
@@ -174,12 +179,14 @@ public class Controller {
     private List<Instruction> instructionList;
     private List<InstructionView> instructionViewList;
     private List<MemoryView> memoryViewList;
+    private List<StackView> stackViewList;
     private InstructionDecoderService instructionDecoderService;
     private FileInputService fileInputService;
     private MemoryViewService memoryViewService;
     private InterruptService interruptService;
     private CheckForInterruptService checkForInterruptService;
     private Timer0Service timer0Service;
+    private StackViewService stackViewService;
     private HostServices hostServices;
     private Integer opcodeList[];
     private int currentRow = 0;
@@ -196,6 +203,7 @@ public class Controller {
         initializeMemoryView();
         initializeFileContentView();
         updateTextfieldRegisters();
+        initializeStackView();
     }
 
 
@@ -225,9 +233,23 @@ public class Controller {
 
     }
 
+    public void initializeStackView(){
+        tableColumnStack.setCellValueFactory(new PropertyValueFactory<>("stackContent"));
+    }
+
     public void updateUI(){
         updateMemoryView();
         updateTextfieldRegisters();
+        updateStackView();
+    }
+
+    public void updateStackView(){
+        tableStack.getItems().clear();
+
+        if(stackViewList != null) stackViewList.clear();
+        stackViewList = getStackViewService().getStackViewList();
+        tableStack.getItems().addAll(stackViewList);
+        Platform.runLater(() -> tableStack.refresh());
     }
 
     public void updateMemoryView(){
@@ -919,5 +941,12 @@ public class Controller {
             timer0Service = new Timer0Service();
         }
         return timer0Service;
+    }
+
+    private StackViewService getStackViewService() {
+        if (stackViewService == null) {
+            stackViewService = new  StackViewService();
+        }
+        return stackViewService;
     }
 }

@@ -42,4 +42,7 @@ public class Stack {
         return (top == STACK_SIZE - 1);
     }
 
+    public Integer[] getStackContent(){
+        return this.stack;
+    }
 }
