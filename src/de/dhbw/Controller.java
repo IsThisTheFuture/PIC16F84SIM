@@ -93,6 +93,38 @@ public class Controller {
     @FXML
     private TextField textFieldRegisterB7;
     @FXML
+    private TextField textFieldTRISA0;
+    @FXML
+    private TextField textFieldTRISA1;
+    @FXML
+    private TextField textFieldTRISA2;
+    @FXML
+    private TextField textFieldTRISA3;
+    @FXML
+    private TextField textFieldTRISA4;
+    @FXML
+    private TextField textFieldTRISA5;
+    @FXML
+    private TextField textFieldTRISA6;
+    @FXML
+    private TextField textFieldTRISA7;
+    @FXML
+    private TextField textFieldTRISB0;
+    @FXML
+    private TextField textFieldTRISB1;
+    @FXML
+    private TextField textFieldTRISB2;
+    @FXML
+    private TextField textFieldTRISB3;
+    @FXML
+    private TextField textFieldTRISB4;
+    @FXML
+    private TextField textFieldTRISB5;
+    @FXML
+    private TextField textFieldTRISB6;
+    @FXML
+    private TextField textFieldTRISB7;
+    @FXML
     private Text textStatusReg7IRP;
     @FXML
     private Text textStatusReg6RP1;
@@ -628,6 +660,199 @@ public class Controller {
         getCheckForInterruptService().checkForPortBInterrupt();
         updateMemoryView();
     }
+
+    public void toggleTRISA0() {
+        toggleBit(0, Const.TRISA);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 0) == 0)
+        {
+            textFieldTRISA0.setText("o");
+        } else {
+            textFieldTRISA0.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISA1() {
+        toggleBit(1, Const.TRISA);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 1) == 0)
+        {
+            textFieldTRISA1.setText("o");
+        } else {
+            textFieldTRISA1.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISA2() {
+        toggleBit(2, Const.TRISA);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 2) == 0)
+        {
+            textFieldTRISA2.setText("o");
+        } else {
+            textFieldTRISA2.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISA3() {
+        toggleBit(3, Const.TRISA);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 3) == 0)
+        {
+            textFieldTRISA3.setText("o");
+        } else {
+            textFieldTRISA3.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISA4() {
+        toggleBit(4, Const.TRISA);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 4) == 0)
+        {
+            textFieldTRISA4.setText("o");
+        } else {
+            textFieldTRISA4.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISA5() {
+        toggleBit(5, Const.TRISA);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 5) == 0)
+        {
+            textFieldTRISA5.setText("o");
+        } else {
+            textFieldTRISA5.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISA6() {
+        toggleBit(6, Const.TRISA);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 6) == 0)
+        {
+            textFieldTRISA6.setText("o");
+        } else {
+            textFieldTRISA6.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISA7() {
+        toggleBit(7, Const.TRISA);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 7) == 0)
+        {
+            textFieldTRISA7.setText("o");
+        } else {
+            textFieldTRISA7.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISB0() {
+        toggleBit(0, Const.TRISB);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 0) == 0)
+        {
+            textFieldTRISB0.setText("o");
+        } else {
+            textFieldTRISB0.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISB1() {
+        toggleBit(1, Const.TRISB);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 1) == 0)
+        {
+            textFieldTRISB1.setText("o");
+        } else {
+            textFieldTRISB1.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISB2() {
+        toggleBit(2, Const.TRISB);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 2) == 0)
+        {
+            textFieldTRISB2.setText("o");
+        } else {
+            textFieldTRISB2.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISB3() {
+        toggleBit(3, Const.TRISB);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 3) == 0)
+        {
+            textFieldTRISB3.setText("o");
+        } else {
+            textFieldTRISB3.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISB4() {
+        toggleBit(4, Const.TRISB);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 4) == 0)
+        {
+            textFieldTRISB4.setText("o");
+        } else {
+            textFieldTRISB4.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISB5() {
+        toggleBit(5, Const.TRISB);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 5) == 0)
+        {
+            textFieldTRISB5.setText("o");
+        } else {
+            textFieldTRISB5.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISB6() {
+        toggleBit(6, Const.TRISB);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 6) == 0)
+        {
+            textFieldTRISB6.setText("o");
+        } else {
+            textFieldTRISB6.setText("i");
+        }
+        updateMemoryView();
+    }
+
+    public void toggleTRISB7() {
+        toggleBit(7, Const.TRISB);
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 7) == 0)
+        {
+            textFieldTRISB7.setText("o");
+        } else {
+            textFieldTRISB7.setText("i");
+        }
+        updateMemoryView();
+    }
+
 
     public void openDocumentation(ActionEvent actionEvent) {
         //first check if Desktop is supported by Platform or not
