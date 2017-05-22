@@ -517,6 +517,10 @@ public class Controller {
         updateMemoryView();
     }
 
+    /**
+     * Toggled das RB0 Bit
+     * Der RB0 Pin löst unter Umständen einen Interrupt aus
+     */
     public void toggleB0() {
         toggleBit(0, Const.PORTB);
 
@@ -526,7 +530,7 @@ public class Controller {
         } else {
             textFieldRegisterB0.setText("1");
         }
-
+        getCheckForInterruptService().checkForRB0Interrupt();
         updateMemoryView();
     }
 
@@ -579,6 +583,7 @@ public class Controller {
             textFieldRegisterB4.setText("1");
         }
 
+        getCheckForInterruptService().checkForPortBInterrupt();
         updateMemoryView();
     }
 
@@ -592,6 +597,7 @@ public class Controller {
             textFieldRegisterB5.setText("1");
         }
 
+        getCheckForInterruptService().checkForPortBInterrupt();
         updateMemoryView();
     }
 
@@ -605,6 +611,7 @@ public class Controller {
             textFieldRegisterB6.setText("1");
         }
 
+        getCheckForInterruptService().checkForPortBInterrupt();
         updateMemoryView();
     }
 
@@ -618,6 +625,7 @@ public class Controller {
             textFieldRegisterB7.setText("1");
         }
 
+        getCheckForInterruptService().checkForPortBInterrupt();
         updateMemoryView();
     }
 

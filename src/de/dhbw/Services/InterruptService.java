@@ -43,6 +43,13 @@ public class InterruptService {
      * Der INT Interrupt kann den Prozessor aus dem SLEEP wecken
      */
     public void triggerIntInterrupt(){
+        if(globalInterruptisEnabled()) {
+
+            setBit(Const.INTCON, 1);
+            disableGlobalInterruptEnableBit();
+            stack.push(memory.getPc() + 1);
+            memory.setPc(0x0004);
+        }
 
     }
 
@@ -52,7 +59,13 @@ public class InterruptService {
      *
      */
     public void triggerPortBInterrupt(){
+        if(globalInterruptisEnabled()){
 
+            setBit(Const.INTCON, 3);
+            disableGlobalInterruptEnableBit();
+            stack.push(memory.getPc() + 1);
+            memory.setPc(0x0004);
+        }
     }
 
     /**

@@ -80,20 +80,20 @@
                                                 <TextField editable="false" layoutX="144.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="4" />
                                                 <TextField editable="false" layoutX="122.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="5" />
                                                 <TextField editable="false" layoutX="100.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="6" />
-                                                <TextField editable="false" layoutY="65.0" prefHeight="25.0" prefWidth="60.0" text="RB">
+                                                <TextField editable="false" layoutY="95.0" prefHeight="25.0" prefWidth="60.0" text="RB">
                                        <effect>
                                           <InnerShadow height="0.0" radius="3.2075" width="14.83" />
                                        </effect>
                                     </TextField>
-                                                <TextField editable="false" layoutY="90.0" prefHeight="25.0" prefWidth="60.0" text="PinB" />
-                                                <TextField editable="false" layoutX="233.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                                <TextField editable="false" layoutX="211.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="1" />
-                                                <TextField editable="false" layoutX="189.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="2" />
-                                                <TextField editable="false" layoutX="167.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="3" />
-                                                <TextField editable="false" layoutX="145.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="4" />
-                                                <TextField editable="false" layoutX="123.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="5" />
-                                                <TextField editable="false" layoutX="101.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="6" />
-                                                <TextField editable="false" layoutX="79.0" layoutY="65.0" prefHeight="25.0" prefWidth="23.0" text="7" />
+                                                <TextField editable="false" layoutY="120.0" prefHeight="25.0" prefWidth="60.0" text="PinB" />
+                                                <TextField editable="false" layoutX="233.0" layoutY="95.0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                                <TextField editable="false" layoutX="211.0" layoutY="95.0" prefHeight="25.0" prefWidth="23.0" text="1" />
+                                                <TextField editable="false" layoutX="189.0" layoutY="95.0" prefHeight="25.0" prefWidth="23.0" text="2" />
+                                                <TextField editable="false" layoutX="167.0" layoutY="95.0" prefHeight="25.0" prefWidth="23.0" text="3" />
+                                                <TextField editable="false" layoutX="145.0" layoutY="95.0" prefHeight="25.0" prefWidth="23.0" text="4" />
+                                                <TextField editable="false" layoutX="123.0" layoutY="95.0" prefHeight="25.0" prefWidth="23.0" text="5" />
+                                                <TextField editable="false" layoutX="101.0" layoutY="95.0" prefHeight="25.0" prefWidth="23.0" text="6" />
+                                                <TextField editable="false" layoutX="79.0" layoutY="95.0" prefHeight="25.0" prefWidth="23.0" text="7" />
                                                 <TextField editable="false" layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="23.0" text="7">
                                        <effect>
                                           <ColorAdjust />
@@ -107,16 +107,16 @@
                                     <TextField fx:id="textFieldRegisterA2" layoutX="188.0" layoutY="27.0" onMouseClicked="#toggleA2" prefHeight="25.0" prefWidth="23.0" text="0" />
                                     <TextField fx:id="textFieldRegisterA1" layoutX="209.0" layoutY="27.0" onMouseClicked="#toggleA1" prefHeight="25.0" prefWidth="23.0" text="0" />
                                     <TextField fx:id="textFieldRegisterA0" layoutX="232.0" layoutY="27.0" onMouseClicked="#toggleA0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterB7" layoutX="79.0" layoutY="90.0" onMouseClicked="#toggleB7" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterB6" layoutX="101.0" layoutY="90.0" onMouseClicked="#toggleB6" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterB5" layoutX="123.0" layoutY="90.0" onMouseClicked="#toggleB5" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterB4" layoutX="145.0" layoutY="90.0" onMouseClicked="#toggleB4" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterB3" layoutX="167.0" layoutY="90.0" onMouseClicked="#toggleB3" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterB2" layoutX="189.0" layoutY="90.0" onMouseClicked="#toggleB2" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterB1" layoutX="211.0" layoutY="90.0" onMouseClicked="#toggleB1" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <TextField fx:id="textFieldRegisterB0" layoutX="233.0" layoutY="90.0" onMouseClicked="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
-                                    <Separator layoutX="1.0" layoutY="58.0" prefHeight="3.0" prefWidth="252.0" />
-                                    <Separator layoutX="67.0" layoutY="3.0" orientation="VERTICAL" prefHeight="109.0" prefWidth="5.0" />
+                                    <TextField fx:id="textFieldRegisterB7" layoutX="79.0" layoutY="120.0" onMouseClicked="#toggleB7" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterB6" layoutX="101.0" layoutY="120.0" onMouseClicked="#toggleB6" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterB5" layoutX="123.0" layoutY="120.0" onMouseClicked="#toggleB5" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterB4" layoutX="145.0" layoutY="120.0" onMouseClicked="#toggleB4" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterB3" layoutX="167.0" layoutY="120.0" onMouseClicked="#toggleB3" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterB2" layoutX="189.0" layoutY="120.0" onMouseClicked="#toggleB2" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterB1" layoutX="211.0" layoutY="120.0" onMouseClicked="#toggleB1" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <TextField fx:id="textFieldRegisterB0" layoutX="233.0" layoutY="120.0" onMouseClicked="#toggleB0" prefHeight="25.0" prefWidth="23.0" text="0" />
+                                    <Separator layoutX="1.0" layoutY="88.0" prefHeight="3.0" prefWidth="252.0" />
+                                    <Separator layoutX="67.0" layoutY="3.0" orientation="VERTICAL" prefHeight="170.0" prefWidth="5.0" />
                                     <Label layoutX="12.0" layoutY="192.0" text="Spezialregister" />
                                     <Label layoutX="12.0" layoutY="230.0" text="W-Reg:" />
                                     <TextField fx:id="textFieldRegisterW" layoutX="71.0" layoutY="225.0" prefHeight="26.0" prefWidth="97.0" text="0" />
@@ -164,6 +164,8 @@
                                     <Text fx:id="textClockSpeed" layoutX="120.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4.0 MHz" />
                                     <Label layoutX="211.0" layoutY="582.0" text="Laufzeit: " />
                                     <Text fx:id="textRuntime" layoutX="277.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 µs" />
+                                    <TextField layoutY="53.0" prefHeight="26.0" prefWidth="60.0" text="TRIS A" />
+                                    <TextField layoutY="146.0" prefHeight="26.0" prefWidth="60.0" text="TRIS B" />
                                             </children>
                                         </AnchorPane>
                            </children></AnchorPane>

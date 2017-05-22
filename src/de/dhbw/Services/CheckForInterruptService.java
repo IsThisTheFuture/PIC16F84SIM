@@ -105,6 +105,43 @@ public class CheckForInterruptService {
     }
 
 
+    /**
+     * INT/RB0 Interrupt wird getriggert, entweder bei steigender oder fallender Flanke
+     * steigend, wenn INTEDG in OPTION_REG<6> = 1, fallend wenn INTEDG = 0
+     *
+     * Wird eine valide Flanke erkannt, dann wird INTCON<1> gesetzt
+     *
+     * Der Interrupt kann durch setzen des INTE = 0 in INTCON<4> deaktiviert werden
+     * Ein RB0 Interrupt kann den Prozessor aus dem SLEEP Modus wecken
+     *
+     * Wird aufgerufen, wenn via GUI RB0 getoggled wird
+     */
+    public void checkForRB0Interrupt(){
+        if(getBit(memory.getAbsoluteAddress(Const.INTCON), 4) == 1){
+
+            // Wird auf steigende Flanken gehört?
+            if(getBit(memory.getAbsoluteAddress(Const.INTCON), 6) == 1){
+                // Wenn jetzt in REG_B<0> eine 1 steht gab es eine steigende Flanke
+                if (getBit(memory.getAbsoluteAddress(Const.PORTB), 0) == 1);
+                getInterruptService().triggerIntInterrupt();
+            } else {
+                // Es wird auf fallende Flanken geprüft
+                if(getBit(memory.getAbsoluteAddress(Const.PORTB), 0) == 0)
+                    getInterruptService().triggerIntInterrupt();
+            }
+        }
+            getInterruptService().triggerIntInterrupt();
+    }
+
+    /**
+     * Wenn RB4-7 getoggled wird, löst ein Interrupt aus (unabhängig der Flanke)
+     *
+     */
+    public void checkForPortBInterrupt(){
+        if(getBit(memory.getAbsoluteAddress(Const.PORTB), 3) == 1)
+            getInterruptService().triggerPortBInterrupt();
+    }
+
 
     /**
      * Es wird der InterruptService benötigt, um Interrupts auszulösen
