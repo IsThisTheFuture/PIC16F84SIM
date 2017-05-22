@@ -25,16 +25,22 @@ public class SUBWF extends Instruction {
             f = memory.getAddress(Const.FSR);
 
         int fValue  = memory.getAddress(f);
-        int w       = ~memory.getRegisterW() + 1; // 2er Komplement
+        int w       = (~memory.getRegisterW() + 1) & 255; // 2er Komplement
 
         int result = (fValue + w) & 255;
 
-
-        if (w > fValue){
+        // Carry prüfen
+        if (w + fValue > 255)
             setCarryFlag();
+        else
+            clearZeroFlag();
+
+        // DigitCarry prüfen
+        int wRechts = w & 0b00001111;
+        int kRechts = fValue & 0b00001111;
+        if((wRechts + kRechts) >= 16){
             setDigitCarryFlag();
         } else {
-            clearCarryFlag();
             clearDigitCarryFlag();
         }
 
