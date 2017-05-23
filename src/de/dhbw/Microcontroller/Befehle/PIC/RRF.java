@@ -28,7 +28,7 @@ public class RRF extends Instruction {
 
         int fValue = memory.getAddress(f);
         int currentCarryBit = getBit(Const.STATUS, 0);
-        int rotatingBit = fValue & 0b00000001;
+        int rotatingBit = fValue & 0b000000001;
 
 
         // Carry-Bit nur setzen, wenn das rotierte Bit 1 ist
@@ -39,7 +39,7 @@ public class RRF extends Instruction {
 
         // Inhalt von Adresse f wird eine Stelle nach rechts geshiftet.
         // Es wird mit 128 verundet, weil ich mir nicht sicher bin, was nach rechts geshiftet wird...
-        int result = (fValue / 2) & 128;
+        int result = (fValue / 2) & 255;
         //Jetzt das CarryBit hinzuaddieren (falls es gesetzt ist). Es muss noch geshiftet werden an Position 7
         result = result + (currentCarryBit * 128);
 
