@@ -1,5 +1,6 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
+import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
@@ -14,6 +15,16 @@ public class SLEEP extends Instruction {
 
     @Override
     public void execute(){
+        memory.setSleepMode(true);
+        memory.setWatchDogTimer(0x00);
+
+        int status = memory.getAddress(Const.STATUS);
+        status = (status & ~(1 << 3)); // das PD Bit wird auf 0 gesetzt
+        status = (status | (1 << 4)); // das TO Bit wird auf 1 gesetzt
+        memory.setAddress(Const.STATUS, status);
+
+        incrementRuntime();
+        incrementProgramCounter();
 
     }
 }

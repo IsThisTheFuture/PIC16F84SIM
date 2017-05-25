@@ -11,16 +11,22 @@ import de.dhbw.Model.MemoryView;
 
 import javafx.application.HostServices;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.Desktop;
+
+import static com.sun.javafx.PlatformUtil.isLinux;
 
 public class Controller {
     @FXML
@@ -169,8 +175,14 @@ public class Controller {
     private Text textClockSpeed;
     @FXML
     private Text textRuntime;
-
-
+    @FXML
+    private Button btnWDT;
+    @FXML
+    private ComboBox<String> comboboxTaktgenerator;// = new ComboBox<String>();
+    @FXML
+    private TextField taktGenFrequenz;
+    @FXML
+    private ToggleButton btnTaktGen;
 
 
 
@@ -192,6 +204,8 @@ public class Controller {
     private int currentRow = 0;
     private int speed = 500;
     private boolean isRunning = true;
+    private float oscillatorPeriod;
+    private boolean taktgeneratorEnabled;
 
     public static int runtime = 0;
     public static double runtimeCalculated = 0;
@@ -203,6 +217,7 @@ public class Controller {
         initializeMemoryView();
         initializeFileContentView();
         updateTextfieldRegisters();
+        initialzizeTaktgen();
         initializeStackView();
     }
 
@@ -235,6 +250,12 @@ public class Controller {
 
     public void initializeStackView(){
         tableColumnStack.setCellValueFactory(new PropertyValueFactory<>("stackContent"));
+    }
+
+    public void initialzizeTaktgen(){
+        ObservableList<String> ports = FXCollections.observableArrayList(
+                "RA0", "RA1", "RA2", "RA3", "RA4", "RA5", "RA6", "RA7", "RB0", "RB1", "RB2", "RB3", "RB4", "RB5", "RB6", "RB7");
+        comboboxTaktgenerator.getItems().addAll(ports);
     }
 
     public void updateUI(){
@@ -288,6 +309,14 @@ public class Controller {
 
         textClockSpeed.setText(clockSpeed/1000 + " MHz");
         textRuntime.setText(runtime + " µs");
+
+
+        if(memory.isWatchDogTimerEnabled()){
+            btnWDT.setText("Disable WDT");
+        } else {
+            btnWDT.setText("Enable WDT");
+        }
+
     }
 
     public void openFile(ActionEvent actionEvent) {
@@ -366,14 +395,21 @@ public class Controller {
                         if (i != currentRow) i = currentRow;
                         Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
 
-
-                        //if (instructionList.get(i).isBreakPoint) break;
                         if(instructionViewList.get(i).isBreakpoint()) isRunning = false;
-                        instructionList.get(i).execute();
+
+                        //if(!memory.isSleepMode())
+                        //instructionList.get(i).execute();
+
+                        executeCycle(instructionList.get(i));
 
                         Platform.runLater(() -> tableFileContent.refresh());
                         Platform.runLater(() -> updateUI());
+
+                        oscillatorPeriod = (speed * 1000) / 1000000;
+                        //speed = speed / (4*(1000000));
                         Thread.sleep(speed);
+                        //Thread.sleep((long) oscillatorPeriod);
+
                     }
 
                 }
@@ -384,6 +420,26 @@ public class Controller {
         });
         cpuThread.setDaemon(true);
         cpuThread.start();
+    }
+
+    private boolean executeCycle(Instruction instruction){
+        if(!memory.isSleepMode()){
+            instruction.execute();
+            return true;
+        }
+
+        if(memory.isWatchDogTimerEnabled()){
+            if(memory.getWatchDogTimer() > 255){
+                memory.setWatchDogTimer(0);
+                memory.setSleepMode(false);
+            }
+            memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
+        }
+
+        System.out.println("WDT enabled: " + memory.isWatchDogTimerEnabled() + " WDT Value: " + memory.getWatchDogTimer());
+        return false;
+
+
     }
 
     public void reset(ActionEvent actionEvent) {
@@ -397,11 +453,12 @@ public class Controller {
     }
 
     public void clear(ActionEvent actionEvent) {
-        currentRow = 0;
         isRunning = false;
+        currentRow = 0;
         runtime = 0;
-        memory.initializeMemory();
         tableFileContent.getItems().clear();
+        memory.initializeMemory();
+        initialize();
     }
 
     public void pause(ActionEvent actionEvent) {
@@ -432,11 +489,6 @@ public class Controller {
         thread.setDaemon(true);
         thread.start();
 
-    }
-
-    // TODO
-    public void setBreakPoint() {
-        System.out.println("TEST");
     }
 
     public void close(ActionEvent actionEvent) {
@@ -877,28 +929,29 @@ public class Controller {
 
 
     public void openDocumentation(ActionEvent actionEvent) {
-        //first check if Desktop is supported by Platform or not
-        if(!Desktop.isDesktopSupported()){
-            System.out.println("Desktop is not supported");
-            return;
+            /* build up command and launch */
+        String command = "";
+        String file = "https://github.com/IsThisTheFuture/PIC16F84SIM/blob/master/TPicSim/Projekt_Simulator.pdf";
+        if (isLinux()) {
+            command = "xdg-open " + file;
+        } else {
+            command = "cmd /C start " + file;
         }
 
         try {
-            File file = new File("/tmp/test.txt");
-            Desktop desktop = Desktop.getDesktop();
-
-            if(file.exists()) System.out.println("File exists");
-            //if(file.exists()) desktop.open(file);
-
-
-            Desktop.getDesktop().open(new File("///tmp/test.txt"));
+            Runtime.getRuntime().exec(command);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
     public void setSpeed(ActionEvent actionEvent){
         this.speed = Integer.parseInt(textFieldSpeed.getText());
+    }
+
+    public void toggleWatchDogTimer(){
+        memory.setWatchDogTimerEnabled(!memory.isWatchDogTimerEnabled());
+        updateUI();
     }
 
     private InstructionDecoderService getInstructionDecoderService(){
@@ -949,4 +1002,48 @@ public class Controller {
         }
         return stackViewService;
     }
+
+    public void toggleTaktGenerator() {
+        taktgeneratorEnabled = !taktgeneratorEnabled;
+
+        if (!taktgeneratorEnabled) {
+            updateUI();
+        }
+
+        Thread thTakt = new Thread(() -> {
+            try {
+                while (taktgeneratorEnabled) {
+
+                    if (comboboxTaktgenerator.getValue().equals("RA0")) toggleA0();
+                    if (comboboxTaktgenerator.getValue().equals("RA1")) toggleA1();
+                    if (comboboxTaktgenerator.getValue().equals("RA2")) toggleA2();
+                    if (comboboxTaktgenerator.getValue().equals("RA3")) toggleA3();
+                    if (comboboxTaktgenerator.getValue().equals("RA4")) toggleA4();
+                    if (comboboxTaktgenerator.getValue().equals("RA5")) toggleA5();
+                    if (comboboxTaktgenerator.getValue().equals("RA6")) toggleA6();
+                    if (comboboxTaktgenerator.getValue().equals("RA7")) toggleA7();
+                    if (comboboxTaktgenerator.getValue().equals("RB0")) toggleB0();
+                    if (comboboxTaktgenerator.getValue().equals("RB1")) toggleB1();
+                    if (comboboxTaktgenerator.getValue().equals("RB2")) toggleB2();
+                    if (comboboxTaktgenerator.getValue().equals("RB3")) toggleB3();
+                    if (comboboxTaktgenerator.getValue().equals("RB4")) toggleB4();
+                    if (comboboxTaktgenerator.getValue().equals("RB5")) toggleB5();
+                    if (comboboxTaktgenerator.getValue().equals("RB6")) toggleB6();
+                    if (comboboxTaktgenerator.getValue().equals("RB7")) toggleB7();
+
+                    Platform.runLater(() -> updateUI());
+                    double sleepTime = (1 / Double.parseDouble(taktGenFrequenz.getText())) * 1000;
+
+                    Thread.sleep((long) sleepTime);
+                    //Thread.sleep((long) 50);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        thTakt.setDaemon(true);
+        thTakt.start();
+    }
+
 }

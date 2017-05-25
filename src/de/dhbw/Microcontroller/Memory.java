@@ -1,6 +1,8 @@
 package de.dhbw.Microcontroller;
 
 import de.dhbw.Constants.*;
+import de.dhbw.Services.InterruptService;
+
 public class Memory {
 
     private static final Memory memory = new Memory();
@@ -8,6 +10,11 @@ public class Memory {
     private Integer registerW;
     private Integer pc;
     private Integer[] registers;
+
+    private Integer watchDogTimer;
+    private boolean sleepMode;
+    private boolean watchDogTimerEnabled;
+
 
     protected Memory(){
         this.registers = new Integer[256];
@@ -22,6 +29,10 @@ public class Memory {
         // W ist 8 Bit, pc ist 13 Bit
         registerW =  0b00000000;
         pc        =  0b0000000000000;
+
+        watchDogTimer = 0;
+        watchDogTimerEnabled = false;
+        sleepMode = false;
 
         for (int i = 0; i < registers.length; i++){
             registers[i] = 0b00000000;
@@ -121,5 +132,29 @@ public class Memory {
 
     public void setPc(Integer pc) {
         this.pc = pc;
+    }
+
+    public Integer getWatchDogTimer() {
+        return watchDogTimer;
+    }
+
+    public void setWatchDogTimer(Integer watchDogTimer) {
+        this.watchDogTimer = watchDogTimer;
+    }
+
+    public boolean isSleepMode() {
+        return sleepMode;
+    }
+
+    public void setSleepMode(boolean sleepMode) {
+        this.sleepMode = sleepMode;
+    }
+
+    public boolean isWatchDogTimerEnabled() {
+        return watchDogTimerEnabled;
+    }
+
+    public void setWatchDogTimerEnabled(boolean watchDogTimerEnabled) {
+        this.watchDogTimerEnabled = watchDogTimerEnabled;
     }
 }
