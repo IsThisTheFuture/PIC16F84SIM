@@ -1031,7 +1031,7 @@ public class Controller {
                     if (comboboxTaktgenerator.getValue().equals("RB6")) toggleB6();
                     if (comboboxTaktgenerator.getValue().equals("RB7")) toggleB7();
 
-                    Platform.runLater(() -> updateUI());
+                    Platform.runLater(() -> updateMemoryView());
                     double sleepTime = (1 / Double.parseDouble(taktGenFrequenz.getText())) * 1000;
 
                     Thread.sleep((long) sleepTime);
