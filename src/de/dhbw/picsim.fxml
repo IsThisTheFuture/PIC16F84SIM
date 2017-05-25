@@ -197,7 +197,7 @@
                                     <ToggleButton fx:id="btnTaktGen" layoutX="575.0" layoutY="341.0" mnemonicParsing="false" onAction="#toggleTaktGenerator" text="Taktgenerator" />
                                     <ComboBox id="comboboxTaktgenerator" fx:id="comboboxTaktgenerator" layoutX="575.0" layoutY="310.0" prefWidth="150.0" promptText="PIN auswählen" />
                                     <TextField fx:id="taktGenFrequenz" layoutX="575.0" layoutY="275.0" prefHeight="26.0" prefWidth="81.0" />
-                                    <Label layoutX="575.0" layoutY="251.0" text="Externe Taktrequenz auswählen: (MHz)" />
+                                    <Label layoutX="575.0" layoutY="251.0" text="Externe Taktrequenz auswählen: (Hz)" />
                                             </children>
                                         </AnchorPane>
                            </children></AnchorPane>

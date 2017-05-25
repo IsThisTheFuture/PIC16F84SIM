@@ -1015,27 +1015,26 @@ public class Controller {
                 while (taktgeneratorEnabled) {
 
                     if (comboboxTaktgenerator.getValue().equals("RA0")) toggleA0();
-                    if (comboboxTaktgenerator.getValue().equals("RA1")) toggleA1();
-                    if (comboboxTaktgenerator.getValue().equals("RA2")) toggleA2();
-                    if (comboboxTaktgenerator.getValue().equals("RA3")) toggleA3();
-                    if (comboboxTaktgenerator.getValue().equals("RA4")) toggleA4();
-                    if (comboboxTaktgenerator.getValue().equals("RA5")) toggleA5();
-                    if (comboboxTaktgenerator.getValue().equals("RA6")) toggleA6();
-                    if (comboboxTaktgenerator.getValue().equals("RA7")) toggleA7();
-                    if (comboboxTaktgenerator.getValue().equals("RB0")) toggleB0();
-                    if (comboboxTaktgenerator.getValue().equals("RB1")) toggleB1();
-                    if (comboboxTaktgenerator.getValue().equals("RB2")) toggleB2();
-                    if (comboboxTaktgenerator.getValue().equals("RB3")) toggleB3();
-                    if (comboboxTaktgenerator.getValue().equals("RB4")) toggleB4();
-                    if (comboboxTaktgenerator.getValue().equals("RB5")) toggleB5();
-                    if (comboboxTaktgenerator.getValue().equals("RB6")) toggleB6();
-                    if (comboboxTaktgenerator.getValue().equals("RB7")) toggleB7();
+                    else if (comboboxTaktgenerator.getValue().equals("RA1")) toggleA1();
+                    else if (comboboxTaktgenerator.getValue().equals("RA2")) toggleA2();
+                    else if (comboboxTaktgenerator.getValue().equals("RA3")) toggleA3();
+                    else if (comboboxTaktgenerator.getValue().equals("RA4")) toggleA4();
+                    else if (comboboxTaktgenerator.getValue().equals("RA5")) toggleA5();
+                    else if (comboboxTaktgenerator.getValue().equals("RA6")) toggleA6();
+                    else if (comboboxTaktgenerator.getValue().equals("RA7")) toggleA7();
+                    else if (comboboxTaktgenerator.getValue().equals("RB0")) toggleB0();
+                    else if (comboboxTaktgenerator.getValue().equals("RB1")) toggleB1();
+                    else if (comboboxTaktgenerator.getValue().equals("RB2")) toggleB2();
+                    else if (comboboxTaktgenerator.getValue().equals("RB3")) toggleB3();
+                    else if (comboboxTaktgenerator.getValue().equals("RB4")) toggleB4();
+                    else if (comboboxTaktgenerator.getValue().equals("RB5")) toggleB5();
+                    else if (comboboxTaktgenerator.getValue().equals("RB6")) toggleB6();
+                    else if (comboboxTaktgenerator.getValue().equals("RB7")) toggleB7();
 
-                    Platform.runLater(() -> updateMemoryView());
-                    double sleepTime = (1 / Double.parseDouble(taktGenFrequenz.getText())) * 1000;
-
+                    //Platform.runLater(() -> updateMemoryView());
+                    double sleepTime = (1 / (Double.parseDouble(taktGenFrequenz.getText())) * 1000);
+                    System.out.println(sleepTime + "ms");
                     Thread.sleep((long) sleepTime);
-                    //Thread.sleep((long) 50);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
