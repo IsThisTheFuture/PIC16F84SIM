@@ -2,15 +2,17 @@ package de.dhbw.Services;
 
 import de.dhbw.Microcontroller.Memory;
 import de.dhbw.Model.MemoryView;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MemoryViewService {
-    List<MemoryView> memoryViewList = new ArrayList<>();
+    List<MemoryView> memoryViewList;// = new ArrayList<>();
     Memory memory = Memory.getInstance();
 
     public List<MemoryView> getMemoryContent(){
+        memoryViewList = new ArrayList<>();
         for(int i = 0; i < memory.getRegisters().length; i += 8)
         {
             MemoryView memoryView = new MemoryView();

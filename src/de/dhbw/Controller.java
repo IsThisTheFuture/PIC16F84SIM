@@ -184,14 +184,29 @@ public class Controller {
     private ToggleButton btnTaktGen;
     @FXML
     private TextField textFieldClockSpeed;
-
+    @FXML
+    private Text textIntconReg7GIE;
+    @FXML
+    private Text textIntconReg6EEIE;
+    @FXML
+    private Text textIntconReg5T0IE;
+    @FXML
+    private Text textIntconReg4INTE;
+    @FXML
+    private Text textIntconReg3RBIE;
+    @FXML
+    private Text textIntconReg2T0IF;
+    @FXML
+    private Text textIntconReg1INTF;
+    @FXML
+    private Text textIntconReg0RBIF;
 
 
 
     private Memory memory = Memory.getInstance();
     private List<Instruction> instructionList;
     private List<InstructionView> instructionViewList;
-    private static List<MemoryView> memoryViewList;
+    private List<MemoryView> memoryViewList;
     private List<StackView> stackViewList;
     private InstructionDecoderService instructionDecoderService;
     private FileInputService fileInputService;
@@ -238,9 +253,9 @@ public class Controller {
         tableColumnMemory06.setCellValueFactory(new PropertyValueFactory<>("column6"));
         tableColumnMemory07.setCellValueFactory(new PropertyValueFactory<>("column7"));
 
-        if (memoryViewList != null) memoryViewList.clear();
+        //if (memoryViewList != null) memoryViewList.clear();
         memoryViewList = getMemoryViewService().getMemoryContent();
-        tableMemory.getItems().addAll(memoryViewList);
+        tableMemory.getItems().setAll(memoryViewList);
 
     }
 
@@ -282,13 +297,14 @@ public class Controller {
     }
 
     public void updateMemoryView(){
-        tableMemory.getItems().clear();
+        //tableMemory.getItems().clear();
 
-        if (memoryViewList != null) memoryViewList.clear();
+        //if (memoryViewList != null) memoryViewList.clear();
         memoryViewList = getMemoryViewService().getMemoryContent();
-        tableMemory.getItems().addAll(memoryViewList);
+
+        tableMemory.getItems().setAll(memoryViewList);
         //Platform.runLater(() -> tableMemory.refresh());
-        tableMemory.refresh();
+        //tableMemory.refresh();
     }
 
     public void updateTextfieldRegisters(){
@@ -315,6 +331,15 @@ public class Controller {
         textOptionReg5T0CS.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 5)));
         textOptionReg6INTEDG.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 6)));
         textOptionReg7RBPU.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 7)));
+
+        textIntconReg0RBIF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 0)));
+        textIntconReg1INTF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 1)));
+        textIntconReg2T0IF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 2)));
+        textIntconReg3RBIE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 3)));
+        textIntconReg4INTE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 4)));
+        textIntconReg5T0IE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 5)));
+        textIntconReg6EEIE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 6)));
+        textIntconReg7GIE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 7)));
 
         //textClockSpeed.setText(clockSpeed/1000 + " MHz");
         textRuntime.setText(runtime + " µs");
@@ -557,7 +582,7 @@ public class Controller {
         int byteValue = memory.getAbsoluteAddress(address);
 
         // Wenn das Bit an der Stelle bitPosition 0 ist, dann... sonst...
-        if(getBit(memory.getAbsoluteAddress(address), bitPosition) == 0){
+        if(getBit(byteValue, bitPosition) == 0){
             // Bit auf 1 setzen
             byteValue = (byteValue | (1 << (bitPosition)));
         } else {
