@@ -264,9 +264,12 @@ public class Controller {
     }
 
     public void updateUI(){
-        updateMemoryView();
-        updateTextfieldRegisters();
-        updateStackView();
+        Platform.runLater(() -> updateMemoryView());
+        Platform.runLater(() -> updateTextfieldRegisters());
+        Platform.runLater(() -> updateStackView());
+        //updateMemoryView();
+        //updateTextfieldRegisters();
+        //updateStackView();
     }
 
     public void updateStackView(){
@@ -284,7 +287,8 @@ public class Controller {
         if (memoryViewList != null) memoryViewList.clear();
         memoryViewList = getMemoryViewService().getMemoryContent();
         tableMemory.getItems().addAll(memoryViewList);
-        Platform.runLater(() -> tableMemory.refresh());
+        //Platform.runLater(() -> tableMemory.refresh());
+        tableMemory.refresh();
     }
 
     public void updateTextfieldRegisters(){
@@ -409,6 +413,9 @@ public class Controller {
 
                         Platform.runLater(() -> tableFileContent.refresh());
                         Platform.runLater(() -> updateUI());
+
+                        //tableFileContent.refresh();
+                        //updateUI();
 
                         oscillatorPeriod = (speed * 1000) / 1000000;
                         //speed = speed / (4*(1000000));
@@ -569,8 +576,7 @@ public class Controller {
         } else {
             textFieldRegisterA0.setText("1");
         }
-
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleA1() {
@@ -583,7 +589,7 @@ public class Controller {
             textFieldRegisterA1.setText("1");
         }
 
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleA2() {
@@ -596,7 +602,7 @@ public class Controller {
             textFieldRegisterA2.setText("1");
         }
 
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleA3() {
@@ -609,7 +615,7 @@ public class Controller {
             textFieldRegisterA3.setText("1");
         }
 
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleA4() {
@@ -626,7 +632,7 @@ public class Controller {
             textFieldRegisterA4.setText("1");
         }
 
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleA5() {
@@ -639,7 +645,7 @@ public class Controller {
             textFieldRegisterA5.setText("1");
         }
 
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleA6() {
@@ -652,7 +658,7 @@ public class Controller {
             textFieldRegisterA6.setText("1");
         }
 
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleA7() {
@@ -665,7 +671,7 @@ public class Controller {
             textFieldRegisterA7.setText("1");
         }
 
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     /**
@@ -682,7 +688,7 @@ public class Controller {
             textFieldRegisterB0.setText("1");
         }
         getCheckForInterruptService().checkForRB0Interrupt();
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleB1() {
@@ -695,7 +701,7 @@ public class Controller {
             textFieldRegisterB1.setText("1");
         }
 
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleB2() {
@@ -708,7 +714,7 @@ public class Controller {
             textFieldRegisterB2.setText("1");
         }
 
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleB3() {
@@ -721,7 +727,7 @@ public class Controller {
             textFieldRegisterB3.setText("1");
         }
 
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleB4() {
@@ -735,7 +741,7 @@ public class Controller {
         }
 
         getCheckForInterruptService().checkForPortBInterrupt();
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleB5() {
@@ -749,7 +755,7 @@ public class Controller {
         }
 
         getCheckForInterruptService().checkForPortBInterrupt();
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleB6() {
@@ -763,7 +769,7 @@ public class Controller {
         }
 
         getCheckForInterruptService().checkForPortBInterrupt();
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleB7() {
@@ -777,7 +783,7 @@ public class Controller {
         }
 
         getCheckForInterruptService().checkForPortBInterrupt();
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISA0() {
@@ -789,7 +795,7 @@ public class Controller {
         } else {
             textFieldTRISA0.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISA1() {
@@ -801,7 +807,7 @@ public class Controller {
         } else {
             textFieldTRISA1.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISA2() {
@@ -813,7 +819,7 @@ public class Controller {
         } else {
             textFieldTRISA2.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISA3() {
@@ -825,7 +831,7 @@ public class Controller {
         } else {
             textFieldTRISA3.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISA4() {
@@ -837,7 +843,7 @@ public class Controller {
         } else {
             textFieldTRISA4.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISA5() {
@@ -849,7 +855,7 @@ public class Controller {
         } else {
             textFieldTRISA5.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISA6() {
@@ -861,7 +867,7 @@ public class Controller {
         } else {
             textFieldTRISA6.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISA7() {
@@ -873,7 +879,7 @@ public class Controller {
         } else {
             textFieldTRISA7.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISB0() {
@@ -885,7 +891,7 @@ public class Controller {
         } else {
             textFieldTRISB0.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISB1() {
@@ -897,7 +903,7 @@ public class Controller {
         } else {
             textFieldTRISB1.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISB2() {
@@ -909,7 +915,7 @@ public class Controller {
         } else {
             textFieldTRISB2.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISB3() {
@@ -921,7 +927,7 @@ public class Controller {
         } else {
             textFieldTRISB3.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISB4() {
@@ -933,7 +939,7 @@ public class Controller {
         } else {
             textFieldTRISB4.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISB5() {
@@ -945,7 +951,7 @@ public class Controller {
         } else {
             textFieldTRISB5.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISB6() {
@@ -957,7 +963,7 @@ public class Controller {
         } else {
             textFieldTRISB6.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void toggleTRISB7() {
@@ -969,7 +975,7 @@ public class Controller {
         } else {
             textFieldTRISB7.setText("i");
         }
-        updateMemoryView();
+        Platform.runLater(()->updateMemoryView());
     }
 
     public void openDocumentation(ActionEvent actionEvent) {
