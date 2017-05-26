@@ -24,7 +24,6 @@ import javafx.util.Callback;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Desktop;
 
 import static com.sun.javafx.PlatformUtil.isLinux;
 
@@ -187,10 +186,11 @@ public class Controller {
 
 
 
+
     private Memory memory = Memory.getInstance();
     private List<Instruction> instructionList;
     private List<InstructionView> instructionViewList;
-    private List<MemoryView> memoryViewList;
+    private static List<MemoryView> memoryViewList;
     private List<StackView> stackViewList;
     private InstructionDecoderService instructionDecoderService;
     private FileInputService fileInputService;
@@ -1043,6 +1043,105 @@ public class Controller {
 
         thTakt.setDaemon(true);
         thTakt.start();
+    }
+
+    /**
+     * Löst einen MCLR Reset aus und belegt einige Register mit Werten
+     * Es wird unterschieden zwischen MCLR Reset im Normalbetrieb und im SLEEP Modus
+     *
+     * Status wenn Sleep:          0001 0uuu
+     * Status wenn Normalbetrieb:  000u uuuu
+     */
+    @SuppressWarnings("Duplicates")
+    public void toggleMCLRReset(ActionEvent actionEvent){
+        if(memory.isSleepMode()){
+        clearBit(Const.STATUS, 7);
+        clearBit(Const.STATUS, 6);
+        clearBit(Const.STATUS, 5);
+        setBit(Const.STATUS, 4);
+        clearBit(Const.STATUS, 3);
+
+        memory.setPc(0);
+        memory.setAbsoluteAddress(Const.PCL, 0);
+
+        clearBit(Const.INTCON, 7);
+        clearBit(Const.INTCON, 6);
+        clearBit(Const.INTCON, 5);
+        clearBit(Const.INTCON, 4);
+        clearBit(Const.INTCON, 3);
+        clearBit(Const.INTCON, 2);
+        clearBit(Const.INTCON, 1);
+
+        memory.setAbsoluteAddress(Const.OPTION_REG, 255);
+
+        setBit(Const.TRISA, 4);
+        setBit(Const.TRISA, 3);
+        setBit(Const.TRISA, 2);
+        setBit(Const.TRISA, 1);
+        setBit(Const.TRISA, 0);
+
+        setBit(Const.TRISB, 7);
+        setBit(Const.TRISB, 6);
+        setBit(Const.TRISB, 5);
+        setBit(Const.TRISB, 4);
+        setBit(Const.TRISB, 3);
+        setBit(Const.TRISB, 2);
+        setBit(Const.TRISB, 1);
+        setBit(Const.TRISB, 0);
+
+        //TODO EECON1: ---0 q000
+        } else {
+            clearBit(Const.STATUS, 7);
+            clearBit(Const.STATUS, 6);
+            clearBit(Const.STATUS, 5);
+
+            memory.setPc(0);
+            memory.setAbsoluteAddress(Const.PCL, 0);
+
+            clearBit(Const.INTCON, 7);
+            clearBit(Const.INTCON, 6);
+            clearBit(Const.INTCON, 5);
+            clearBit(Const.INTCON, 4);
+            clearBit(Const.INTCON, 3);
+            clearBit(Const.INTCON, 2);
+            clearBit(Const.INTCON, 1);
+
+            memory.setAbsoluteAddress(Const.OPTION_REG, 255);
+
+            setBit(Const.TRISA, 4);
+            setBit(Const.TRISA, 3);
+            setBit(Const.TRISA, 2);
+            setBit(Const.TRISA, 1);
+            setBit(Const.TRISA, 0);
+
+            setBit(Const.TRISB, 7);
+            setBit(Const.TRISB, 6);
+            setBit(Const.TRISB, 5);
+            setBit(Const.TRISB, 4);
+            setBit(Const.TRISB, 3);
+            setBit(Const.TRISB, 2);
+            setBit(Const.TRISB, 1);
+            setBit(Const.TRISB, 0);
+
+        }
+
+    }
+
+    /**
+     * Setzt die das Bit 'bitPosition' and Speicheradresse 'address' auf den Wert 1
+     */
+    private void setBit(int address, int bitPosition){
+        int byteValue = memory.getAbsoluteAddress(address);
+        byteValue = (byteValue | (1 << (bitPosition)));
+        memory.setAbsoluteAddress(address, byteValue);
+    }
+    /**
+     * Setzt die das Bit 'bitPosition' and Speicheradresse 'address' auf den Wert 0
+     */
+    private void clearBit(int address, int bitPosition){
+        int byteValue = memory.getAbsoluteAddress(address);
+        byteValue = (byteValue & ~(1 << (bitPosition)));
+        memory.setAbsoluteAddress(address, byteValue);
     }
 
 }

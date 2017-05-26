@@ -198,6 +198,7 @@
                                     <ComboBox id="comboboxTaktgenerator" fx:id="comboboxTaktgenerator" layoutX="575.0" layoutY="310.0" prefWidth="150.0" promptText="PIN auswählen" />
                                     <TextField fx:id="taktGenFrequenz" layoutX="575.0" layoutY="275.0" prefHeight="26.0" prefWidth="81.0" />
                                     <Label layoutX="575.0" layoutY="251.0" text="Externe Taktrequenz auswählen: (Hz)" />
+                                    <Button fx:id="BtnMCLR" layoutX="230.0" layoutY="633.0" mnemonicParsing="false" onAction="#toggleMCLRReset" text="MCLR Reset" />
                                             </children>
                                         </AnchorPane>
                            </children></AnchorPane>
