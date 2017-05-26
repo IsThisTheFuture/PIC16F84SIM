@@ -162,10 +162,10 @@
                                     <Text fx:id="textOptionReg2PS2" layoutX="244.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                     <Text fx:id="textOptionReg1PS1" layoutX="271.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                                     <Text fx:id="textOptionReg0PS0" layoutX="306.0" layoutY="449.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Label layoutX="8.0" layoutY="582.0" text="Quarzfrequenz:" />
-                                    <Text fx:id="textClockSpeed" layoutX="120.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4.0 MHz" />
-                                    <Label layoutX="211.0" layoutY="582.0" text="Laufzeit: " />
-                                    <Text fx:id="textRuntime" layoutX="277.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 µs" />
+                                    <Label layoutX="8.0" layoutY="508.0" text="Quarzfrequenz:" />
+                                    <Text fx:id="textClockSpeed" layoutX="120.0" layoutY="521.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4.0 MHz" />
+                                    <Label layoutX="211.0" layoutY="508.0" text="Laufzeit: " />
+                                    <Text fx:id="textRuntime" layoutX="277.0" layoutY="521.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 µs" />
                                     <TextField layoutY="53.0" prefHeight="26.0" prefWidth="60.0" text="TRIS A" />
                                     <TextField layoutY="146.0" prefHeight="26.0" prefWidth="60.0" text="TRIS B" />
                                     <TextField fx:id="textFieldTRISA7" layoutX="79.0" layoutY="53.0" onMouseClicked="#toggleTRISA7" prefHeight="25.0" prefWidth="25.0" text="i" />
@@ -199,6 +199,7 @@
                                     <TextField fx:id="taktGenFrequenz" layoutX="575.0" layoutY="275.0" prefHeight="26.0" prefWidth="81.0" />
                                     <Label layoutX="575.0" layoutY="251.0" text="Externe Taktrequenz auswählen: (Hz)" />
                                     <Button fx:id="BtnMCLR" layoutX="230.0" layoutY="633.0" mnemonicParsing="false" onAction="#toggleMCLRReset" text="MCLR Reset" />
+                                    <TextField fx:id="textFieldClockSpeed" layoutX="9.0" layoutY="524.0" onAction="#setClockSpeed" onInputMethodTextChanged="#setClockSpeed" prefHeight="26.0" prefWidth="81.0" text="4" />
                                             </children>
                                         </AnchorPane>
                            </children></AnchorPane>

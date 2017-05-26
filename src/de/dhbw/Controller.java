@@ -182,7 +182,8 @@ public class Controller {
     private TextField taktGenFrequenz;
     @FXML
     private ToggleButton btnTaktGen;
-
+    @FXML
+    private TextField textFieldClockSpeed;
 
 
 
@@ -201,15 +202,19 @@ public class Controller {
     private StackViewService stackViewService;
     private HostServices hostServices;
     private Integer opcodeList[];
+
+    private int extTaktGenFreq;
+    private double sleepTime;
     private int currentRow = 0;
     private int speed = 500;
     private boolean isRunning = true;
     private float oscillatorPeriod;
+    private long cyclePeriod;
     private boolean taktgeneratorEnabled;
 
     public static int runtime = 0;
     public static double runtimeCalculated = 0;
-    public static double clockSpeed = 4000; // PIC16F84 läuft mit 4MHz
+    public static double clockSpeed; // PIC16F84 läuft mit 4MHz
     public static int inhibitTimer0 = 0;
 
 
@@ -307,7 +312,7 @@ public class Controller {
         textOptionReg6INTEDG.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 6)));
         textOptionReg7RBPU.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 7)));
 
-        textClockSpeed.setText(clockSpeed/1000 + " MHz");
+        //textClockSpeed.setText(clockSpeed/1000 + " MHz");
         textRuntime.setText(runtime + " µs");
 
 
@@ -428,6 +433,7 @@ public class Controller {
             return true;
         }
 
+        /*
         if(memory.isWatchDogTimerEnabled()){
             if(memory.getWatchDogTimer() > 255){
                 memory.setWatchDogTimer(0);
@@ -436,10 +442,43 @@ public class Controller {
             memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
         }
 
-        System.out.println("WDT enabled: " + memory.isWatchDogTimerEnabled() + " WDT Value: " + memory.getWatchDogTimer());
+*/
+        if(memory.isWatchDogTimerEnabled())
+            startWatchDog();
+       // System.out.println("WDT enabled: " + memory.isWatchDogTimerEnabled() + " WDT Value: " + memory.getWatchDogTimer());
         return false;
 
 
+    }
+
+    public void startWatchDog() {
+        Thread thWDT = new Thread(() -> {
+            try {
+                int runtimeOld = runtime;
+
+                while (memory.isWatchDogTimerEnabled()) {
+                    //if (memory.getWatchDogTimer() > 18000 * Integer.parseInt(textFieldSpeed.getText())) {
+                    if (memory.getWatchDogTimer() > 18000) {
+                        memory.setSleepMode(false);
+                        memory.setWatchDogTimer(0);
+                        System.out.println("WatchDogTimer overflow. RESET!");
+                        toggleMCLRReset(new ActionEvent());
+                        clearBit(Const.STATUS, 4);
+                        break;
+                    }
+                    memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
+                    //TODO: Wie lange muss gewartet werden?
+                    cyclePeriod = (1 / (4 * 1000)) * Integer.parseInt(textFieldSpeed.getText());
+                    //System.out.println(cyclePeriod + "ms");
+                    Thread.sleep(cyclePeriod);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        thWDT.setDaemon(true);
+        thWDT.start();
     }
 
     public void reset(ActionEvent actionEvent) {
@@ -495,6 +534,12 @@ public class Controller {
         Platform.exit();
     }
 
+    public void setClockSpeed(){
+        clockSpeed = Double.parseDouble(textFieldClockSpeed.getText());
+
+        String clockSpeedStr = textFieldClockSpeed.getText() + " MHz";
+        textClockSpeed.setText(clockSpeedStr);
+    }
 
     public int getBit(int b, int position)
     {
@@ -927,7 +972,6 @@ public class Controller {
         updateMemoryView();
     }
 
-
     public void openDocumentation(ActionEvent actionEvent) {
             /* build up command and launch */
         String command = "";
@@ -1032,8 +1076,11 @@ public class Controller {
                     else if (comboboxTaktgenerator.getValue().equals("RB7")) toggleB7();
 
                     //Platform.runLater(() -> updateMemoryView());
-                    double sleepTime = (1 / (Double.parseDouble(taktGenFrequenz.getText())) * 1000);
-                    System.out.println(sleepTime + "ms");
+
+                    if(!taktGenFrequenz.getText().equals(""))
+                         sleepTime = (1 / (Double.parseDouble(taktGenFrequenz.getText())) * 1000);
+
+                    //System.out.println(sleepTime + "ms");
                     Thread.sleep((long) sleepTime);
                 }
             } catch (InterruptedException e) {
