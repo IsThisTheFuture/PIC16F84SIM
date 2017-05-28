@@ -99,8 +99,7 @@ public class Timer0Service {
     /**
      * Liefert auf Basis des PrescalerValue das entsprechende Vorteilervrehältnis zurück
      */
-    @SuppressWarnings("Duplicates")
-    private int getVorteilerVerhaeltnis(){
+    public int getVorteilerVerhaeltnis(){
         optionRegPs0 = getBit(Const.OPTION_REG, 0);
         optionRegPs1 = getBit(Const.OPTION_REG, 1);
         optionRegPs2 = getBit(Const.OPTION_REG, 2);

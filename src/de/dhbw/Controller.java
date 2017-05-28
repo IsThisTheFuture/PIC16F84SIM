@@ -242,6 +242,10 @@ public class Controller {
     public static double clockSpeed;
     public static int inhibitTimer0 = 0;
 
+    private int watchdogPrecaler;
+    private static int watchDogCycleCount = 0;
+
+
     /**
      * Diese Methode wird beim Start der JavaFX Anwendung ausgeführt
      */
@@ -605,6 +609,9 @@ public class Controller {
         if(memory.isWatchDogTimerEnabled() && memory.isSleepMode())
             startWatchDog();
 
+        if(memory.isWatchDogTimerEnabled() && !memory.isSleepMode())
+            startWatchDog();
+
         if(!memory.isWatchDogTimerEnabled() && memory.isSleepMode())
             runtime = runtime + runtimeCalculated;
     }
@@ -617,6 +624,7 @@ public class Controller {
         Thread thWDT = new Thread(() -> {
             try {
                 while (memory.isWatchDogTimerEnabled()) {
+                    watchDogCycleCount++;
                     if (memory.getWatchDogTimer() > 18000) {
                         memory.setSleepMode(false);
                         memory.setWatchDogTimer(0);
@@ -625,11 +633,25 @@ public class Controller {
                         break;
                     }
 
-                    memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
-                    System.out.println("WDT: " + memory.getWatchDogTimer());
-                    //runtime++;
-                    runtime = runtime + runtimeCalculated;
-
+                    // Ist der Prescaler dem WDT zugewiesen?
+                    if (getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 3) == 1) {
+                        // Der WDT Prescaler hat die halbe Wertigkeit des TMR0 Prescalers
+                        watchdogPrecaler = getTimer0Service().getVorteilerVerhaeltnis() / 2;
+                        if(watchDogCycleCount == watchdogPrecaler){
+                            watchDogCycleCount = 0;
+                            memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
+                            System.out.print("WDT Prescaler ist aktiv. PrescalerValue: " + getTimer0Service().getVorteilerVerhaeltnis() / 2 );
+                            System.out.println(" WDT: " + memory.getWatchDogTimer());
+                            runtime = runtime + runtimeCalculated;
+                        }
+                    } else {
+                        watchDogCycleCount = 0;
+                        // Prescaler nicht aktiv
+                        memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
+                        System.out.println("WDT: " + memory.getWatchDogTimer());
+                        //runtime++;
+                        runtime = runtime + runtimeCalculated;
+                    }
                     Platform.runLater(this::updateUI);
                     // Thread.sleep ist ungenau
                     Thread.sleep((Integer.parseInt(textFieldSpeed.getText())* 100));
@@ -733,7 +755,6 @@ public class Controller {
         String clockSpeedStr = textFieldClockSpeed.getText() + " MHz";
         textClockSpeed.setText(clockSpeedStr);
         runtimeCalculated = 4 / clockSpeed;
-        System.out.println(runtimeCalculated);
     }
 
     public void setOptionReg(){
