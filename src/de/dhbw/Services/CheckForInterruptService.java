@@ -118,19 +118,20 @@ public class CheckForInterruptService {
      */
     public void checkForRB0Interrupt(){
         if(getBit(memory.getAbsoluteAddress(Const.INTCON), 4) == 1){
-
             // Wird auf steigende Flanken gehört?
             if(getBit(memory.getAbsoluteAddress(Const.INTCON), 6) == 1){
+                System.out.println("Höre auf steigende Flanken");
                 // Wenn jetzt in REG_B<0> eine 1 steht gab es eine steigende Flanke
                 if (getBit(memory.getAbsoluteAddress(Const.PORTB), 0) == 1);
                 getInterruptService().triggerIntInterrupt();
             } else {
+                System.out.println("Höre auf fallende Flanken");
                 // Es wird auf fallende Flanken geprüft
                 if(getBit(memory.getAbsoluteAddress(Const.PORTB), 0) == 0)
                     getInterruptService().triggerIntInterrupt();
             }
         }
-            getInterruptService().triggerIntInterrupt();
+            //getInterruptService().triggerIntInterrupt();
     }
 
     /**

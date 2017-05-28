@@ -524,6 +524,7 @@ public class Controller {
         memory.setWatchDogTimerEnabled(false);
         memory.setSleepMode(false);
         stack.initializeStack();
+        getTimer0Service().cycleCounter = 0;
         //instructionViewList.clear();
         //instructionList.clear();
         updateTextFields();
@@ -541,6 +542,7 @@ public class Controller {
         tableFileContent.getItems().clear();
         memory.initializeMemory();
         stack.initializeStack();
+        getTimer0Service().cycleCounter = 0;
         for(Integer i : opcodeList)
             i = null;
 

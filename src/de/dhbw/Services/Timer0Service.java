@@ -18,7 +18,7 @@ public class Timer0Service {
     private int prescalerValue;
     private int vorteilerVerhaeltnis;
 
-    private static int cycleCounter = 0;
+    public static int cycleCounter = 0;
     private static int counterModeNumberOfFallingFlanks = 0;
     private static int counterModeNumberOfRisingFlanks = 0;
     public static int inhibitTimer = 0;
