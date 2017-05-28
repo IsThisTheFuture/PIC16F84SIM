@@ -375,7 +375,7 @@ public class Controller {
      * Öffnet eine Datei und übergibt dabei die eingelesenen Instruktionen dem Instruktionsdekoder
      */
     public void openFile() {
-        instructionList.clear();
+        if (instructionList != null) instructionList.clear();
         memory.initializeMemory();
         if (tableFileContent != null) tableFileContent.getItems().clear();
         if (instructionViewList != null) instructionViewList.clear();
