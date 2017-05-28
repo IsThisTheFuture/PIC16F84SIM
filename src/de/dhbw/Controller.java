@@ -757,7 +757,8 @@ public class Controller {
     }
 
     public void toggleA0() {
-        toggleBit(0, Const.PORTA);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISA), 0) == 1)
+            toggleBit(0, Const.PORTA);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTA), 0) == 0)
         {
@@ -769,7 +770,8 @@ public class Controller {
     }
 
     public void toggleA1() {
-        toggleBit(1, Const.PORTA);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISA), 1) == 1)
+            toggleBit(1, Const.PORTA);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTA), 1) == 0)
         {
@@ -782,7 +784,8 @@ public class Controller {
     }
 
     public void toggleA2() {
-        toggleBit(2, Const.PORTA);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISA), 2) == 1)
+            toggleBit(2, Const.PORTA);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTA), 2) == 0)
         {
@@ -795,7 +798,8 @@ public class Controller {
     }
 
     public void toggleA3() {
-        toggleBit(3, Const.PORTA);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISA), 3) == 1)
+            toggleBit(3, Const.PORTA);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTA), 3) == 0)
         {
@@ -808,10 +812,8 @@ public class Controller {
     }
 
     public void toggleA4() {
-        toggleBit(4, Const.PORTA);
-
-        //TODO: Was ist mit TRISA? -> Prüfen ob RB4 In-/ oder Output ist
-
+        if(getBit(memory.getAbsoluteAddress(Const.TRISA), 4) == 1)
+            toggleBit(4, Const.PORTA);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTA), 4) == 0) {
             getTimer0Service().incrementCounter(false);
@@ -825,7 +827,8 @@ public class Controller {
     }
 
     public void toggleA5() {
-        toggleBit(5, Const.PORTA);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISA), 5) == 1)
+            toggleBit(5, Const.PORTA);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTA), 5) == 0)
         {
@@ -838,7 +841,8 @@ public class Controller {
     }
 
     public void toggleA6() {
-        toggleBit(6, Const.PORTA);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISA), 6) == 1)
+            toggleBit(6, Const.PORTA);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTA), 6) == 0)
         {
@@ -851,7 +855,8 @@ public class Controller {
     }
 
     public void toggleA7() {
-        toggleBit(7, Const.PORTA);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISA), 7) == 1)
+            toggleBit(7, Const.PORTA);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTA), 7) == 0)
         {
@@ -868,7 +873,8 @@ public class Controller {
      * Der RB0 Pin löst unter Umständen einen Interrupt aus
      */
     public void toggleB0() {
-        toggleBit(0, Const.PORTB);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISB), 0) == 1)
+            toggleBit(0, Const.PORTB);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTB), 0) == 0)
         {
@@ -881,7 +887,8 @@ public class Controller {
     }
 
     public void toggleB1() {
-        toggleBit(1, Const.PORTB);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISB), 1) == 1)
+            toggleBit(1, Const.PORTB);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTB), 1) == 0)
         {
@@ -894,7 +901,8 @@ public class Controller {
     }
 
     public void toggleB2() {
-        toggleBit(2, Const.PORTB);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISB), 2) == 1)
+            toggleBit(2, Const.PORTB);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTB), 2) == 0)
         {
@@ -907,7 +915,8 @@ public class Controller {
     }
 
     public void toggleB3() {
-        toggleBit(3, Const.PORTB);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISB), 3) == 1)
+            toggleBit(3, Const.PORTB);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTB), 3) == 0)
         {
@@ -920,7 +929,8 @@ public class Controller {
     }
 
     public void toggleB4() {
-        toggleBit(4, Const.PORTB);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISB), 4) == 1)
+            toggleBit(4, Const.PORTB);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTB), 4) == 0)
         {
@@ -934,7 +944,8 @@ public class Controller {
     }
 
     public void toggleB5() {
-        toggleBit(5, Const.PORTB);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISB), 5) == 1)
+            toggleBit(5, Const.PORTB);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTB), 5) == 0)
         {
@@ -948,7 +959,8 @@ public class Controller {
     }
 
     public void toggleB6() {
-        toggleBit(6, Const.PORTB);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISB), 6) == 1)
+            toggleBit(6, Const.PORTB);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTB), 6) == 0)
         {
@@ -962,7 +974,8 @@ public class Controller {
     }
 
     public void toggleB7() {
-        toggleBit(7, Const.PORTB);
+        if(getBit(memory.getAbsoluteAddress(Const.TRISB), 7) == 1)
+            toggleBit(7, Const.PORTB);
 
         if (getBit(memory.getAbsoluteAddress(Const.PORTB), 7) == 0)
         {
