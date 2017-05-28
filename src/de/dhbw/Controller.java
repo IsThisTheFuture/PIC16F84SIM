@@ -352,6 +352,126 @@ public class Controller {
         textOptionReg6INTEDG.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 6)));
         textOptionReg7RBPU.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 7)));
 
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 0) == 0)
+        {
+            textFieldTRISA0.setText("o");
+        } else {
+            textFieldTRISA0.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 1) == 0)
+        {
+            textFieldTRISA1.setText("o");
+        } else {
+            textFieldTRISA1.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 2) == 0)
+        {
+            textFieldTRISA2.setText("o");
+        } else {
+            textFieldTRISA2.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 3) == 0)
+        {
+            textFieldTRISA3.setText("o");
+        } else {
+            textFieldTRISA3.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 4) == 0)
+        {
+            textFieldTRISA4.setText("o");
+        } else {
+            textFieldTRISA4.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 5) == 0)
+        {
+            textFieldTRISA5.setText("o");
+        } else {
+            textFieldTRISA5.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 6) == 0)
+        {
+            textFieldTRISA6.setText("o");
+        } else {
+            textFieldTRISA6.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISA), 7) == 0)
+        {
+            textFieldTRISA7.setText("o");
+        } else {
+            textFieldTRISA7.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 0) == 0)
+        {
+            textFieldTRISB0.setText("o");
+        } else {
+            textFieldTRISB0.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 1) == 0)
+        {
+            textFieldTRISB1.setText("o");
+        } else {
+            textFieldTRISB1.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 2) == 0)
+        {
+            textFieldTRISB2.setText("o");
+        } else {
+            textFieldTRISB2.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 3) == 0)
+        {
+            textFieldTRISB3.setText("o");
+        } else {
+            textFieldTRISB3.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 4) == 0)
+        {
+            textFieldTRISB4.setText("o");
+        } else {
+            textFieldTRISB4.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 5) == 0)
+        {
+            textFieldTRISB5.setText("o");
+        } else {
+            textFieldTRISB5.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 6) == 0)
+        {
+            textFieldTRISB6.setText("o");
+        } else {
+            textFieldTRISB6.setText("i");
+        }
+
+        if (getBit(memory.getAbsoluteAddress(Const.TRISB), 7) == 0)
+        {
+            textFieldTRISB7.setText("o");
+        } else {
+            textFieldTRISB7.setText("i");
+        }
+
+
+
+
+
+
+
+
+
         textFieldIntconReg0RBIF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 0)));
         textFieldIntconReg1INTF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 1)));
         textFieldIntconReg2T0IF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 2)));
