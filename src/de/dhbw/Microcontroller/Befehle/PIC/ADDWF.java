@@ -8,7 +8,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Add W and f
  * 'w + f -> d; CheckZero; CheckCarry; CheckDC'
  */
-
 public class ADDWF extends Instruction {
     public ADDWF(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);

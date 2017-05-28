@@ -1,15 +1,11 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
-import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
-
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Exclusive OR literal (k) with W
  * 'w xor k -> w; CheckZero'
  */
-
 public class XORLW extends Instruction {
     public XORLW(int instruction, int opcode, int argument){
         super(instruction, opcode, argument);

@@ -44,7 +44,6 @@ public class CALL extends Instruction {
 
         incrementRuntime();
         incrementRuntime();
-        //TODO NOP?
 
         incrementTimer0();
         incrementTimer0();

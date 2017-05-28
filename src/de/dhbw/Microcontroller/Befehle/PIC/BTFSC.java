@@ -7,7 +7,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Bit Test, Skip if Clear
  * 'if b = 1: PC += 1; else PC += 2'
  */
-
 public class BTFSC extends Instruction {
 
     public BTFSC(int instruction, int opcode, int argument1, int argument2){

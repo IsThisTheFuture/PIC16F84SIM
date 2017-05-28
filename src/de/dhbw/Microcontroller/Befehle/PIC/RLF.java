@@ -8,7 +8,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Rotate Left f through Carry
  * 'Bits von f nach l. rot.; 1 -> C (wenn Bit 7 = 1 war)'
  */
-
 public class RLF extends Instruction {
     public RLF(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);

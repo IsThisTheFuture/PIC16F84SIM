@@ -1,6 +1,5 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
-import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 
@@ -8,7 +7,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * AND literal (k) with W
  * 'w and k -> w; CheckZero'
  */
-
 public class ANDLW extends Instruction {
 
     public ANDLW(int instruction, int opcode, int argument){

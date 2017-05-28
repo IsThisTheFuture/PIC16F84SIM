@@ -1,13 +1,11 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
-import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
-/*
+/**
  * Add literal and W
  * 'w + k -> w; CheckZero; CheckCarry, CheckDC'
  */
-
 public class ADDLW extends Instruction {
 
     public ADDLW(int instruction, int opcode, int argument){
@@ -21,7 +19,6 @@ public class ADDLW extends Instruction {
         int w = memory.getRegisterW();
 
         //CarryFlag prüfen
-
         if ((w+k)>255)
             setCarryFlag();
         else

@@ -8,13 +8,12 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Increment f, Skip if 0
  * 'f + 1 -> d (wenn result != 0)'
  */
-
-@SuppressWarnings("Duplicates")
 public class INCFSZ extends Instruction {
     public INCFSZ(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void execute(){
         copyFormerValues();

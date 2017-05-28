@@ -8,8 +8,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Clear f
  * '0x00 -> f; 1 -> Z'
  */
-
-
 public class CLRF extends Instruction{
     public CLRF(int instruction, int opcode, int argument){
         super(instruction, opcode, argument);

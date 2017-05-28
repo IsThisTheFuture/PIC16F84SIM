@@ -8,13 +8,12 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Decrement f, Skip if 0
  * 'f - 1 -> d (wenn result != 0)'
  */
-
-@SuppressWarnings("ALL")
 public class DECFSZ extends Instruction {
     public DECFSZ(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void execute(){
         copyFormerValues();

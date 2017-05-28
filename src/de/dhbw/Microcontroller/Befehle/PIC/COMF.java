@@ -8,9 +8,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Complement f
  * 'invertiere f -> d; CheckZero'
  */
-
-
-
 public class COMF extends Instruction {
     public COMF(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);

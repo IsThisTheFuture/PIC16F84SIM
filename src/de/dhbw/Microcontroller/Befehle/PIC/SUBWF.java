@@ -8,7 +8,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Subtract W from f
  * 'f - w -> d; Wenn w > f: 1 -> C/DC; Wenn w = f: 1 -> Z'
  */
-
 public class SUBWF extends Instruction {
     public SUBWF(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1,argument2);
@@ -72,11 +71,6 @@ public class SUBWF extends Instruction {
         copyCurrentValues();
         compareValues();
     }
-
-
-
-
-
 
     @Override
     public void displayDebugInfo()

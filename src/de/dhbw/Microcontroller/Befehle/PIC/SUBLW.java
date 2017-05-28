@@ -6,7 +6,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Subtract W from literal (k)
  * 'k - w -> w; Wenn w > k: 1 -> C; Wenn w = k: 1 -> Z; CheckDC'
  */
-
 public class SUBLW extends Instruction {
         public SUBLW(int instruction, int opcode, int argument){
             super(instruction, opcode, argument);

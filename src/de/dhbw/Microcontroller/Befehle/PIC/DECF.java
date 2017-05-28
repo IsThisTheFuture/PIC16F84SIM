@@ -8,7 +8,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Decrement f
  * 'f - 1 -> d; CheckZero'
  */
-
 public class DECF extends Instruction {
     public DECF(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);

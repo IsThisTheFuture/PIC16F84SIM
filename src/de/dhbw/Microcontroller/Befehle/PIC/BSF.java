@@ -8,7 +8,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Bit set file ( set Bit b to 1)
  * '1 -> f (Bit b)'
  */
-
 public class BSF extends Instruction {
 
     public BSF(int instruction, int opcode, int argument1, int argument2){

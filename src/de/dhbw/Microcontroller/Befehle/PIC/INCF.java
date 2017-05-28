@@ -8,7 +8,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Increment f
  * 'f + 1 -> d; CheckZero'
  */
-
 public class INCF extends Instruction {
     public INCF(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);

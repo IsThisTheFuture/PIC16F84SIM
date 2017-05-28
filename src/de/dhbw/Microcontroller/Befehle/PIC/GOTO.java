@@ -7,7 +7,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Go to address
  * 'k -> PC (Bits 0-10); PCLATH (Bits 3-4) -> PC (11-12)'
  */
-
 public class GOTO extends Instruction {
     public GOTO(int instruction, int opcode, int argument){
         super(instruction, opcode, argument);

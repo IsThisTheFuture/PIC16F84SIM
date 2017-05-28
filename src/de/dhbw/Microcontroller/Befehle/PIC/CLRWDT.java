@@ -24,6 +24,5 @@ public class CLRWDT extends Instruction{
 
         copyCurrentValues();
         compareValues();
-
     }
 }

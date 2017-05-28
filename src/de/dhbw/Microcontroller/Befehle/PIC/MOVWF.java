@@ -10,7 +10,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Move W to f
  * 'w -> f'
  */
-
 public class MOVWF extends Instruction {
     public MOVWF(int instruction, int opcode, int argument){
         super(instruction, opcode, argument);

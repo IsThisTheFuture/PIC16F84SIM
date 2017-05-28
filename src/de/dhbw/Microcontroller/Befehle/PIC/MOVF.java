@@ -7,7 +7,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Move f
  * 'f -> d; CheckZero'
  */
-
 public class MOVF extends Instruction {
     public MOVF(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);

@@ -1,13 +1,11 @@
 package de.dhbw.Microcontroller.Befehle.PIC;
 
-import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
 
 /**
  * Inclusive OR literal (k) with W
  * 'w or k -> w; CheckZero'
  */
-
 public class IORLW extends Instruction {
     public IORLW(int instruction, int opcode, int argument){
         super(instruction, opcode, argument);

@@ -8,7 +8,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Inclusive OR W with f
  * 'w or f -> d; CheckZero'
  */
-
 public class IORWF extends Instruction {
     public IORWF(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);

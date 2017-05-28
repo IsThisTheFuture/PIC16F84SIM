@@ -8,7 +8,6 @@ import de.dhbw.Microcontroller.Befehle.Instruction;
  * Swap nibbles in f
  * 'Tausche untere/obere 4 Bit von f -> d'
  */
-
 public class SWAPF extends Instruction {
     public SWAPF(int instruction, int opcode, int argument1, int argument2){
         super(instruction, opcode, argument1, argument2);
