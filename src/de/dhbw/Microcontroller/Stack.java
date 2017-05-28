@@ -12,12 +12,12 @@ public class Stack {
 
 
     protected Stack(){
-        this.stack = new Integer[8];
+        this.stack = new Integer[STACK_SIZE];
         top = -1;
         initializeStack();
     }
 
-    private void initializeStack() {
+    public void initializeStack() {
         for (int i = 0; i < stack.length; i++){
             stack[i] = null;
         }
@@ -42,6 +42,7 @@ public class Stack {
     public int pop() {
         return stack[top--];
     }
+
 
     /**
      * Liefert den gesamten Inhalt des Stacks

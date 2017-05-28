@@ -2,6 +2,7 @@ package de.dhbw;
 
 import de.dhbw.Constants.Const;
 import de.dhbw.Microcontroller.Befehle.Instruction;
+import de.dhbw.Microcontroller.Stack;
 import de.dhbw.Model.InstructionView;
 import de.dhbw.Model.StackView;
 import de.dhbw.Services.*;
@@ -202,6 +203,7 @@ public class Controller {
 
 
     private Memory memory = Memory.getInstance();
+    private Stack stack = Stack.getInstance();
 
     private Integer opcodeList[];
     private List<Instruction> instructionList;
@@ -373,6 +375,7 @@ public class Controller {
      * Öffnet eine Datei und übergibt dabei die eingelesenen Instruktionen dem Instruktionsdekoder
      */
     public void openFile() {
+        instructionList.clear();
         memory.initializeMemory();
         if (tableFileContent != null) tableFileContent.getItems().clear();
         if (instructionViewList != null) instructionViewList.clear();
@@ -518,8 +521,14 @@ public class Controller {
         runtime = 0;
         Platform.runLater(() -> tableFileContent.refresh());
         memory.initializeMemory();
+        memory.setWatchDogTimerEnabled(false);
+        memory.setSleepMode(false);
+        stack.initializeStack();
+        //instructionViewList.clear();
+        //instructionList.clear();
         updateTextFields();
         updateMemoryView();
+        initialize();
     }
 
     /**
@@ -531,6 +540,12 @@ public class Controller {
         runtime = 0;
         tableFileContent.getItems().clear();
         memory.initializeMemory();
+        stack.initializeStack();
+        for(Integer i : opcodeList)
+            i = null;
+
+        instructionList.clear();
+        instructionViewList.clear();
         initialize();
     }
 
