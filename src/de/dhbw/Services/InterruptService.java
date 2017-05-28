@@ -69,6 +69,9 @@ public class InterruptService {
             disableGlobalInterruptEnableBit();
             stack.push(memory.getPc() + 1);
             memory.setPc(0x0004);
+
+            if(memory.isSleepMode())
+                memory.setSleepMode(false);
         }
     }
 

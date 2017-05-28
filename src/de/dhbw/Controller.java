@@ -601,6 +601,9 @@ public class Controller {
 
         if(memory.isWatchDogTimerEnabled())
             startWatchDog();
+
+        if(!memory.isWatchDogTimerEnabled())
+            runtime = runtime + runtimeCalculated;
     }
 
     /**
@@ -695,8 +698,9 @@ public class Controller {
 
                         Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
 
-                        if(!memory.isSleepMode())
-                        instructionList.get(currentRow).execute();
+                        //if(!memory.isSleepMode())
+                            executeCycle(instructionList.get(currentRow));
+                             //instructionList.get(currentRow).execute();
 
 
                         Platform.runLater(() -> tableFileContent.refresh());
