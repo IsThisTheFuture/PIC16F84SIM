@@ -209,14 +209,14 @@
                                     <Label layoutX="184.0" layoutY="506.0" text="T0IF" />
                                     <Label layoutX="221.0" layoutY="506.0" text="INTF" />
                                     <Label layoutX="255.0" layoutY="506.0" text="RBIF" />
-                                    <Text fx:id="textIntconReg7GIE" layoutX="16.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text fx:id="textIntconReg6EEIE" layoutX="50.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text fx:id="textIntconReg5T0IE" layoutX="84.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text fx:id="textIntconReg4INTE" layoutX="115.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text fx:id="textIntconReg3RBIE" layoutX="156.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text fx:id="textIntconReg2T0IF" layoutX="191.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text fx:id="textIntconReg1INTF" layoutX="231.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                    <Text fx:id="textIntconReg0RBIF" layoutX="267.0" layoutY="544.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                                    <TextField fx:id="textFieldIntconReg0RBIF" layoutX="260.0" layoutY="527.0" onMouseClicked="#toggleINTCON0" prefHeight="25.0" prefWidth="25.0" text="0" />
+                                    <TextField fx:id="textFieldIntconReg1INTF" layoutX="224.0" layoutY="528.0" onMouseClicked="#toggleINTCON1" prefHeight="25.0" prefWidth="25.0" text="0" />
+                                    <TextField fx:id="textFieldIntconReg2T0IF" layoutX="188.0" layoutY="528.0" onMouseClicked="#toggleINTCON2" prefHeight="25.0" prefWidth="25.0" text="0" />
+                                    <TextField fx:id="textFieldIntconReg3RBIE" layoutX="147.0" layoutY="528.0" onMouseClicked="#toggleINTCON3" prefHeight="25.0" prefWidth="25.0" text="0" />
+                                    <TextField fx:id="textFieldIntconReg4INTE" layoutX="109.0" layoutY="528.0" onMouseClicked="#toggleINTCON4" prefHeight="25.0" prefWidth="25.0" text="0" />
+                                    <TextField fx:id="textFieldIntconReg5T0IE" layoutX="75.0" layoutY="528.0" onMouseClicked="#toggleINTCON5" prefHeight="25.0" prefWidth="25.0" text="0" />
+                                    <TextField fx:id="textFieldIntconReg6EEIE" layoutX="41.0" layoutY="527.0" onMouseClicked="#toggleINTCON6" prefHeight="25.0" prefWidth="25.0" text="0" />
+                                    <TextField fx:id="textFieldIntconReg7GIE" layoutX="11.0" layoutY="526.0" onMouseClicked="#toggleINTCON7" prefHeight="25.0" prefWidth="25.0" text="0" />
                                             </children>
                                         </AnchorPane>
                            </children></AnchorPane>

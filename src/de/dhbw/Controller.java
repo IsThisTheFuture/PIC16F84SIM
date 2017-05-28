@@ -185,21 +185,21 @@ public class Controller {
     @FXML
     private TextField textFieldClockSpeed;
     @FXML
-    private Text textIntconReg7GIE;
+    private TextField textFieldIntconReg7GIE;
     @FXML
-    private Text textIntconReg6EEIE;
+    private TextField textFieldIntconReg6EEIE;
     @FXML
-    private Text textIntconReg5T0IE;
+    private TextField textFieldIntconReg5T0IE;
     @FXML
-    private Text textIntconReg4INTE;
+    private TextField textFieldIntconReg4INTE;
     @FXML
-    private Text textIntconReg3RBIE;
+    private TextField textFieldIntconReg3RBIE;
     @FXML
-    private Text textIntconReg2T0IF;
+    private TextField textFieldIntconReg2T0IF;
     @FXML
-    private Text textIntconReg1INTF;
+    private TextField textFieldIntconReg1INTF;
     @FXML
-    private Text textIntconReg0RBIF;
+    private TextField textFieldIntconReg0RBIF;
 
 
 
@@ -332,14 +332,14 @@ public class Controller {
         textOptionReg6INTEDG.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 6)));
         textOptionReg7RBPU.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.OPTION_REG), 7)));
 
-        textIntconReg0RBIF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 0)));
-        textIntconReg1INTF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 1)));
-        textIntconReg2T0IF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 2)));
-        textIntconReg3RBIE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 3)));
-        textIntconReg4INTE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 4)));
-        textIntconReg5T0IE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 5)));
-        textIntconReg6EEIE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 6)));
-        textIntconReg7GIE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 7)));
+        textFieldIntconReg0RBIF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 0)));
+        textFieldIntconReg1INTF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 1)));
+        textFieldIntconReg2T0IF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 2)));
+        textFieldIntconReg3RBIE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 3)));
+        textFieldIntconReg4INTE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 4)));
+        textFieldIntconReg5T0IE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 5)));
+        textFieldIntconReg6EEIE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 6)));
+        textFieldIntconReg7GIE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 7)));
 
         //textClockSpeed.setText(clockSpeed/1000 + " MHz");
         textRuntime.setText(runtime + " µs");
@@ -354,6 +354,8 @@ public class Controller {
     }
 
     public void openFile(ActionEvent actionEvent) {
+        memory.initializeMemory();
+        if (tableFileContent != null) tableFileContent.getItems().clear();
         if (instructionViewList != null) instructionViewList.clear();
         instructionViewList = getFileInputService().importLstFile();
 
@@ -412,6 +414,8 @@ public class Controller {
         }
         instructionDecoderService = getInstructionDecoderService();
         instructionDecoderService.decode(opcodeList);
+
+
     }
 
 
@@ -483,26 +487,29 @@ public class Controller {
 
     }
 
+    /**
+     * Startet den Watchdog.
+     * Dieser hat ohne Vorteiler ca 18ms bis er überläuft
+     *
+     */
     public void startWatchDog() {
         Thread thWDT = new Thread(() -> {
             try {
-                int runtimeOld = runtime;
-
                 while (memory.isWatchDogTimerEnabled()) {
-                    //if (memory.getWatchDogTimer() > 18000 * Integer.parseInt(textFieldSpeed.getText())) {
                     if (memory.getWatchDogTimer() > 18000) {
                         memory.setSleepMode(false);
                         memory.setWatchDogTimer(0);
                         System.out.println("WatchDogTimer overflow. RESET!");
-                        toggleMCLRReset(new ActionEvent());
                         clearBit(Const.STATUS, 4);
                         break;
                     }
+
                     memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
-                    //TODO: Wie lange muss gewartet werden?
-                    cyclePeriod = (1 / (4 * 1000)) * Integer.parseInt(textFieldSpeed.getText());
-                    //System.out.println(cyclePeriod + "ms");
-                    Thread.sleep(cyclePeriod);
+                    System.out.println("WDT: " + memory.getWatchDogTimer() + ", Runtime: " + runtime);
+                    runtime++;
+                    Platform.runLater(() -> updateUI());
+                    // Thread.sleep ist ungenau
+                    Thread.sleep(Integer.parseInt(textFieldSpeed.getText())* 100);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -537,6 +544,8 @@ public class Controller {
             isRunning=false;
         else
             isRunning = true;
+
+        memory.setWatchDogTimerEnabled(false);
     }
 
     public void next(ActionEvent actionEvent) {
@@ -1003,6 +1012,102 @@ public class Controller {
         Platform.runLater(()->updateMemoryView());
     }
 
+    public void toggleINTCON0() {
+        toggleBit(0, Const.INTCON);
+
+        if (getBit(memory.getAbsoluteAddress(Const.INTCON), 0) == 0)
+        {
+            textFieldIntconReg0RBIF.setText("0");
+        } else {
+            textFieldIntconReg0RBIF.setText("1");
+        }
+        Platform.runLater(()->updateMemoryView());
+    }
+
+    public void toggleINTCON1() {
+        toggleBit(1, Const.INTCON);
+
+        if (getBit(memory.getAbsoluteAddress(Const.INTCON), 1) == 0)
+        {
+            textFieldIntconReg1INTF.setText("0");
+        } else {
+            textFieldIntconReg1INTF.setText("1");
+        }
+        Platform.runLater(()->updateMemoryView());
+    }
+
+    public void toggleINTCON2() {
+        toggleBit(2, Const.INTCON);
+
+        if (getBit(memory.getAbsoluteAddress(Const.INTCON), 2) == 0)
+        {
+            textFieldIntconReg2T0IF.setText("0");
+        } else {
+            textFieldIntconReg2T0IF.setText("1");
+        }
+        Platform.runLater(()->updateMemoryView());
+    }
+
+    public void toggleINTCON3() {
+        toggleBit(3, Const.INTCON);
+
+        if (getBit(memory.getAbsoluteAddress(Const.INTCON), 3) == 0)
+        {
+            textFieldIntconReg3RBIE.setText("0");
+        } else {
+            textFieldIntconReg3RBIE.setText("1");
+        }
+        Platform.runLater(()->updateMemoryView());
+    }
+
+    public void toggleINTCON4() {
+        toggleBit(4, Const.INTCON);
+
+        if (getBit(memory.getAbsoluteAddress(Const.INTCON), 4) == 0)
+        {
+            textFieldIntconReg4INTE.setText("0");
+        } else {
+            textFieldIntconReg4INTE.setText("1");
+        }
+        Platform.runLater(()->updateMemoryView());
+    }
+
+    public void toggleINTCON5() {
+        toggleBit(5, Const.INTCON);
+
+        if (getBit(memory.getAbsoluteAddress(Const.INTCON), 5) == 0)
+        {
+            textFieldIntconReg5T0IE.setText("0");
+        } else {
+            textFieldIntconReg5T0IE.setText("1");
+        }
+        Platform.runLater(()->updateMemoryView());
+    }
+
+    public void toggleINTCON6() {
+        toggleBit(6, Const.INTCON);
+
+        if (getBit(memory.getAbsoluteAddress(Const.INTCON), 6) == 0)
+        {
+            textFieldIntconReg6EEIE.setText("0");
+        } else {
+            textFieldIntconReg6EEIE.setText("1");
+        }
+        Platform.runLater(()->updateMemoryView());
+    }
+
+    public void toggleINTCON7() {
+        toggleBit(7, Const.INTCON);
+
+        if (getBit(memory.getAbsoluteAddress(Const.INTCON), 7) == 0)
+        {
+            textFieldIntconReg7GIE.setText("0");
+        } else {
+            textFieldIntconReg7GIE.setText("1");
+        }
+        Platform.runLater(()->updateMemoryView());
+    }
+
     public void openDocumentation(ActionEvent actionEvent) {
             /* build up command and launch */
         String command = "";
@@ -1090,7 +1195,7 @@ public class Controller {
                 while (taktgeneratorEnabled) {
 
                     if (comboboxTaktgenerator.getValue().equals("RA0")) toggleA0();
-                    else if (comboboxTaktgenerator.getValue().equals("RA1")) toggleA1();
+                    else if (comboboxTaktgenerator.getValue().equals("RA1")) Platform.runLater(() -> toggleA1());//toggleA1();
                     else if (comboboxTaktgenerator.getValue().equals("RA2")) toggleA2();
                     else if (comboboxTaktgenerator.getValue().equals("RA3")) toggleA3();
                     else if (comboboxTaktgenerator.getValue().equals("RA4")) toggleA4();
@@ -1203,6 +1308,7 @@ public class Controller {
 
         }
 
+        Platform.runLater(() -> updateUI());
     }
 
     /**
