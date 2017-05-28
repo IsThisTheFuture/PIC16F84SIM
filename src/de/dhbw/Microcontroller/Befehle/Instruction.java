@@ -132,7 +132,7 @@ public class Instruction {
     public void incrementRuntime(){
         Controller.runtime = Controller.runtime + Controller.runtimeCalculated;
 
-        Controller.runtimeCalculated = (4 / Controller.clockSpeed);
-        //System.out.println("Instruction Time: " + Controller.runtimeCalculated);
+        //Controller.runtimeCalculated = (4 / Controller.clockSpeed);
+        System.out.println("Instruction Time: " + Controller.runtimeCalculated);
     }
 }

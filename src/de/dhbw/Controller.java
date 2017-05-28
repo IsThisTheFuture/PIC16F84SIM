@@ -41,10 +41,12 @@ public class Controller {
     private TableColumn<InstructionView, String> tableColumnBefehl;
     @FXML
     private TableColumn<InstructionView, String> tableColumnKommentar;
+
     @FXML
     private TableView<StackView> tableStack;
     @FXML
     private TableColumn<StackView, String> tableColumnStack;
+
     @FXML
     private TableView<MemoryView> tableMemory;
     @FXML
@@ -65,12 +67,14 @@ public class Controller {
     private TableColumn<MemoryView, Integer> tableColumnMemory06;
     @FXML
     private TableColumn<MemoryView, Integer> tableColumnMemory07;
+
     @FXML
     private TextField textFieldRegisterW;
     @FXML
     private TextField textFieldPC;
     @FXML
     private TextField textFieldStatus;
+
     @FXML
     private TextField textFieldRegisterA7;
     @FXML
@@ -103,6 +107,7 @@ public class Controller {
     private TextField textFieldRegisterB6;
     @FXML
     private TextField textFieldRegisterB7;
+
     @FXML
     private TextField textFieldTRISA0;
     @FXML
@@ -135,6 +140,7 @@ public class Controller {
     private TextField textFieldTRISB6;
     @FXML
     private TextField textFieldTRISB7;
+
     @FXML
     private Text textStatusReg7IRP;
     @FXML
@@ -151,10 +157,12 @@ public class Controller {
     private Text textStatusReg1DC;
     @FXML
     private Text textStatusReg0C;
+
     @FXML
     private TextField textFieldSpeed;
     @FXML
     private TextField textFieldOption;
+
     @FXML
     private Text textOptionReg7RBPU;
     @FXML
@@ -171,18 +179,23 @@ public class Controller {
     private Text textOptionReg1PS1;
     @FXML
     private Text textOptionReg0PS0;
+
     @FXML
     private Text textClockSpeed;
     @FXML
     private Text textRuntime;
+
     @FXML
     private Button btnWDT;
+
     @FXML
     private ComboBox<String> comboboxTaktgenerator;
+
     @FXML
     private TextField taktGenFrequenz;
     @FXML
     private TextField textFieldClockSpeed;
+
     @FXML
     private TextField textFieldIntconReg7GIE;
     @FXML
@@ -222,12 +235,11 @@ public class Controller {
     private int currentRow = 0;
     private int speed = 500;
     private boolean isRunning = true;
-    private float oscillatorPeriod;
     private boolean taktgeneratorEnabled;
 
     public static double runtime = 0;
     public static double runtimeCalculated = 0;
-    public static double clockSpeed; // PIC16F84 läuft mit 4MHz
+    public static double clockSpeed;
     public static int inhibitTimer0 = 0;
 
     /**
@@ -464,14 +476,6 @@ public class Controller {
             textFieldTRISB7.setText("i");
         }
 
-
-
-
-
-
-
-
-
         textFieldIntconReg0RBIF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 0)));
         textFieldIntconReg1INTF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 1)));
         textFieldIntconReg2T0IF.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 2)));
@@ -576,7 +580,6 @@ public class Controller {
                         Platform.runLater(() -> tableFileContent.refresh());
                         Platform.runLater(this::updateUI);
 
-                        oscillatorPeriod = (speed * 1000) / 1000000;
                         Thread.sleep(speed);
                     }
                 }
@@ -596,13 +599,13 @@ public class Controller {
     private void executeCycle(Instruction instruction){
         if(!memory.isSleepMode()){
             instruction.execute();
-            return;
+            //return;
         }
 
-        if(memory.isWatchDogTimerEnabled())
+        if(memory.isWatchDogTimerEnabled() && memory.isSleepMode())
             startWatchDog();
 
-        if(!memory.isWatchDogTimerEnabled())
+        if(!memory.isWatchDogTimerEnabled() && memory.isSleepMode())
             runtime = runtime + runtimeCalculated;
     }
 
@@ -623,13 +626,14 @@ public class Controller {
                     }
 
                     memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
-                    System.out.println("WDT: " + memory.getWatchDogTimer() + ", Runtime: " + runtime);
+                    System.out.println("WDT: " + memory.getWatchDogTimer());
                     //runtime++;
                     runtime = runtime + runtimeCalculated;
 
                     Platform.runLater(this::updateUI);
                     // Thread.sleep ist ungenau
-                    Thread.sleep(Integer.parseInt(textFieldSpeed.getText())* 100);
+                    Thread.sleep((Integer.parseInt(textFieldSpeed.getText())* 100));
+                    //Thread.sleep(Integer.parseInt(textFieldSpeed.getText()) * speed);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -698,10 +702,7 @@ public class Controller {
 
                         Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
 
-                        //if(!memory.isSleepMode())
-                            executeCycle(instructionList.get(currentRow));
-                             //instructionList.get(currentRow).execute();
-
+                        executeCycle(instructionList.get(currentRow));
 
                         Platform.runLater(() -> tableFileContent.refresh());
                         Platform.runLater(this::updateUI);
@@ -732,6 +733,12 @@ public class Controller {
         String clockSpeedStr = textFieldClockSpeed.getText() + " MHz";
         textClockSpeed.setText(clockSpeedStr);
         runtimeCalculated = 4 / clockSpeed;
+        System.out.println(runtimeCalculated);
+    }
+
+    public void setOptionReg(){
+        memory.setAbsoluteAddress(Const.OPTION_REG, Integer.parseInt(textFieldOption.getText()) & 255);
+        Platform.runLater(this::updateUI);
     }
 
     /**
