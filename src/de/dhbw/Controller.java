@@ -642,16 +642,15 @@ public class Controller {
                             memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
                             System.out.print("WDT Prescaler ist aktiv. PrescalerValue: " + getTimer0Service().getVorteilerVerhaeltnis() / 2 );
                             System.out.println(" WDT: " + memory.getWatchDogTimer());
-                            runtime = runtime + runtimeCalculated;
                         }
                     } else {
                         watchDogCycleCount = 0;
                         // Prescaler nicht aktiv
                         memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
                         System.out.println("WDT: " + memory.getWatchDogTimer());
-                        //runtime++;
-                        runtime = runtime + runtimeCalculated;
                     }
+                    runtime = runtime + runtimeCalculated;
+
                     Platform.runLater(this::updateUI);
                     // Thread.sleep ist ungenau
                     Thread.sleep((Integer.parseInt(textFieldSpeed.getText())* 100));

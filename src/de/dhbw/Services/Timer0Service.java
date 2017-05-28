@@ -33,6 +33,7 @@ public class Timer0Service {
      * Bei Verhältnis 2:1 z. B. wird nach jedem 2. Befehl der Timer erhöht.
      */
     public void incrementTimer(){
+        //TODO: Wenn cycleCounter bei prescaler 16 größer als 16 ist, dann prescaler nicht auf 0 zurücksetzen, sondern -16 rechnen?
         cycleCounter++;
         if (cycleCounter>getVorteilerVerhaeltnis()) cycleCounter = 0;
         // Es wird nur der TimerMode behandelt
