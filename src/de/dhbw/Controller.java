@@ -9,20 +9,14 @@ import de.dhbw.Microcontroller.Memory;
 import de.dhbw.Model.MemoryView;
 
 
-import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
-
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.sun.javafx.PlatformUtil.isLinux;
@@ -177,11 +171,9 @@ public class Controller {
     @FXML
     private Button btnWDT;
     @FXML
-    private ComboBox<String> comboboxTaktgenerator;// = new ComboBox<String>();
+    private ComboBox<String> comboboxTaktgenerator;
     @FXML
     private TextField taktGenFrequenz;
-    @FXML
-    private ToggleButton btnTaktGen;
     @FXML
     private TextField textFieldClockSpeed;
     @FXML
@@ -211,20 +203,16 @@ public class Controller {
     private InstructionDecoderService instructionDecoderService;
     private FileInputService fileInputService;
     private MemoryViewService memoryViewService;
-    private InterruptService interruptService;
     private CheckForInterruptService checkForInterruptService;
     private Timer0Service timer0Service;
     private StackViewService stackViewService;
-    private HostServices hostServices;
     private Integer opcodeList[];
 
-    private int extTaktGenFreq;
     private double sleepTime;
     private int currentRow = 0;
     private int speed = 500;
     private boolean isRunning = true;
     private float oscillatorPeriod;
-    private long cyclePeriod;
     private boolean taktgeneratorEnabled;
 
     public static int runtime = 0;
@@ -242,7 +230,7 @@ public class Controller {
     }
 
 
-    public void initializeMemoryView(){
+    private void initializeMemoryView(){
         tableColumnMemoryRow.setCellValueFactory(new PropertyValueFactory<>("memoryRow"));
         tableColumnMemory00.setCellValueFactory(new PropertyValueFactory<>("column0"));
         tableColumnMemory01.setCellValueFactory(new PropertyValueFactory<>("column1"));
@@ -253,13 +241,11 @@ public class Controller {
         tableColumnMemory06.setCellValueFactory(new PropertyValueFactory<>("column6"));
         tableColumnMemory07.setCellValueFactory(new PropertyValueFactory<>("column7"));
 
-        //if (memoryViewList != null) memoryViewList.clear();
         memoryViewList = getMemoryViewService().getMemoryContent();
         tableMemory.getItems().setAll(memoryViewList);
-
     }
 
-    public void initializeFileContentView(){
+    private void initializeFileContentView(){
         tableColumnBreakpoint.setCellValueFactory(new PropertyValueFactory<>("breakpoint"));
         tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("zeilennummer"));
         tableColumnBefehlscode.setCellValueFactory(new PropertyValueFactory<>("opcode"));
@@ -268,26 +254,23 @@ public class Controller {
 
     }
 
-    public void initializeStackView(){
+    private void initializeStackView(){
         tableColumnStack.setCellValueFactory(new PropertyValueFactory<>("stackContent"));
     }
 
-    public void initialzizeTaktgen(){
+    private void initialzizeTaktgen(){
         ObservableList<String> ports = FXCollections.observableArrayList(
                 "RA0", "RA1", "RA2", "RA3", "RA4", "RA5", "RA6", "RA7", "RB0", "RB1", "RB2", "RB3", "RB4", "RB5", "RB6", "RB7");
         comboboxTaktgenerator.getItems().addAll(ports);
     }
 
-    public void updateUI(){
-        Platform.runLater(() -> updateMemoryView());
-        Platform.runLater(() -> updateTextfieldRegisters());
-        Platform.runLater(() -> updateStackView());
-        //updateMemoryView();
-        //updateTextfieldRegisters();
-        //updateStackView();
+    private void updateUI(){
+        Platform.runLater(this::updateMemoryView);
+        Platform.runLater(this::updateTextfieldRegisters);
+        Platform.runLater(this::updateStackView);
     }
 
-    public void updateStackView(){
+    private void updateStackView(){
         tableStack.getItems().clear();
 
         if(stackViewList != null) stackViewList.clear();
@@ -296,7 +279,7 @@ public class Controller {
         Platform.runLater(() -> tableStack.refresh());
     }
 
-    public void updateMemoryView(){
+    private void updateMemoryView(){
         //tableMemory.getItems().clear();
 
         //if (memoryViewList != null) memoryViewList.clear();
@@ -307,7 +290,7 @@ public class Controller {
         //tableMemory.refresh();
     }
 
-    public void updateTextfieldRegisters(){
+    private void updateTextfieldRegisters(){
         textFieldRegisterW.setText(String.format("%02x",memory.getRegisterW()).toUpperCase());
         textFieldPC.setText(String.format("%04x", memory.getPc()));
         textFieldStatus.setText(String.format("%02x", memory.getAbsoluteAddress(Const.STATUS)).toUpperCase());
@@ -353,7 +336,7 @@ public class Controller {
 
     }
 
-    public void openFile(ActionEvent actionEvent) {
+    public void openFile() {
         memory.initializeMemory();
         if (tableFileContent != null) tableFileContent.getItems().clear();
         if (instructionViewList != null) instructionViewList.clear();
@@ -378,6 +361,8 @@ public class Controller {
 
                             setOnMouseClicked(event -> {
                                 if (event.getClickCount() == 2 && (!isEmpty())) {
+                                    //TODO: Prüfen wie sich asser item != null verhält
+                                    assert item != null;
                                     if(!item.isBreakpoint()) {
                                         System.out.println("Setting Breakpoint");
                                         item.setBreakPoint(true);
@@ -392,21 +377,6 @@ public class Controller {
                             });
                         }
                     });
-
-                    /*
-        tableFileContent.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                    tableFileContent.getSelectionModel().getSelectedItem().setBreakPoint(true);
-                    tableFileContent.getSelectionModel().getSelectedItem().setBreakPoint("B");
-                    System.out.println(tableFileContent.getSelectionModel().getSelectedItem());
-                    tableFileContent.refresh();
-                }
-            }
-        });
-        */
-
         opcodeList = new Integer[instructionViewList.size()];
         for (int i = 0; i < instructionViewList.size(); i++)
         {
@@ -419,7 +389,7 @@ public class Controller {
     }
 
 
-    public void run(ActionEvent actionEvent) {
+    public void run() {
         if (tableFileContent.getItems().isEmpty()) {  return;  }
 
         Thread cpuThread = new Thread(() -> {
@@ -441,7 +411,7 @@ public class Controller {
                         executeCycle(instructionList.get(i));
 
                         Platform.runLater(() -> tableFileContent.refresh());
-                        Platform.runLater(() -> updateUI());
+                        Platform.runLater(this::updateUI);
 
                         //tableFileContent.refresh();
                         //updateUI();
@@ -463,28 +433,14 @@ public class Controller {
         cpuThread.start();
     }
 
-    private boolean executeCycle(Instruction instruction){
+    private void executeCycle(Instruction instruction){
         if(!memory.isSleepMode()){
             instruction.execute();
-            return true;
+            return;
         }
 
-        /*
-        if(memory.isWatchDogTimerEnabled()){
-            if(memory.getWatchDogTimer() > 255){
-                memory.setWatchDogTimer(0);
-                memory.setSleepMode(false);
-            }
-            memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
-        }
-
-*/
         if(memory.isWatchDogTimerEnabled())
             startWatchDog();
-       // System.out.println("WDT enabled: " + memory.isWatchDogTimerEnabled() + " WDT Value: " + memory.getWatchDogTimer());
-        return false;
-
-
     }
 
     /**
@@ -492,7 +448,7 @@ public class Controller {
      * Dieser hat ohne Vorteiler ca 18ms bis er überläuft
      *
      */
-    public void startWatchDog() {
+    private void startWatchDog() {
         Thread thWDT = new Thread(() -> {
             try {
                 while (memory.isWatchDogTimerEnabled()) {
@@ -507,7 +463,7 @@ public class Controller {
                     memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
                     System.out.println("WDT: " + memory.getWatchDogTimer() + ", Runtime: " + runtime);
                     runtime++;
-                    Platform.runLater(() -> updateUI());
+                    Platform.runLater(this::updateUI);
                     // Thread.sleep ist ungenau
                     Thread.sleep(Integer.parseInt(textFieldSpeed.getText())* 100);
                 }
@@ -520,7 +476,7 @@ public class Controller {
         thWDT.start();
     }
 
-    public void reset(ActionEvent actionEvent) {
+    public void reset() {
         isRunning = false;
         currentRow = 0;
         runtime = 0;
@@ -530,7 +486,7 @@ public class Controller {
         updateMemoryView();
     }
 
-    public void clear(ActionEvent actionEvent) {
+    public void clear() {
         isRunning = false;
         currentRow = 0;
         runtime = 0;
@@ -539,16 +495,12 @@ public class Controller {
         initialize();
     }
 
-    public void pause(ActionEvent actionEvent) {
-        if(isRunning == true)
-            isRunning=false;
-        else
-            isRunning = true;
-
+    public void pause() {
+        isRunning = !isRunning;
         memory.setWatchDogTimerEnabled(false);
     }
 
-    public void next(ActionEvent actionEvent) {
+    public void next() {
         Thread thread = new Thread(() -> {
             try {
                 instructionList = instructionDecoderService.getInstructionList();
@@ -559,7 +511,7 @@ public class Controller {
 
 
                         Platform.runLater(() -> tableFileContent.refresh());
-                        Platform.runLater(() -> updateUI());
+                        Platform.runLater(this::updateUI);
 
             } catch (Exception e) {
                 System.err.println("Fehler in Methode next()");
@@ -571,7 +523,7 @@ public class Controller {
 
     }
 
-    public void close(ActionEvent actionEvent) {
+    public void close() {
         Platform.exit();
     }
 
@@ -582,12 +534,12 @@ public class Controller {
         textClockSpeed.setText(clockSpeedStr);
     }
 
-    public int getBit(int b, int position)
+    private int getBit(int b, int position)
     {
         return ((b >> position) & 1);
     }
 
-    public void toggleBit(int bitPosition, int address){
+    private void toggleBit(int bitPosition, int address){
         int byteValue = memory.getAbsoluteAddress(address);
 
         // Wenn das Bit an der Stelle bitPosition 0 ist, dann... sonst...
@@ -610,7 +562,7 @@ public class Controller {
         } else {
             textFieldRegisterA0.setText("1");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleA1() {
@@ -623,7 +575,7 @@ public class Controller {
             textFieldRegisterA1.setText("1");
         }
 
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleA2() {
@@ -636,7 +588,7 @@ public class Controller {
             textFieldRegisterA2.setText("1");
         }
 
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleA3() {
@@ -649,7 +601,7 @@ public class Controller {
             textFieldRegisterA3.setText("1");
         }
 
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleA4() {
@@ -666,7 +618,7 @@ public class Controller {
             textFieldRegisterA4.setText("1");
         }
 
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleA5() {
@@ -679,7 +631,7 @@ public class Controller {
             textFieldRegisterA5.setText("1");
         }
 
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleA6() {
@@ -692,7 +644,7 @@ public class Controller {
             textFieldRegisterA6.setText("1");
         }
 
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleA7() {
@@ -705,7 +657,7 @@ public class Controller {
             textFieldRegisterA7.setText("1");
         }
 
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     /**
@@ -722,7 +674,7 @@ public class Controller {
             textFieldRegisterB0.setText("1");
         }
         getCheckForInterruptService().checkForRB0Interrupt();
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleB1() {
@@ -735,7 +687,7 @@ public class Controller {
             textFieldRegisterB1.setText("1");
         }
 
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleB2() {
@@ -748,7 +700,7 @@ public class Controller {
             textFieldRegisterB2.setText("1");
         }
 
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleB3() {
@@ -761,7 +713,7 @@ public class Controller {
             textFieldRegisterB3.setText("1");
         }
 
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleB4() {
@@ -775,7 +727,7 @@ public class Controller {
         }
 
         getCheckForInterruptService().checkForPortBInterrupt();
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleB5() {
@@ -789,7 +741,7 @@ public class Controller {
         }
 
         getCheckForInterruptService().checkForPortBInterrupt();
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleB6() {
@@ -803,7 +755,7 @@ public class Controller {
         }
 
         getCheckForInterruptService().checkForPortBInterrupt();
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleB7() {
@@ -817,7 +769,7 @@ public class Controller {
         }
 
         getCheckForInterruptService().checkForPortBInterrupt();
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISA0() {
@@ -829,7 +781,7 @@ public class Controller {
         } else {
             textFieldTRISA0.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISA1() {
@@ -841,7 +793,7 @@ public class Controller {
         } else {
             textFieldTRISA1.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISA2() {
@@ -853,7 +805,7 @@ public class Controller {
         } else {
             textFieldTRISA2.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISA3() {
@@ -865,7 +817,7 @@ public class Controller {
         } else {
             textFieldTRISA3.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISA4() {
@@ -877,7 +829,7 @@ public class Controller {
         } else {
             textFieldTRISA4.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISA5() {
@@ -889,7 +841,7 @@ public class Controller {
         } else {
             textFieldTRISA5.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISA6() {
@@ -901,7 +853,7 @@ public class Controller {
         } else {
             textFieldTRISA6.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISA7() {
@@ -913,7 +865,7 @@ public class Controller {
         } else {
             textFieldTRISA7.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISB0() {
@@ -925,7 +877,7 @@ public class Controller {
         } else {
             textFieldTRISB0.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISB1() {
@@ -937,7 +889,7 @@ public class Controller {
         } else {
             textFieldTRISB1.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISB2() {
@@ -949,7 +901,7 @@ public class Controller {
         } else {
             textFieldTRISB2.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISB3() {
@@ -961,7 +913,7 @@ public class Controller {
         } else {
             textFieldTRISB3.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISB4() {
@@ -973,7 +925,7 @@ public class Controller {
         } else {
             textFieldTRISB4.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISB5() {
@@ -985,7 +937,7 @@ public class Controller {
         } else {
             textFieldTRISB5.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISB6() {
@@ -997,7 +949,7 @@ public class Controller {
         } else {
             textFieldTRISB6.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleTRISB7() {
@@ -1009,7 +961,7 @@ public class Controller {
         } else {
             textFieldTRISB7.setText("i");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleINTCON0() {
@@ -1021,7 +973,7 @@ public class Controller {
         } else {
             textFieldIntconReg0RBIF.setText("1");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleINTCON1() {
@@ -1033,7 +985,7 @@ public class Controller {
         } else {
             textFieldIntconReg1INTF.setText("1");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleINTCON2() {
@@ -1045,7 +997,7 @@ public class Controller {
         } else {
             textFieldIntconReg2T0IF.setText("1");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleINTCON3() {
@@ -1057,7 +1009,7 @@ public class Controller {
         } else {
             textFieldIntconReg3RBIE.setText("1");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleINTCON4() {
@@ -1069,7 +1021,7 @@ public class Controller {
         } else {
             textFieldIntconReg4INTE.setText("1");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleINTCON5() {
@@ -1081,7 +1033,7 @@ public class Controller {
         } else {
             textFieldIntconReg5T0IE.setText("1");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleINTCON6() {
@@ -1093,7 +1045,7 @@ public class Controller {
         } else {
             textFieldIntconReg6EEIE.setText("1");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
     public void toggleINTCON7() {
@@ -1105,12 +1057,12 @@ public class Controller {
         } else {
             textFieldIntconReg7GIE.setText("1");
         }
-        Platform.runLater(()->updateMemoryView());
+        Platform.runLater(this::updateMemoryView);
     }
 
-    public void openDocumentation(ActionEvent actionEvent) {
+    public void openDocumentation() {
             /* build up command and launch */
-        String command = "";
+        String command;
         String file = "https://github.com/IsThisTheFuture/PIC16F84SIM/blob/master/TPicSim/Projekt_Simulator.pdf";
         if (isLinux()) {
             command = "xdg-open " + file;
@@ -1125,7 +1077,7 @@ public class Controller {
         }
     }
 
-    public void setSpeed(ActionEvent actionEvent){
+    public void setSpeed(){
         this.speed = Integer.parseInt(textFieldSpeed.getText());
     }
 
@@ -1153,13 +1105,6 @@ public class Controller {
             fileInputService = new FileInputService();
         }
         return fileInputService;
-    }
-
-    private InterruptService getInterruptService() {
-        if (interruptService == null) {
-            interruptService = new InterruptService();
-        }
-        return interruptService;
     }
 
     private CheckForInterruptService getCheckForInterruptService() {
@@ -1195,7 +1140,7 @@ public class Controller {
                 while (taktgeneratorEnabled) {
 
                     if (comboboxTaktgenerator.getValue().equals("RA0")) toggleA0();
-                    else if (comboboxTaktgenerator.getValue().equals("RA1")) Platform.runLater(() -> toggleA1());//toggleA1();
+                    else if (comboboxTaktgenerator.getValue().equals("RA1")) Platform.runLater(this::toggleA1);//toggleA1();
                     else if (comboboxTaktgenerator.getValue().equals("RA2")) toggleA2();
                     else if (comboboxTaktgenerator.getValue().equals("RA3")) toggleA3();
                     else if (comboboxTaktgenerator.getValue().equals("RA4")) toggleA4();
@@ -1210,8 +1155,6 @@ public class Controller {
                     else if (comboboxTaktgenerator.getValue().equals("RB5")) toggleB5();
                     else if (comboboxTaktgenerator.getValue().equals("RB6")) toggleB6();
                     else if (comboboxTaktgenerator.getValue().equals("RB7")) toggleB7();
-
-                    //Platform.runLater(() -> updateMemoryView());
 
                     if(!taktGenFrequenz.getText().equals(""))
                          sleepTime = (1 / (Double.parseDouble(taktGenFrequenz.getText())) * 1000);
@@ -1235,8 +1178,7 @@ public class Controller {
      * Status wenn Sleep:          0001 0uuu
      * Status wenn Normalbetrieb:  000u uuuu
      */
-    @SuppressWarnings("Duplicates")
-    public void toggleMCLRReset(ActionEvent actionEvent){
+    public void toggleMCLRReset(){
         if(memory.isSleepMode()){
         clearBit(Const.STATUS, 7);
         clearBit(Const.STATUS, 6);
@@ -1308,7 +1250,7 @@ public class Controller {
 
         }
 
-        Platform.runLater(() -> updateUI());
+        Platform.runLater(this::updateUI);
     }
 
     /**
@@ -1319,6 +1261,7 @@ public class Controller {
         byteValue = (byteValue | (1 << (bitPosition)));
         memory.setAbsoluteAddress(address, byteValue);
     }
+
     /**
      * Setzt die das Bit 'bitPosition' and Speicheradresse 'address' auf den Wert 0
      */
