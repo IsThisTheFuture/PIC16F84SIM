@@ -21,6 +21,12 @@ import java.util.List;
 
 import static com.sun.javafx.PlatformUtil.isLinux;
 
+/**
+ * Der Controller beinhaltet die Logik des Simulators
+ * Das Programm wird hier gesteuert
+ *
+ * Es werden hier ebenfalls die GUI-Elemente angelegt und initialisiert
+ */
 public class Controller {
     @FXML
     private TableView<InstructionView> tableFileContent;
@@ -196,9 +202,12 @@ public class Controller {
 
 
     private Memory memory = Memory.getInstance();
+
+    private Integer opcodeList[];
     private List<Instruction> instructionList;
     private List<InstructionView> instructionViewList;
     private List<MemoryView> memoryViewList;
+
     private List<StackView> stackViewList;
     private InstructionDecoderService instructionDecoderService;
     private FileInputService fileInputService;
@@ -206,7 +215,6 @@ public class Controller {
     private CheckForInterruptService checkForInterruptService;
     private Timer0Service timer0Service;
     private StackViewService stackViewService;
-    private Integer opcodeList[];
 
     private double sleepTime;
     private int currentRow = 0;
@@ -220,16 +228,21 @@ public class Controller {
     public static double clockSpeed; // PIC16F84 läuft mit 4MHz
     public static int inhibitTimer0 = 0;
 
-
+    /**
+     * Diese Methode wird beim Start der JavaFX Anwendung ausgeführt
+     */
     public void initialize(){
         initializeMemoryView();
         initializeFileContentView();
-        updateTextfieldRegisters();
+        updateTextFields();
         initialzizeTaktgen();
         initializeStackView();
     }
 
 
+    /**
+     * Legt die Tabelle an, welche den Speicherinhalt darstellt
+     */
     private void initializeMemoryView(){
         tableColumnMemoryRow.setCellValueFactory(new PropertyValueFactory<>("memoryRow"));
         tableColumnMemory00.setCellValueFactory(new PropertyValueFactory<>("column0"));
@@ -245,6 +258,9 @@ public class Controller {
         tableMemory.getItems().setAll(memoryViewList);
     }
 
+    /**
+     * Legt die Tabelle an, welche die Assemblerinstruktionen beinhaltet
+     */
     private void initializeFileContentView(){
         tableColumnBreakpoint.setCellValueFactory(new PropertyValueFactory<>("breakpoint"));
         tableColumnZeilennummer.setCellValueFactory(new PropertyValueFactory<>("zeilennummer"));
@@ -254,22 +270,34 @@ public class Controller {
 
     }
 
+    /**
+     * Legt die Tabelle an, welche den Stackinhalt darstellt
+     */
     private void initializeStackView(){
         tableColumnStack.setCellValueFactory(new PropertyValueFactory<>("stackContent"));
     }
 
+    /**
+     * Legt das Dropdown Menü für den externen Taktgenerator an
+     */
     private void initialzizeTaktgen(){
         ObservableList<String> ports = FXCollections.observableArrayList(
                 "RA0", "RA1", "RA2", "RA3", "RA4", "RA5", "RA6", "RA7", "RB0", "RB1", "RB2", "RB3", "RB4", "RB5", "RB6", "RB7");
         comboboxTaktgenerator.getItems().addAll(ports);
     }
 
+    /**
+     * Wird bei Änderungen in den Registern, der Laufzeit oder dem WDT ausgeführt
+     */
     private void updateUI(){
         Platform.runLater(this::updateMemoryView);
-        Platform.runLater(this::updateTextfieldRegisters);
+        Platform.runLater(this::updateTextFields);
         Platform.runLater(this::updateStackView);
     }
 
+    /**
+     * Lädt die StackTabelle neu
+     */
     private void updateStackView(){
         tableStack.getItems().clear();
 
@@ -279,6 +307,9 @@ public class Controller {
         Platform.runLater(() -> tableStack.refresh());
     }
 
+    /**
+     * Refreshed die Tabelle mit dem Speicherinhalt
+     */
     private void updateMemoryView(){
         //tableMemory.getItems().clear();
 
@@ -290,7 +321,10 @@ public class Controller {
         //tableMemory.refresh();
     }
 
-    private void updateTextfieldRegisters(){
+    /**
+     * Refreshed TextFelder und TextBoxen der GUI
+     */
+    private void updateTextFields(){
         textFieldRegisterW.setText(String.format("%02x",memory.getRegisterW()).toUpperCase());
         textFieldPC.setText(String.format("%04x", memory.getPc()));
         textFieldStatus.setText(String.format("%02x", memory.getAbsoluteAddress(Const.STATUS)).toUpperCase());
@@ -324,7 +358,6 @@ public class Controller {
         textFieldIntconReg6EEIE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 6)));
         textFieldIntconReg7GIE.setText(String.format("%1x", getBit(memory.getAbsoluteAddress(Const.INTCON), 7)));
 
-        //textClockSpeed.setText(clockSpeed/1000 + " MHz");
         textRuntime.setText(runtime + " µs");
 
 
@@ -336,6 +369,9 @@ public class Controller {
 
     }
 
+    /**
+     * Öffnet eine Datei und übergibt dabei die eingelesenen Instruktionen dem Instruktionsdekoder
+     */
     public void openFile() {
         memory.initializeMemory();
         if (tableFileContent != null) tableFileContent.getItems().clear();
@@ -389,6 +425,11 @@ public class Controller {
     }
 
 
+    /**
+     * Startet die Ausführung des Programmes, hält bei Breakpoints an
+     *
+     * Es wird ein neuer Thread gestartet
+     */
     public void run() {
         if (tableFileContent.getItems().isEmpty()) {  return;  }
 
@@ -399,30 +440,19 @@ public class Controller {
                 for (int i = 0; i <= instructionList.size(); i++) {
                     while(isRunning){
                         currentRow = memory.getPc();
-
                         if (i != currentRow) i = currentRow;
                         Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
 
                         if(instructionViewList.get(i).isBreakpoint()) isRunning = false;
-
-                        //if(!memory.isSleepMode())
-                        //instructionList.get(i).execute();
 
                         executeCycle(instructionList.get(i));
 
                         Platform.runLater(() -> tableFileContent.refresh());
                         Platform.runLater(this::updateUI);
 
-                        //tableFileContent.refresh();
-                        //updateUI();
-
                         oscillatorPeriod = (speed * 1000) / 1000000;
-                        //speed = speed / (4*(1000000));
                         Thread.sleep(speed);
-                        //Thread.sleep((long) oscillatorPeriod);
-
                     }
-
                 }
             } catch (Exception e) {
                 System.err.println("Fehler in Methode run()");
@@ -433,6 +463,10 @@ public class Controller {
         cpuThread.start();
     }
 
+    /**
+     * Führt den aktuellen Befehl aus
+     * Prüft, ob der Prozessor sich im SleepMode befindet und startet den WatchDog
+     */
     private void executeCycle(Instruction instruction){
         if(!memory.isSleepMode()){
             instruction.execute();
@@ -446,7 +480,6 @@ public class Controller {
     /**
      * Startet den Watchdog.
      * Dieser hat ohne Vorteiler ca 18ms bis er überläuft
-     *
      */
     private void startWatchDog() {
         Thread thWDT = new Thread(() -> {
@@ -476,16 +509,22 @@ public class Controller {
         thWDT.start();
     }
 
+    /**
+     * Setzt den Simulator auf den Ausganszustand zurück
+     */
     public void reset() {
         isRunning = false;
         currentRow = 0;
         runtime = 0;
         Platform.runLater(() -> tableFileContent.refresh());
         memory.initializeMemory();
-        updateTextfieldRegisters();
+        updateTextFields();
         updateMemoryView();
     }
 
+    /**
+     * Löscht das geladene Programm
+     */
     public void clear() {
         isRunning = false;
         currentRow = 0;
@@ -495,11 +534,17 @@ public class Controller {
         initialize();
     }
 
+    /**
+     * Pausiert die Ausführung
+     */
     public void pause() {
         isRunning = !isRunning;
         memory.setWatchDogTimerEnabled(false);
     }
 
+    /**
+     * Führt Anweisung für Anweisung aus
+     */
     public void next() {
         Thread thread = new Thread(() -> {
             try {
@@ -523,10 +568,16 @@ public class Controller {
 
     }
 
+    /**
+     * Schließt die Anwendung
+     */
     public void close() {
         Platform.exit();
     }
 
+    /**
+     * Setzt die Quarzfrequenz des PICs
+     */
     public void setClockSpeed(){
         clockSpeed = Double.parseDouble(textFieldClockSpeed.getText());
 
@@ -534,11 +585,18 @@ public class Controller {
         textClockSpeed.setText(clockSpeedStr);
     }
 
+    /**
+     * Holt den Wert eines Bits aus einem Byte
+     * @return Bitwert
+     */
     private int getBit(int b, int position)
     {
         return ((b >> position) & 1);
     }
 
+    /**
+     * Ändert den Wert des angegebenen Bits
+     */
     private void toggleBit(int bitPosition, int address){
         int byteValue = memory.getAbsoluteAddress(address);
 
@@ -1060,6 +1118,9 @@ public class Controller {
         Platform.runLater(this::updateMemoryView);
     }
 
+    /**
+     * Öffnet den Link zur Dokumentation
+     */
     public void openDocumentation() {
             /* build up command and launch */
         String command;
@@ -1077,57 +1138,27 @@ public class Controller {
         }
     }
 
+    /**
+     * Setzt die Schrittgeschwindigkeit
+     * (Der Laufzeitzähler ist hiervon unabhängig)
+     */
     public void setSpeed(){
         this.speed = Integer.parseInt(textFieldSpeed.getText());
     }
 
+    /**
+     * Aktiviert / deaktiviert den WDT
+     */
     public void toggleWatchDogTimer(){
         memory.setWatchDogTimerEnabled(!memory.isWatchDogTimerEnabled());
         updateUI();
     }
 
-    private InstructionDecoderService getInstructionDecoderService(){
-        if(instructionDecoderService == null) {
-            instructionDecoderService = new InstructionDecoderService();
-        }
-        return instructionDecoderService;
-    }
 
-    private MemoryViewService getMemoryViewService(){
-        if(memoryViewService == null) {
-            memoryViewService = new MemoryViewService();
-        }
-        return memoryViewService;
-    }
-
-    private FileInputService getFileInputService() {
-        if (fileInputService == null) {
-            fileInputService = new FileInputService();
-        }
-        return fileInputService;
-    }
-
-    private CheckForInterruptService getCheckForInterruptService() {
-        if (checkForInterruptService == null) {
-            checkForInterruptService = new CheckForInterruptService();
-        }
-        return checkForInterruptService;
-    }
-
-    private Timer0Service getTimer0Service() {
-        if(timer0Service == null) {
-            timer0Service = new Timer0Service();
-        }
-        return timer0Service;
-    }
-
-    private StackViewService getStackViewService() {
-        if (stackViewService == null) {
-            stackViewService = new  StackViewService();
-        }
-        return stackViewService;
-    }
-
+    /**
+     * Schaltet den externen Taktgenerator ein/aus
+     * Dieser toggled den ausgewählten PIN mit der angegebenen Frequenz (Hz)
+     */
     public void toggleTaktGenerator() {
         taktgeneratorEnabled = !taktgeneratorEnabled;
 
@@ -1157,7 +1188,7 @@ public class Controller {
                     else if (comboboxTaktgenerator.getValue().equals("RB7")) toggleB7();
 
                     if(!taktGenFrequenz.getText().equals(""))
-                         sleepTime = (1 / (Double.parseDouble(taktGenFrequenz.getText())) * 1000);
+                        sleepTime = (1 / (Double.parseDouble(taktGenFrequenz.getText())) * 1000);
 
                     //System.out.println(sleepTime + "ms");
                     Thread.sleep((long) sleepTime);
@@ -1180,41 +1211,41 @@ public class Controller {
      */
     public void toggleMCLRReset(){
         if(memory.isSleepMode()){
-        clearBit(Const.STATUS, 7);
-        clearBit(Const.STATUS, 6);
-        clearBit(Const.STATUS, 5);
-        setBit(Const.STATUS, 4);
-        clearBit(Const.STATUS, 3);
+            clearBit(Const.STATUS, 7);
+            clearBit(Const.STATUS, 6);
+            clearBit(Const.STATUS, 5);
+            setBit(Const.STATUS, 4);
+            clearBit(Const.STATUS, 3);
 
-        memory.setPc(0);
-        memory.setAbsoluteAddress(Const.PCL, 0);
+            memory.setPc(0);
+            memory.setAbsoluteAddress(Const.PCL, 0);
 
-        clearBit(Const.INTCON, 7);
-        clearBit(Const.INTCON, 6);
-        clearBit(Const.INTCON, 5);
-        clearBit(Const.INTCON, 4);
-        clearBit(Const.INTCON, 3);
-        clearBit(Const.INTCON, 2);
-        clearBit(Const.INTCON, 1);
+            clearBit(Const.INTCON, 7);
+            clearBit(Const.INTCON, 6);
+            clearBit(Const.INTCON, 5);
+            clearBit(Const.INTCON, 4);
+            clearBit(Const.INTCON, 3);
+            clearBit(Const.INTCON, 2);
+            clearBit(Const.INTCON, 1);
 
-        memory.setAbsoluteAddress(Const.OPTION_REG, 255);
+            memory.setAbsoluteAddress(Const.OPTION_REG, 255);
 
-        setBit(Const.TRISA, 4);
-        setBit(Const.TRISA, 3);
-        setBit(Const.TRISA, 2);
-        setBit(Const.TRISA, 1);
-        setBit(Const.TRISA, 0);
+            setBit(Const.TRISA, 4);
+            setBit(Const.TRISA, 3);
+            setBit(Const.TRISA, 2);
+            setBit(Const.TRISA, 1);
+            setBit(Const.TRISA, 0);
 
-        setBit(Const.TRISB, 7);
-        setBit(Const.TRISB, 6);
-        setBit(Const.TRISB, 5);
-        setBit(Const.TRISB, 4);
-        setBit(Const.TRISB, 3);
-        setBit(Const.TRISB, 2);
-        setBit(Const.TRISB, 1);
-        setBit(Const.TRISB, 0);
+            setBit(Const.TRISB, 7);
+            setBit(Const.TRISB, 6);
+            setBit(Const.TRISB, 5);
+            setBit(Const.TRISB, 4);
+            setBit(Const.TRISB, 3);
+            setBit(Const.TRISB, 2);
+            setBit(Const.TRISB, 1);
+            setBit(Const.TRISB, 0);
 
-        //TODO EECON1: ---0 q000
+            //TODO EECON1: ---0 q000
         } else {
             clearBit(Const.STATUS, 7);
             clearBit(Const.STATUS, 6);
@@ -1270,5 +1301,49 @@ public class Controller {
         byteValue = (byteValue & ~(1 << (bitPosition)));
         memory.setAbsoluteAddress(address, byteValue);
     }
+
+    private InstructionDecoderService getInstructionDecoderService(){
+        if(instructionDecoderService == null) {
+            instructionDecoderService = new InstructionDecoderService();
+        }
+        return instructionDecoderService;
+    }
+
+
+    /**
+     * Holt eine Instanz der Serviceklassen
+     */
+
+    private MemoryViewService getMemoryViewService(){
+        if(memoryViewService == null) {
+            memoryViewService = new MemoryViewService();
+        }
+        return memoryViewService;
+    }
+    private FileInputService getFileInputService() {
+        if (fileInputService == null) {
+            fileInputService = new FileInputService();
+        }
+        return fileInputService;
+    }
+    private CheckForInterruptService getCheckForInterruptService() {
+        if (checkForInterruptService == null) {
+            checkForInterruptService = new CheckForInterruptService();
+        }
+        return checkForInterruptService;
+    }
+    private Timer0Service getTimer0Service() {
+        if(timer0Service == null) {
+            timer0Service = new Timer0Service();
+        }
+        return timer0Service;
+    }
+    private StackViewService getStackViewService() {
+        if (stackViewService == null) {
+            stackViewService = new  StackViewService();
+        }
+        return stackViewService;
+    }
+
 
 }

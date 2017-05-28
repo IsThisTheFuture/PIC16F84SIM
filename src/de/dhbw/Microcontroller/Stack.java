@@ -1,6 +1,8 @@
 package de.dhbw.Microcontroller;
 
-
+/**
+ * Hier wird der Stack mit 8 Einträgen angelegt
+ */
 public class Stack {
     private static final Stack s = new Stack();
     private static final int STACK_SIZE = 8;
@@ -25,23 +27,26 @@ public class Stack {
         return s;
     }
 
-
+    /**
+     * Legt eine Adresse auf den Stack
+     * @param b
+     */
     public void push(int b) {
         stack[++top] = b;
     }
+
+    /**
+     * Holt das oberste Element des Stacks heraus
+     * @return
+     */
     public int pop() {
         return stack[top--];
     }
-    public int peek() {
-        return stack[top];
-    }
-    public boolean isEmpty() {
-        return (top == -1);
-    }
-    public boolean isFull() {
-        return (top == STACK_SIZE - 1);
-    }
 
+    /**
+     * Liefert den gesamten Inhalt des Stacks
+     * @return stack
+     */
     public Integer[] getStackContent(){
         return this.stack;
     }

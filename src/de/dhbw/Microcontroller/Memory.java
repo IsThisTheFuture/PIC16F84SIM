@@ -3,6 +3,11 @@ package de.dhbw.Microcontroller;
 import de.dhbw.Constants.*;
 import de.dhbw.Services.InterruptService;
 
+/**
+ * Hier wird der Speicher angelegt und mit Startwerten belegt
+ * Das Arbeitsregister, der ProgramCounter und der WatchdogTimer werden auch hier angelegt,
+ * sie liegen jedoch nicht im Arbeitsspeicher des PICs
+ */
 public class Memory {
 
     private static final Memory memory = new Memory();
@@ -25,6 +30,9 @@ public class Memory {
         return memory;
     }
 
+    /**
+     * Belegt den Speicher mit Startwerten
+     */
     public void initializeMemory() {
         // W ist 8 Bit, pc ist 13 Bit
         registerW =  0b00000000;
@@ -70,17 +78,27 @@ public class Memory {
     }
 
 
-    // Diese Methoden sind für die GUI gedacht,
-    // da dort nur absolute Adressen benutzt werden
-    // (also unabhängig davon, ob Bank1 oder Bank2 aktiv ist)
+    /**
+     * Diese Methode wird innerhalb des Programms benutzt, da dort nur absolute Adressen verwendet werden
+     * (also unabhängig davon, ob Bank1 oder Bank2 aktiv ist)
+     */
     public Integer getAbsoluteAddress(int address){
-            return registers[address];
-        }
+        return registers[address];
+    }
 
+    /**
+     * Diese Methode wird innerhalb des Programms benutzt, da dort nur absolute Adressen verwendet werden
+     * (also unabhängig davon, ob Bank1 oder Bank2 aktiv ist)
+     */
     public void setAbsoluteAddress(int address, int value){
         this.registers[address] = value;
     }
 
+
+    /**
+     * Wird von den Befehlen verwendet (z. B. MOVF, etc.)
+     * Es erfolgt eine Prüfung, auf welcher Bank wir uns befinden
+     */
     public void setAddress(int address, int value){
         // Das Statusregister soll auf beiden Bänken gleichen Inhalt haben
         if(address == Const.STATUS || address == Const.STATUS+0x80){
@@ -88,9 +106,6 @@ public class Memory {
             this.registers[address + 0x80] = value;
         }
 
-
-
-        // Für alle anderen Adressen wird geprüft welche Bank beschrieben werden soll
         if( ((registers[Const.STATUS] >> 5) & 1) == 0){
             // Bank 0 ist ausgewählt
             this.registers[address] = value;
@@ -100,6 +115,12 @@ public class Memory {
         }
     }
 
+    /**
+     * Wird von den Befehlen verwendet
+     * Es erfolgt eine Prüfung, auf welcher Bank wir uns befinden
+     * @param address
+     * @return den Inhalt der Adresse
+     */
     public Integer getAddress(int address){
         if( ((registers[Const.STATUS] >> 5) & 1) == 0){
             // Bank 0 ist ausgewählt
@@ -110,6 +131,9 @@ public class Memory {
         }
     }
 
+    /**
+     * Gibt den vollständigen Inhalt des Speichers zurück
+     */
     public Integer[] getRegisters(){
         return registers;
     }
@@ -118,42 +142,82 @@ public class Memory {
         this.registers = registers;
     }
 
+    /**
+     * Gibt den Inhalt des Arbeitsregisters zurücl
+     * @return Register W
+     */
     public Integer getRegisterW() {
         return registerW;
     }
 
+    /**
+     * Setzt den Inhalt des Arbeitsregisters
+     * @param registerW
+     */
     public void setRegisterW(int registerW) {
         this.registerW = registerW;
     }
 
+    /**
+     * Liefert den 13-Bit ProgramCounter zurück
+     * @return pc
+     */
     public Integer getPc() {
         return pc;
     }
 
+    /**
+     * Setzt den 13-Bit ProgramCounter
+     * @param pc
+     */
     public void setPc(Integer pc) {
         this.pc = pc;
     }
 
+    /**
+     * Liefert den Wert des Watchdogs
+     * @return watchDogTimer
+     */
     public Integer getWatchDogTimer() {
         return watchDogTimer;
     }
 
+    /**
+     * Setzt den Wert des Watchdogs
+     * @param watchDogTimer
+     */
     public void setWatchDogTimer(Integer watchDogTimer) {
         this.watchDogTimer = watchDogTimer;
     }
 
+    /**
+     * Gibt zurück, ob sich der WDT im SleepMode befindet
+     * @return
+     */
     public boolean isSleepMode() {
         return sleepMode;
     }
 
+    /**
+     * Aktiviert / deaktiviert den SleepMode
+     * @param sleepMode
+     */
     public void setSleepMode(boolean sleepMode) {
         this.sleepMode = sleepMode;
     }
 
+    /**
+     * Gibt zurück, ob der WDT aktiv ist
+     * @return
+     */
     public boolean isWatchDogTimerEnabled() {
         return watchDogTimerEnabled;
     }
 
+    /**
+     * Aktiviert / deaktiviert den WatchDogTimer
+     * @param watchDogTimerEnabled
+     */
     public void setWatchDogTimerEnabled(boolean watchDogTimerEnabled) {
         this.watchDogTimerEnabled = watchDogTimerEnabled;
     }

@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 
 import java.util.logging.LogManager;
 
+/**
+ * Der Einstiegspunkt des Programmes.
+ * Es wird die FXML Datei geladen, welche die GUI beschreibt und die Anwendung gestartet
+ */
 public class Main extends Application {
 
     @Override
