@@ -430,9 +430,11 @@ public class Controller {
 
 
     /**
-     * Startet die Ausführung des Programmes, hält bei Breakpoints an
+     * Startet die Ausführung des Programmes.
+     * Solange die Ausführung nicht durch den Pause-Button unterbrochen wird
+     * werden die Befehle nacheinander abgearbeiter.
      *
-     * Es wird ein neuer Thread gestartet
+     * Bei Breakpoints wird das Programm angehalten
      */
     public void run() {
         if (tableFileContent.getItems().isEmpty()) {  return;  }

@@ -134,12 +134,14 @@ public class CheckForInterruptService {
             //getInterruptService().triggerIntInterrupt();
     }
 
+
+
     /**
-     * Wenn RB4-7 getoggled wird, löst ein Interrupt aus (unabhängig der Flanke)
-     *
+     * Ein Flankenwechsel auf RB4-7 löst einen Interrupt aus, wenn RBIE in INTCON<3> gesetzt ist
+     * Der Interrupt setzt das RBIF Flag in INTCON<0>
      */
     public void checkForPortBInterrupt(){
-        if(getBit(memory.getAbsoluteAddress(Const.PORTB), 3) == 1)
+        if(getBit(memory.getAbsoluteAddress(Const.INTCON), 3) == 1)
             getInterruptService().triggerPortBInterrupt();
     }
 

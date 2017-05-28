@@ -24,11 +24,11 @@ public class InterruptService {
      * Der Interrupt kann enabled/disabled werden durch setzen/löschen des Bits T0IE in INTCON<5>
      */
     public void triggerTimer0Interrupt() {
-        if (globalInterruptisEnabled()) {
+        if (globalInterruptisEnabled() && getBit(Const.INTCON, 5) == 1) {
             setBit(Const.INTCON, 2);
 
             disableGlobalInterruptEnableBit();
-            stack.push(memory.getPc() + 1); //TODO: PC oder PC + 1 ?
+            stack.push(memory.getPc() + 1);
             memory.setPc(0x0004);
         }
     }
@@ -65,7 +65,7 @@ public class InterruptService {
     public void triggerPortBInterrupt(){
         if(globalInterruptisEnabled()){
 
-            setBit(Const.INTCON, 3);
+            setBit(Const.INTCON, 0);
             disableGlobalInterruptEnableBit();
             stack.push(memory.getPc() + 1);
             memory.setPc(0x0004);
