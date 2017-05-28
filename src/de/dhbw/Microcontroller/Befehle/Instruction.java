@@ -130,7 +130,9 @@ public class Instruction {
      * Thus, for an oscillator frequency of 4 MHz the instruction execution time is 1 microsecond
      */
     public void incrementRuntime(){
-        Controller.runtime++;
-        Controller.runtimeCalculated = Controller.runtimeCalculated + (4000 / Controller.clockSpeed);
+        Controller.runtime = Controller.runtime + Controller.runtimeCalculated;
+
+        Controller.runtimeCalculated = (4 / Controller.clockSpeed);
+        //System.out.println("Instruction Time: " + Controller.runtimeCalculated);
     }
 }

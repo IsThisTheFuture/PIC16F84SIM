@@ -225,7 +225,7 @@ public class Controller {
     private float oscillatorPeriod;
     private boolean taktgeneratorEnabled;
 
-    public static int runtime = 0;
+    public static double runtime = 0;
     public static double runtimeCalculated = 0;
     public static double clockSpeed; // PIC16F84 läuft mit 4MHz
     public static int inhibitTimer0 = 0;
@@ -239,6 +239,7 @@ public class Controller {
         updateTextFields();
         initialzizeTaktgen();
         initializeStackView();
+        setClockSpeed();
     }
 
 
@@ -498,7 +499,9 @@ public class Controller {
 
                     memory.setWatchDogTimer(memory.getWatchDogTimer() + 1);
                     System.out.println("WDT: " + memory.getWatchDogTimer() + ", Runtime: " + runtime);
-                    runtime++;
+                    //runtime++;
+                    runtime = runtime + runtimeCalculated;
+
                     Platform.runLater(this::updateUI);
                     // Thread.sleep ist ungenau
                     Thread.sleep(Integer.parseInt(textFieldSpeed.getText())* 100);
@@ -546,7 +549,7 @@ public class Controller {
         for(Integer i : opcodeList)
             i = null;
 
-        instructionList.clear();
+        if(instructionList != null)    instructionList.clear();
         instructionViewList.clear();
         initialize();
     }
@@ -569,6 +572,8 @@ public class Controller {
                         currentRow = memory.getPc();
 
                         Platform.runLater(() -> tableFileContent.scrollTo(currentRow - 2));
+
+                        if(!memory.isSleepMode())
                         instructionList.get(currentRow).execute();
 
 
@@ -600,6 +605,7 @@ public class Controller {
 
         String clockSpeedStr = textFieldClockSpeed.getText() + " MHz";
         textClockSpeed.setText(clockSpeedStr);
+        runtimeCalculated = 4 / clockSpeed;
     }
 
     /**
