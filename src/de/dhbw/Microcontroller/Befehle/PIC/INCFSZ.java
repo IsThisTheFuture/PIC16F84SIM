@@ -32,6 +32,10 @@ public class INCFSZ extends Instruction {
         fValue = (fValue + 1) & 255;
 
         if (fValue==0) {
+            if (d == 0)
+                memory.setRegisterW(fValue);
+            else
+                memory.setAddress(f, fValue);
             NOP nop = new NOP(0x0000, 0x0000);
             nop.execute();
         }
