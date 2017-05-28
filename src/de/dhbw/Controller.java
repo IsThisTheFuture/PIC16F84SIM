@@ -939,7 +939,8 @@ public class Controller {
             textFieldRegisterB4.setText("1");
         }
 
-        getCheckForInterruptService().checkForPortBInterrupt();
+        if(getBit(memory.getAbsoluteAddress(Const.TRISB), 4) == 1)
+            getCheckForInterruptService().checkForPortBInterrupt();
         Platform.runLater(this::updateMemoryView);
     }
 
@@ -954,7 +955,8 @@ public class Controller {
             textFieldRegisterB5.setText("1");
         }
 
-        getCheckForInterruptService().checkForPortBInterrupt();
+        if(getBit(memory.getAbsoluteAddress(Const.TRISB), 5) == 1)
+            getCheckForInterruptService().checkForPortBInterrupt();
         Platform.runLater(this::updateMemoryView);
     }
 
@@ -969,7 +971,8 @@ public class Controller {
             textFieldRegisterB6.setText("1");
         }
 
-        getCheckForInterruptService().checkForPortBInterrupt();
+        if(getBit(memory.getAbsoluteAddress(Const.TRISB), 6) == 1)
+            getCheckForInterruptService().checkForPortBInterrupt();
         Platform.runLater(this::updateMemoryView);
     }
 
@@ -984,7 +987,8 @@ public class Controller {
             textFieldRegisterB7.setText("1");
         }
 
-        getCheckForInterruptService().checkForPortBInterrupt();
+        if(getBit(memory.getAbsoluteAddress(Const.TRISB), 7) == 1)
+            getCheckForInterruptService().checkForPortBInterrupt();
         Platform.runLater(this::updateMemoryView);
     }
 
@@ -1403,6 +1407,7 @@ public class Controller {
             setBit(Const.TRISB, 1);
             setBit(Const.TRISB, 0);
 
+            memory.setSleepMode(false);
             //TODO EECON1: ---0 q000
         } else {
             clearBit(Const.STATUS, 7);
