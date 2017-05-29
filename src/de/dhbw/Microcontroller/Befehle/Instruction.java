@@ -18,12 +18,10 @@ public class Instruction {
     public int argument1;
     public int argument2;
 
-    public boolean isBreakPoint;
-
     protected Memory memory = Memory.getInstance();
     protected Stack stack = Stack.getInstance();
 
-    public CheckForInterruptService checkForInterruptService = new CheckForInterruptService();
+    protected CheckForInterruptService checkForInterruptService = new CheckForInterruptService();
     protected Timer0Service timer0Service = new Timer0Service();
 
     public Instruction(int instruction, int opcode){
@@ -44,6 +42,9 @@ public class Instruction {
         this.argument2 = argument2;
     }
 
+    /**
+     * Wenn der Befehl diese Methode nicht überschreibt soll eine Fehlermeldung ausgegeben werden
+     */
     public void execute(){
         System.err.println("Dieser Befehl muss noch implementiert werden!");
     }
@@ -55,10 +56,16 @@ public class Instruction {
         memory.setAddress(Const.PCL, memory.getPc()&255);
     }
 
+    /**
+     * Gibt zusätzliche Information zum Debugging aus
+     */
     public void displayDebugInfo(){
         System.err.println("Die Debug-Info für diesen Befehl muss noch implementiert werden!");
     }
 
+    /**
+     * Setzt das ZeroFlag im Statusregister
+     */
     public void setZeroFlag()
     {
         int status = memory.getAddress(Const.STATUS);
@@ -66,6 +73,9 @@ public class Instruction {
         memory.setAddress(Const.STATUS, status);
     }
 
+    /**
+     * Löscht das ZeroFlag im Statusregister
+     */
     public void clearZeroFlag()
     {
         int status = memory.getAddress(Const.STATUS);

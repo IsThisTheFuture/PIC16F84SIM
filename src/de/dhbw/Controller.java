@@ -625,7 +625,7 @@ public class Controller {
             try {
                 while (memory.isWatchDogTimerEnabled()) {
                     watchDogCycleCount++;
-                    if (memory.getWatchDogTimer() > 18000) {
+                    if (memory.getWatchDogTimer() > 18000 * runtimeCalculated) {
                         memory.setSleepMode(false);
                         memory.setWatchDogTimer(0);
                         System.out.println("WatchDogTimer overflow. RESET!");
@@ -653,7 +653,7 @@ public class Controller {
 
                     Platform.runLater(this::updateUI);
                     // Thread.sleep ist ungenau
-                    Thread.sleep((Integer.parseInt(textFieldSpeed.getText())* 100));
+                    Thread.sleep((long) (Integer.parseInt(textFieldSpeed.getText())* 1 * runtimeCalculated));
                     //Thread.sleep(Integer.parseInt(textFieldSpeed.getText()) * speed);
                 }
             } catch (InterruptedException e) {
